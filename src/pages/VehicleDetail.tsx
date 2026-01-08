@@ -438,7 +438,7 @@ const VehicleDetail = () => {
                 <div className="space-y-3 mb-6">
                   <div className="flex items-center gap-3 text-muted-foreground">
                     <Phone size={18} className="text-primary" />
-                    <span>+1 (555) 123-4567</span>
+                    <span>060 857 9146</span>
                   </div>
                   <div className="flex items-center gap-3 text-muted-foreground">
                     <Mail size={18} className="text-primary" />
@@ -458,7 +458,7 @@ const VehicleDetail = () => {
                   </div>
                   <div>
                     <Label className="text-sm mb-1.5 block">Phone Number</Label>
-                    <Input placeholder="+1 (555) 000-0000" className="bg-secondary" required />
+                    <Input placeholder="060 857 9146" className="bg-secondary" required />
                   </div>
                   <div>
                     <Label className="text-sm mb-1.5 block">Email</Label>

@@ -75,7 +75,7 @@ const Contact = () => {
     {
       icon: Phone,
       title: 'Call Us',
-      details: ['+27 12 345 6789', '+27 11 234 5678', 'Toll-free: 0800 MAJESTIC'],
+      details: ['060 857 9146'],
     },
     {
       icon: Mail,
@@ -197,7 +197,7 @@ const Contact = () => {
                               type="tel"
                               value={generalFormData.phone}
                               onChange={(e) => setGeneralFormData({ ...generalFormData, phone: e.target.value })}
-                              placeholder="+1 (555) 000-0000"
+                              placeholder="060 857 9146"
                               className="bg-background"
                             />
                           </div>
@@ -289,7 +289,7 @@ const Contact = () => {
                               type="tel"
                               value={vehicleFormData.phone}
                               onChange={(e) => setVehicleFormData({ ...vehicleFormData, phone: e.target.value })}
-                              placeholder="+1 (555) 000-0000"
+                              placeholder="060 857 9146"
                               required
                               className="bg-background"
                             />

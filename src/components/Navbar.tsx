@@ -112,11 +112,11 @@ const Navbar = () => {
           {/* Desktop CTA Buttons - Responsive */}
           <div className="hidden lg:flex items-center gap-2 xl:gap-3">
             <a
-              href="tel:+15551234567"
+              href="tel:0608579146"
               className="hidden xl:flex items-center gap-2 text-white/80 hover:text-primary transition-colors text-sm"
             >
               <Phone size={16} />
-              <span>+1 (555) 123-4567</span>
+              <span>060 857 9146</span>
             </a>
             <button
               onClick={toggleTheme}
@@ -190,12 +190,12 @@ const Navbar = () => {
               
               {/* Mobile Contact */}
               <a
-                href="tel:+15551234567"
+                href="tel:0608579146"
                 className="flex items-center gap-3 px-4 py-3 text-white/80 hover:text-primary transition-colors text-sm border-t border-white/10 mt-2 pt-4"
                 onClick={() => setIsMenuOpen(false)}
               >
                 <Phone size={16} />
-                <span>+1 (555) 123-4567</span>
+                <span>060 857 9146</span>
               </a>
               
               {/* Mobile CTA */}

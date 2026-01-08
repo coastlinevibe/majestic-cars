@@ -134,7 +134,7 @@ const TermsOfService = () => {
                   <p>Sinoville, Pretoria, 0129</p>
                   <p>South Africa</p>
                   <p className="mt-2">Email: info@majesticcars.co.za</p>
-                  <p>Phone: +27 12 345 6789</p>
+                  <p>Phone: 060 857 9146</p>
                 </div>
               </section>
             </div>

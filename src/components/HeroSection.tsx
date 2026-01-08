@@ -219,7 +219,7 @@ const HeroSection = () => {
                       <Phone size={18} className="text-primary-foreground" />
                     </div>
                     <p className="text-card/60 text-xs">Phone</p>
-                    <p className="text-card text-xs font-medium">+27 12 345 6789</p>
+                    <p className="text-card text-xs font-medium">060 857 9146</p>
                   </div>
                   <div className="text-center">
                     <div className="w-10 h-10 mx-auto bg-primary rounded-lg flex items-center justify-center mb-2">
