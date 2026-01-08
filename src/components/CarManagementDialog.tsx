@@ -7,7 +7,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
 import { Car, carService } from '@/lib/supabase';
-import { Loader2, Plus, X, Sparkles } from 'lucide-react';
+import { Loader2, Plus, X, Sparkles, ChevronUp, ChevronDown } from 'lucide-react';
 
 interface CarManagementDialogProps {
   open: boolean;
@@ -19,10 +19,12 @@ interface CarManagementDialogProps {
 const CarManagementDialog = ({ open, onOpenChange, car, onSuccess }: CarManagementDialogProps) => {
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
+  const [uploadingImage, setUploadingImage] = useState(false);
   const [features, setFeatures] = useState<string[]>([]);
   const [newFeature, setNewFeature] = useState('');
   const [images, setImages] = useState<string[]>([]);
   const [newImage, setNewImage] = useState('');
+  const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
 
   const [formData, setFormData] = useState({
     make: '',
@@ -37,6 +39,7 @@ const CarManagementDialog = ({ open, onOpenChange, car, onSuccess }: CarManageme
     engine: '',
     color: '',
     interior: '',
+    vin: '',
     seats: 5,
     location: '',
     description: '',
@@ -58,6 +61,7 @@ const CarManagementDialog = ({ open, onOpenChange, car, onSuccess }: CarManageme
         engine: car.engine || '',
         color: car.color || '',
         interior: car.interior || '',
+        vin: car.vin || '',
         seats: car.seats || 5,
         location: car.location || '',
         description: car.description || '',
@@ -80,6 +84,7 @@ const CarManagementDialog = ({ open, onOpenChange, car, onSuccess }: CarManageme
         engine: '',
         color: '',
         interior: '',
+        vin: '',
         seats: 5,
         location: '',
         description: '',
@@ -164,6 +169,113 @@ const CarManagementDialog = ({ open, onOpenChange, car, onSuccess }: CarManageme
     setImages(images.filter((_, i) => i !== index));
   };
 
+  const moveImage = (fromIndex: number, toIndex: number) => {
+    const newImages = [...images];
+    const [movedImage] = newImages.splice(fromIndex, 1);
+    newImages.splice(toIndex, 0, movedImage);
+    setImages(newImages);
+  };
+
+  const moveImageUp = (index: number) => {
+    if (index > 0) {
+      moveImage(index, index - 1);
+    }
+  };
+
+  const moveImageDown = (index: number) => {
+    if (index < images.length - 1) {
+      moveImage(index, index + 1);
+    }
+  };
+
+  // Drag and drop handlers
+  const handleDragStart = (index: number) => {
+    setDraggedIndex(index);
+  };
+
+  const handleDragOver = (e: React.DragEvent, index: number) => {
+    e.preventDefault();
+    if (draggedIndex === null || draggedIndex === index) return;
+    
+    // Move the dragged item to the new position
+    const newImages = [...images];
+    const draggedItem = newImages[draggedIndex];
+    newImages.splice(draggedIndex, 1);
+    newImages.splice(index, 0, draggedItem);
+    
+    setImages(newImages);
+    setDraggedIndex(index);
+  };
+
+  const handleDragEnd = () => {
+    setDraggedIndex(null);
+  };
+
+  // Auto-capitalize first letter of each word
+  const capitalizeWords = (text: string): string => {
+    return text
+      .split(' ')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(' ');
+  };
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
+
+    // Check if Make and Model fields are filled
+    if (!formData.make || formData.make.trim() === '' || !formData.model || formData.model.trim() === '') {
+      toast({
+        title: 'Make and Model Required',
+        description: 'Please enter both Make and Model before uploading images.',
+        variant: 'destructive',
+      });
+      e.target.value = '';
+      return;
+    }
+
+    setUploadingImage(true);
+    try {
+      const uploadedUrls: string[] = [];
+      // Create folder name from Make and Model (sanitize for file system)
+      const folderName = `${formData.make.trim()}_${formData.model.trim()}`.replace(/[^a-zA-Z0-9-_]/g, '_');
+
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        const fileExt = file.name.split('.').pop();
+        const fileName = `${Math.random().toString(36).substring(2)}-${Date.now()}.${fileExt}`;
+        // Store in folder: Make_Model/filename
+        const filePath = `${folderName}/${fileName}`;
+
+        // Upload to Supabase Storage
+        const uploadResult = await carService.uploadImage(filePath, file);
+
+        if (uploadResult) {
+          // Get public URL
+          const { data: { publicUrl } } = carService.getImageUrl(filePath);
+          uploadedUrls.push(publicUrl);
+        }
+      }
+
+      setImages([...images, ...uploadedUrls]);
+      toast({
+        title: 'Success!',
+        description: `${uploadedUrls.length} image(s) uploaded to ${folderName.replace(/_/g, ' ')} folder.`,
+      });
+    } catch (error: any) {
+      console.error('Upload error:', error);
+      toast({
+        title: 'Upload Failed',
+        description: error.message || 'Failed to upload images.',
+        variant: 'destructive',
+      });
+    } finally {
+      setUploadingImage(false);
+      // Reset file input
+      e.target.value = '';
+    }
+  };
+
   const autoFillForm = () => {
     const sampleData = {
       make: 'BMW',
@@ -178,6 +290,7 @@ const CarManagementDialog = ({ open, onOpenChange, car, onSuccess }: CarManageme
       engine: '3.0L Inline-6 Twin-Turbo',
       color: 'Sao Paulo Yellow',
       interior: 'Black Merino Leather',
+      vin: 'WBS8M9C51P7D12345',
       seats: 4,
       location: 'Johannesburg, South Africa',
       description: 'Experience the ultimate driving machine with this stunning BMW M4 Competition. This high-performance coupe combines breathtaking power with sophisticated luxury, creating an unparalleled driving experience.\n\nUnder the hood lies a 3.0-liter inline-6 twin-turbo engine producing an exhilarating 503 horsepower. The M xDrive all-wheel-drive system ensures optimal traction in all conditions.\n\nThis particular example has been meticulously maintained and comes with a complete service history from authorized BMW dealers.',
@@ -217,8 +330,12 @@ const CarManagementDialog = ({ open, onOpenChange, car, onSuccess }: CarManageme
   };
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+    <Dialog open={open} onOpenChange={onOpenChange} modal>
+      <DialogContent 
+        className="max-w-4xl max-h-[90vh] overflow-y-auto"
+        onInteractOutside={(e) => e.preventDefault()}
+        onEscapeKeyDown={(e) => e.preventDefault()}
+      >
         <DialogHeader>
           <div className="flex items-center justify-between">
             <div>
@@ -248,41 +365,39 @@ const CarManagementDialog = ({ open, onOpenChange, car, onSuccess }: CarManageme
             <h3 className="font-semibold text-lg">Basic Information</h3>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="make">Make *</Label>
+                <Label htmlFor="make">Make</Label>
                 <Input
                   id="make"
                   value={formData.make}
-                  onChange={(e) => setFormData({ ...formData, make: e.target.value })}
-                  required
+                  onChange={(e) => setFormData({ ...formData, make: capitalizeWords(e.target.value) })}
+                  placeholder="e.g., Audi"
                 />
               </div>
               <div>
-                <Label htmlFor="model">Model *</Label>
+                <Label htmlFor="model">Model</Label>
                 <Input
                   id="model"
                   value={formData.model}
-                  onChange={(e) => setFormData({ ...formData, model: e.target.value })}
-                  required
+                  onChange={(e) => setFormData({ ...formData, model: capitalizeWords(e.target.value) })}
+                  placeholder="e.g., A4"
                 />
               </div>
               <div>
-                <Label htmlFor="year">Year *</Label>
+                <Label htmlFor="year">Year</Label>
                 <Input
                   id="year"
                   type="number"
                   value={formData.year}
                   onChange={(e) => setFormData({ ...formData, year: parseInt(e.target.value) })}
-                  required
                 />
               </div>
               <div>
-                <Label htmlFor="price">Price (R) *</Label>
+                <Label htmlFor="price">Price (R)</Label>
                 <Input
                   id="price"
                   type="number"
                   value={formData.price}
                   onChange={(e) => setFormData({ ...formData, price: parseInt(e.target.value) })}
-                  required
                 />
               </div>
               <div>
@@ -290,7 +405,7 @@ const CarManagementDialog = ({ open, onOpenChange, car, onSuccess }: CarManageme
                 <Input
                   id="body_type"
                   value={formData.body_type}
-                  onChange={(e) => setFormData({ ...formData, body_type: e.target.value })}
+                  onChange={(e) => setFormData({ ...formData, body_type: capitalizeWords(e.target.value) })}
                   placeholder="e.g., Coupe, Sedan, SUV"
                 />
               </div>
@@ -343,7 +458,7 @@ const CarManagementDialog = ({ open, onOpenChange, car, onSuccess }: CarManageme
                 <Input
                   id="location"
                   value={formData.location}
-                  onChange={(e) => setFormData({ ...formData, location: e.target.value })}
+                  onChange={(e) => setFormData({ ...formData, location: capitalizeWords(e.target.value) })}
                   placeholder="e.g., Pretoria, South Africa"
                 />
               </div>
@@ -372,7 +487,7 @@ const CarManagementDialog = ({ open, onOpenChange, car, onSuccess }: CarManageme
                 <Input
                   id="engine"
                   value={formData.engine}
-                  onChange={(e) => setFormData({ ...formData, engine: e.target.value })}
+                  onChange={(e) => setFormData({ ...formData, engine: capitalizeWords(e.target.value) })}
                   placeholder="e.g., 4.4L V8 Twin-Turbo"
                 />
               </div>
@@ -381,7 +496,7 @@ const CarManagementDialog = ({ open, onOpenChange, car, onSuccess }: CarManageme
                 <Input
                   id="drive_type"
                   value={formData.drive_type}
-                  onChange={(e) => setFormData({ ...formData, drive_type: e.target.value })}
+                  onChange={(e) => setFormData({ ...formData, drive_type: capitalizeWords(e.target.value) })}
                   placeholder="e.g., All-Wheel Drive"
                 />
               </div>
@@ -397,7 +512,8 @@ const CarManagementDialog = ({ open, onOpenChange, car, onSuccess }: CarManageme
                 <Input
                   id="color"
                   value={formData.color}
-                  onChange={(e) => setFormData({ ...formData, color: e.target.value })}
+                  onChange={(e) => setFormData({ ...formData, color: capitalizeWords(e.target.value) })}
+                  placeholder="e.g., Sao Paulo Yellow"
                 />
               </div>
               <div>
@@ -405,7 +521,7 @@ const CarManagementDialog = ({ open, onOpenChange, car, onSuccess }: CarManageme
                 <Input
                   id="interior"
                   value={formData.interior}
-                  onChange={(e) => setFormData({ ...formData, interior: e.target.value })}
+                  onChange={(e) => setFormData({ ...formData, interior: capitalizeWords(e.target.value) })}
                   placeholder="e.g., Merino Leather Black"
                 />
               </div>
@@ -453,31 +569,121 @@ const CarManagementDialog = ({ open, onOpenChange, car, onSuccess }: CarManageme
           {/* Images */}
           <div className="space-y-4">
             <h3 className="font-semibold text-lg">Images</h3>
-            <div className="flex gap-2">
-              <Input
-                value={newImage}
-                onChange={(e) => setNewImage(e.target.value)}
-                placeholder="Add image URL..."
-                onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addImage())}
-              />
-              <Button type="button" onClick={addImage} size="sm">
-                <Plus className="w-4 h-4" />
-              </Button>
+            
+            {/* File Upload */}
+            <div className="space-y-2">
+              <Label htmlFor="image-upload">Upload Images</Label>
+              <div className="flex gap-2">
+                <Input
+                  id="image-upload"
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  onChange={handleImageUpload}
+                  disabled={uploadingImage}
+                  className="cursor-pointer"
+                />
+                {uploadingImage && (
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    Uploading...
+                  </div>
+                )}
+              </div>
             </div>
-            <div className="grid grid-cols-4 gap-2">
-              {images.map((image, index) => (
-                <div key={index} className="relative group">
-                  <img src={image} alt={`Car ${index + 1}`} className="w-full h-24 object-cover rounded" />
-                  <button
-                    type="button"
-                    onClick={() => removeImage(index)}
-                    className="absolute top-1 right-1 bg-destructive text-destructive-foreground rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
-                  >
-                    <X className="w-3 h-3" />
-                  </button>
+
+            {/* URL Input (Optional) */}
+            <div className="space-y-2">
+              <Label htmlFor="image-url">Or Add Image URL</Label>
+              <div className="flex gap-2">
+                <Input
+                  id="image-url"
+                  value={newImage}
+                  onChange={(e) => setNewImage(e.target.value)}
+                  placeholder="https://example.com/image.jpg"
+                  onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addImage())}
+                />
+                <Button type="button" onClick={addImage} size="sm">
+                  <Plus className="w-4 h-4" />
+                </Button>
+              </div>
+            </div>
+
+            {/* Image Preview Grid */}
+            {images.length > 0 && (
+              <div>
+                <p className="text-sm text-muted-foreground mb-2">
+                  {images.length} image(s) • Drag to reorder • First image will be the main display
+                </p>
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+                  {images.map((image, index) => (
+                    <div
+                      key={index}
+                      draggable
+                      onDragStart={() => handleDragStart(index)}
+                      onDragOver={(e) => handleDragOver(e, index)}
+                      onDragEnd={handleDragEnd}
+                      className={`relative group border-2 rounded-lg overflow-hidden cursor-move transition-all ${
+                        draggedIndex === index 
+                          ? 'border-primary scale-105 shadow-lg opacity-50' 
+                          : 'border-border hover:border-primary/50'
+                      }`}
+                    >
+                      <img 
+                        src={image} 
+                        alt={`Car ${index + 1}`} 
+                        className="w-full h-32 object-cover pointer-events-none" 
+                      />
+                      
+                      {/* Image number badge */}
+                      <div className="absolute top-2 left-2 bg-primary text-primary-foreground text-xs font-bold px-2 py-1 rounded">
+                        #{index + 1}
+                      </div>
+                      
+                      {/* Drag indicator */}
+                      <div className="absolute top-2 right-2 bg-black/60 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
+                        ⋮⋮
+                      </div>
+                      
+                      {/* Control buttons */}
+                      <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-1">
+                        {/* Move up */}
+                        <button
+                          type="button"
+                          onClick={() => moveImageUp(index)}
+                          disabled={index === 0}
+                          className="p-2 bg-white/90 hover:bg-white rounded-full disabled:opacity-50 disabled:cursor-not-allowed"
+                          title="Move left"
+                        >
+                          <ChevronUp className="w-4 h-4 text-gray-900 rotate-[-90deg]" />
+                        </button>
+                        
+                        {/* Delete */}
+                        <button
+                          type="button"
+                          onClick={() => removeImage(index)}
+                          className="p-2 bg-destructive hover:bg-destructive/90 rounded-full"
+                          title="Delete"
+                        >
+                          <X className="w-4 h-4 text-destructive-foreground" />
+                        </button>
+                        
+                        {/* Move down */}
+                        <button
+                          type="button"
+                          onClick={() => moveImageDown(index)}
+                          disabled={index === images.length - 1}
+                          className="p-2 bg-white/90 hover:bg-white rounded-full disabled:opacity-50 disabled:cursor-not-allowed"
+                          title="Move right"
+                        >
+                          <ChevronDown className="w-4 h-4 text-gray-900 rotate-[-90deg]" />
+                        </button>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
+              </div>
+            )}
           </div>
 
           <DialogFooter>

@@ -167,13 +167,42 @@ const Admin = () => {
     if (!carToDelete) return;
 
     try {
+      // Find the car to get its make and model for folder deletion
+      const carToDeleteData = cars.find(c => c.id === carToDelete);
+      
+      console.log('Deleting car:', carToDeleteData);
+      
+      // Delete the car from database
       await carService.deleteCar(carToDelete);
+      
+      // Delete the folder from storage if car has make and model
+      if (carToDeleteData?.make && carToDeleteData?.model) {
+        const folderName = `${carToDeleteData.make.trim()}_${carToDeleteData.model.trim()}`.replace(/[^a-zA-Z0-9-_]/g, '_');
+        console.log('Attempting to delete folder:', folderName);
+        
+        try {
+          await carService.deleteFolder(folderName);
+          console.log('Folder deleted successfully:', folderName);
+        } catch (storageError) {
+          console.error('Error deleting folder:', storageError);
+          // Show warning but don't fail the whole operation
+          toast({
+            title: 'Warning',
+            description: 'Car deleted but some images may remain in storage.',
+            variant: 'default',
+          });
+        }
+      } else {
+        console.warn('Car missing make or model, skipping folder deletion');
+      }
+      
       toast({
         title: 'Success!',
         description: 'Car deleted successfully.',
       });
       loadCars();
     } catch (error: any) {
+      console.error('Delete error:', error);
       toast({
         title: 'Error',
         description: error.message || 'Failed to delete car.',

@@ -1,73 +1,50 @@
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import CarCard, { Car } from './CarCard';
 import { Button } from '@/components/ui/button';
-import { ChevronRight } from 'lucide-react';
+import { ChevronRight, Loader2 } from 'lucide-react';
 import { motion, useInView } from 'framer-motion';
-
-import bmwM8 from '@/assets/cars/bmw-m8.jpg';
-import mercedesAmgGt from '@/assets/cars/mercedes-amg-gt.jpg';
-import audiRs6 from '@/assets/cars/audi-rs6.jpg';
-import audiTt from '@/assets/cars/audi-tt.jpg';
-
-const cars: Car[] = [
-  {
-    id: '1',
-    name: 'BMW M8',
-    price: 1295000,
-    year: 2023,
-    fuel: 'Petrol',
-    mileage: 45000,
-    seats: 5,
-    location: 'Cape Town, South Africa',
-    description: 'Experience luxury and performance with the BMW M8. A dream car for true connoisseurs of automotive excellence.',
-    image: bmwM8,
-    type: 'coupe',
-  },
-  {
-    id: '2',
-    name: 'Mercedes AMG GT',
-    price: 2450000,
-    year: 2023,
-    fuel: 'Hybrid',
-    mileage: 12000,
-    seats: 2,
-    location: 'Johannesburg, South Africa',
-    description: 'Pure luxury and performance. The Mercedes AMG GT 63 SE combines cutting-edge hybrid technology with timeless elegance.',
-    image: mercedesAmgGt,
-    type: 'coupe',
-  },
-  {
-    id: '3',
-    name: 'Audi RS6',
-    price: 880500,
-    year: 2022,
-    fuel: 'Petrol',
-    mileage: 28500,
-    seats: 5,
-    location: 'Durban, South Africa',
-    description: 'Sporty performance meets luxury. The Audi RS6 delivers an exhilarating driving experience with iconic design.',
-    image: audiRs6,
-    type: 'sedan',
-  },
-  {
-    id: '4',
-    name: 'Audi TT',
-    price: 750000,
-    year: 2024,
-    fuel: 'Petrol',
-    mileage: 8500,
-    seats: 2,
-    location: 'Pretoria, South Africa',
-    description: 'Iconic sports coupe design meets modern performance. The Audi TT delivers thrilling dynamics.',
-    image: audiTt,
-    type: 'coupe',
-  },
-];
+import { carService } from '@/lib/supabase';
 
 const NewListings = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
+  const [cars, setCars] = useState<Car[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  // Load cars from Supabase
+  useEffect(() => {
+    loadCars();
+  }, []);
+
+  const loadCars = async () => {
+    setLoading(true);
+    try {
+      const data = await carService.getAllCars();
+      
+      // Transform Supabase cars to match CarCard interface and get only the 4 most recent
+      const transformedCars: Car[] = data.slice(0, 4).map((car: any) => ({
+        id: car.id,
+        name: `${car.make} ${car.model}`,
+        price: car.price,
+        year: car.year,
+        fuel: car.fuel_type || 'Petrol',
+        mileage: car.mileage || 0,
+        seats: car.seats || 5,
+        location: car.location || 'Location TBD',
+        description: car.description || '',
+        image: car.images?.[0] || 'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800',
+        type: (car.body_type?.toLowerCase() || 'sedan') as 'sedan' | 'suv' | 'coupe' | 'hatchback',
+      }));
+      
+      setCars(transformedCars);
+    } catch (error) {
+      console.error('Error loading cars:', error);
+      setCars([]);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -94,7 +71,7 @@ const NewListings = () => {
       scale: 1,
       transition: {
         duration: 0.8,
-        ease: [0.25, 0.4, 0.25, 1],
+        ease: [0.25, 0.4, 0.25, 1] as const,
       },
     },
   };
@@ -105,7 +82,7 @@ const NewListings = () => {
         <motion.div
           initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }}
           animate={isInView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
-          transition={{ duration: 0.8, ease: [0.25, 0.4, 0.25, 1] }}
+          transition={{ duration: 0.8, ease: [0.25, 0.4, 0.25, 1] as const }}
           className="text-center mb-12"
         >
           <h2 className="text-4xl font-black text-foreground mb-4">
@@ -116,21 +93,31 @@ const NewListings = () => {
           </p>
         </motion.div>
 
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={isInView ? 'visible' : 'hidden'}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
-        >
-          {cars.map((car) => (
-            <motion.div
-              key={car.id}
-              variants={cardVariants}
-            >
-              <CarCard car={car} />
-            </motion.div>
-          ))}
-        </motion.div>
+        {loading ? (
+          <div className="flex justify-center items-center py-20">
+            <Loader2 className="w-8 h-8 animate-spin text-primary" />
+          </div>
+        ) : cars.length === 0 ? (
+          <div className="text-center py-20">
+            <p className="text-muted-foreground text-lg">No vehicles available yet. Check back soon!</p>
+          </div>
+        ) : (
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate={isInView ? 'visible' : 'hidden'}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+          >
+            {cars.map((car) => (
+              <motion.div
+                key={car.id}
+                variants={cardVariants}
+              >
+                <CarCard car={car} />
+              </motion.div>
+            ))}
+          </motion.div>
+        )}
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}

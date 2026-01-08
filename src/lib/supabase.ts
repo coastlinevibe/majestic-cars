@@ -181,5 +181,76 @@ export const carService = {
     
     if (error) throw error;
     return data;
+  },
+
+  // Upload image to storage
+  async uploadImage(filePath: string, file: File) {
+    const { data, error } = await supabase.storage
+      .from('car_images')
+      .upload(filePath, file, {
+        cacheControl: '3600',
+        upsert: false
+      });
+    
+    if (error) throw error;
+    return data;
+  },
+
+  // Get public URL for image
+  getImageUrl(filePath: string) {
+    return supabase.storage
+      .from('car_images')
+      .getPublicUrl(filePath);
+  },
+
+  // Delete image from storage
+  async deleteImage(filePath: string) {
+    const { error } = await supabase.storage
+      .from('car_images')
+      .remove([filePath]);
+    
+    if (error) throw error;
+  },
+
+  // Delete entire folder (for when car is deleted)
+  async deleteFolder(folderPath: string) {
+    try {
+      console.log('Attempting to list files in folder:', folderPath);
+      
+      // List all files in the folder
+      const { data: files, error: listError } = await supabase.storage
+        .from('car_images')
+        .list(folderPath);
+      
+      if (listError) {
+        console.error('Error listing files:', listError);
+        throw listError;
+      }
+      
+      console.log('Files found in folder:', files);
+      
+      if (files && files.length > 0) {
+        // Create array of file paths to delete
+        const filePaths = files.map(file => `${folderPath}/${file.name}`);
+        console.log('Deleting files:', filePaths);
+        
+        // Delete all files in the folder
+        const { error: deleteError } = await supabase.storage
+          .from('car_images')
+          .remove(filePaths);
+        
+        if (deleteError) {
+          console.error('Error deleting files:', deleteError);
+          throw deleteError;
+        }
+        
+        console.log('Successfully deleted', filePaths.length, 'files');
+      } else {
+        console.log('No files found in folder:', folderPath);
+      }
+    } catch (error) {
+      console.error('Error deleting folder:', error);
+      throw error;
+    }
   }
 };
