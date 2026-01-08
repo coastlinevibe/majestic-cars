@@ -37,7 +37,6 @@ const CarManagementDialog = ({ open, onOpenChange, car, onSuccess }: CarManageme
     engine: '',
     color: '',
     interior: '',
-    vin: '',
     seats: 5,
     location: '',
     description: '',
@@ -59,7 +58,6 @@ const CarManagementDialog = ({ open, onOpenChange, car, onSuccess }: CarManageme
         engine: car.engine || '',
         color: car.color || '',
         interior: car.interior || '',
-        vin: car.vin || '',
         seats: car.seats || 5,
         location: car.location || '',
         description: car.description || '',
@@ -82,7 +80,6 @@ const CarManagementDialog = ({ open, onOpenChange, car, onSuccess }: CarManageme
         engine: '',
         color: '',
         interior: '',
-        vin: '',
         seats: 5,
         location: '',
         description: '',
@@ -114,7 +111,6 @@ const CarManagementDialog = ({ open, onOpenChange, car, onSuccess }: CarManageme
           engine: formData.engine,
           color: formData.color,
           interior: formData.interior,
-          vin: formData.vin,
         },
         created_by: 'admin', // TODO: Replace with actual user ID from auth
       };
@@ -182,7 +178,6 @@ const CarManagementDialog = ({ open, onOpenChange, car, onSuccess }: CarManageme
       engine: '3.0L Inline-6 Twin-Turbo',
       color: 'Sao Paulo Yellow',
       interior: 'Black Merino Leather',
-      vin: 'WBS8M9C09PCJ12345',
       seats: 4,
       location: 'Johannesburg, South Africa',
       description: 'Experience the ultimate driving machine with this stunning BMW M4 Competition. This high-performance coupe combines breathtaking power with sophisticated luxury, creating an unparalleled driving experience.\n\nUnder the hood lies a 3.0-liter inline-6 twin-turbo engine producing an exhilarating 503 horsepower. The M xDrive all-wheel-drive system ensures optimal traction in all conditions.\n\nThis particular example has been meticulously maintained and comes with a complete service history from authorized BMW dealers.',
@@ -364,14 +359,6 @@ const CarManagementDialog = ({ open, onOpenChange, car, onSuccess }: CarManageme
                     <SelectItem value="reserved">Reserved</SelectItem>
                   </SelectContent>
                 </Select>
-              </div>
-              <div>
-                <Label htmlFor="vin">VIN</Label>
-                <Input
-                  id="vin"
-                  value={formData.vin}
-                  onChange={(e) => setFormData({ ...formData, vin: e.target.value })}
-                />
               </div>
             </div>
           </div>
