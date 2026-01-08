@@ -1,6 +1,7 @@
 import { useState, useMemo, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import CTASection from '@/components/CTASection';
 import CarCard, { Car } from '@/components/CarCard';
 import CompareBar from '@/components/CompareBar';
 import CompareModal from '@/components/CompareModal';
@@ -672,6 +673,7 @@ const Inventory = () => {
         onRemoveCar={handleRemoveFromCompare}
       />
 
+      <CTASection />
       <Footer />
     </div>
   );

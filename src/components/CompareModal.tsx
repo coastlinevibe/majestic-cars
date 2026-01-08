@@ -24,11 +24,11 @@ interface CompareSpec {
 }
 
 const allCars: Car[] = [
-  { id: '1', name: 'BMW M8', price: 1295000, year: 2023, fuel: 'Petrol', mileage: 45000, seats: 5, location: 'New York, USA', description: '', image: bmwM8, type: 'coupe' },
-  { id: '2', name: 'Mercedes AMG GT', price: 2450000, year: 2023, fuel: 'Hybrid', mileage: 12000, seats: 2, location: 'Miami, USA', description: '', image: mercedesAmgGt, type: 'coupe' },
-  { id: '3', name: 'Audi RS6', price: 880500, year: 2022, fuel: 'Petrol', mileage: 28500, seats: 5, location: 'Chicago, USA', description: '', image: audiRs6, type: 'sedan' },
-  { id: '4', name: 'Audi TT', price: 750000, year: 2024, fuel: 'Petrol', mileage: 8500, seats: 2, location: 'Las Vegas, USA', description: '', image: audiTt, type: 'coupe' },
-  { id: '5', name: 'BMW X7', price: 1950000, year: 2024, fuel: 'Petrol', mileage: 15000, seats: 7, location: 'Boston, USA', description: '', image: bmwX7, type: 'suv' },
+  { id: '1', name: 'BMW M8', price: 1295000, year: 2023, fuel: 'Petrol', mileage: 45000, seats: 5, location: 'Pretoria, South Africa', description: '', image: bmwM8, type: 'coupe' },
+  { id: '2', name: 'Mercedes AMG GT', price: 2450000, year: 2023, fuel: 'Hybrid', mileage: 12000, seats: 2, location: 'Johannesburg, South Africa', description: '', image: mercedesAmgGt, type: 'coupe' },
+  { id: '3', name: 'Audi RS6', price: 880500, year: 2022, fuel: 'Petrol', mileage: 28500, seats: 5, location: 'Cape Town, South Africa', description: '', image: audiRs6, type: 'sedan' },
+  { id: '4', name: 'Audi TT', price: 750000, year: 2024, fuel: 'Petrol', mileage: 8500, seats: 2, location: 'Durban, South Africa', description: '', image: audiTt, type: 'coupe' },
+  { id: '5', name: 'BMW X7', price: 1950000, year: 2024, fuel: 'Petrol', mileage: 15000, seats: 7, location: 'Sandton, South Africa', description: '', image: bmwX7, type: 'suv' },
 ];
 
 const specs: CompareSpec[] = [

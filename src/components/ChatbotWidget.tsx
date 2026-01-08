@@ -136,7 +136,7 @@ const ChatbotWidget = () => {
     }
     
     if (message.includes('test drive') || message.includes('drive')) {
-      return "Absolutely! We'd love to arrange a test drive for you. You can schedule one online or call us at +1 (555) 123-4567. Which vehicle are you interested in test driving?";
+      return "Absolutely! We'd love to arrange a test drive for you. You can schedule one online or call us at +27 12 345 6789. Which vehicle are you interested in test driving?";
     }
     
     if (message.includes('trade') || message.includes('trade-in')) {
@@ -152,10 +152,10 @@ const ChatbotWidget = () => {
     }
     
     if (message.includes('location') || message.includes('address')) {
-      return "We're located at 123 Motor Lane, New York, NY 10001. We also have locations in Miami and Chicago. Would you like directions to any of our showrooms?";
+      return "We're located at 154 Sefako Makgatho Service Ln, Sinoville, Pretoria, 0129. We also have showrooms in Johannesburg and Cape Town. Would you like directions to any of our showrooms?";
     }
     
-    return "Thank you for your question! I'd be happy to help you with that. For more detailed assistance, I can connect you with one of our specialists. You can also call us at +1 (555) 123-4567 or visit our contact page.";
+    return "Thank you for your question! I'd be happy to help you with that. For more detailed assistance, I can connect you with one of our specialists. You can also call us at +27 12 345 6789 or visit our contact page.";
   };
 
   const formatTime = (date: Date) => {
@@ -190,7 +190,7 @@ const ChatbotWidget = () => {
       {/* Chat Dialog - Large popup from bottom right */}
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent 
-          className="max-w-xl w-full h-[580px] p-0 gap-0 fixed bottom-4 right-4 data-[state=open]:animate-in data-[state=open]:slide-in-from-bottom-2 [&>button]:hidden"
+          className="max-w-xl w-full h-[380px] p-0 gap-0 fixed bottom-4 right-4 data-[state=open]:animate-in data-[state=open]:slide-in-from-bottom-2 [&>button]:hidden"
           onPointerDownOutside={(e) => e.preventDefault()}
           onEscapeKeyDown={(e) => e.preventDefault()}
         >

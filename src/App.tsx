@@ -15,6 +15,8 @@ import VehicleDetail from "./pages/VehicleDetail";
 import FAQ from "./pages/FAQ";
 import Admin from "./pages/Admin";
 import SignIn from "./pages/SignIn";
+import TermsOfService from "./pages/TermsOfService";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -34,6 +36,8 @@ const App = () => (
           <Route path="/inventory/:id" element={<VehicleDetail />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/faq" element={<FAQ />} />
+          <Route path="/terms-of-service" element={<TermsOfService />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/sign-in" element={<SignIn />} />
           <Route 
             path="/admin" 

@@ -8,6 +8,7 @@ const Footer = () => {
     { name: 'Services', path: '/about' },
     { name: 'About Us', path: '/about' },
     { name: 'Contact', path: '/contact' },
+    { name: 'Admin', path: '/admin' },
   ];
 
   const services = [
@@ -20,9 +21,10 @@ const Footer = () => {
 
   const support = [
     { name: 'FAQ', path: '/faq' },
-    { name: 'Terms of Service', path: '#' },
-    { name: 'Privacy Policy', path: '#' },
+    { name: 'Terms of Service', path: '/terms-of-service' },
+    { name: 'Privacy Policy', path: '/privacy-policy' },
     { name: 'Careers', path: '#' },
+    { name: 'Admin', path: '/admin' },
   ];
 
   return (
@@ -110,15 +112,15 @@ const Footer = () => {
             <div className="space-y-3">
               <div className="flex items-center gap-3 text-muted-foreground text-sm">
                 <Phone size={16} className="text-primary" />
-                <span>+1 234 567 890</span>
+                <span>+27 12 345 6789</span>
               </div>
               <div className="flex items-center gap-3 text-muted-foreground text-sm">
                 <Mail size={16} className="text-primary" />
-                <span>info@sterlingmotors.com</span>
+                <span>info@majesticcars.co.za</span>
               </div>
               <div className="flex items-start gap-3 text-muted-foreground text-sm">
                 <MapPin size={16} className="text-primary mt-0.5" />
-                <span>123 Automotive Drive,<br />City, State 12345</span>
+                <span>154 Sefako Makgatho Service Ln,<br />Sinoville, Pretoria, 0129</span>
               </div>
             </div>
           </div>
@@ -130,8 +132,8 @@ const Footer = () => {
             © 2026 Sterling Motors. All rights reserved.
           </p>
           <div className="flex gap-6 text-muted-foreground text-sm">
-            <Link to="#" className="hover:text-primary transition-colors">Terms of Service</Link>
-            <Link to="#" className="hover:text-primary transition-colors">Privacy Policy</Link>
+            <Link to="/terms-of-service" className="hover:text-primary transition-colors">Terms of Service</Link>
+            <Link to="/privacy-policy" className="hover:text-primary transition-colors">Privacy Policy</Link>
             <Link to="#" className="hover:text-primary transition-colors">Cookie Policy</Link>
           </div>
         </div>

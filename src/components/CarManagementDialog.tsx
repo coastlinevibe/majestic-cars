@@ -344,7 +344,7 @@ const CarManagementDialog = ({ open, onOpenChange, car, onSuccess }: CarManageme
                   id="location"
                   value={formData.location}
                   onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                  placeholder="e.g., New York, USA"
+                  placeholder="e.g., Pretoria, South Africa"
                 />
               </div>
               <div>

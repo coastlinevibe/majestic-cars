@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import CTASection from '@/components/CTASection';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -10,11 +11,14 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { MapPin, Phone, Mail, Clock, Send, MessageSquare, Car } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { motion, useInView } from 'framer-motion';
 import contactHeroImg from '@/assets/contact-hero.jpg';
 
 const Contact = () => {
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState('general');
+  const contentRef = useRef<HTMLDivElement>(null);
+  const contentInView = useInView(contentRef, { once: true, margin: '-100px' });
   
   const [generalFormData, setGeneralFormData] = useState({
     name: '',
@@ -66,17 +70,17 @@ const Contact = () => {
     {
       icon: MapPin,
       title: 'Visit Us',
-      details: ['123 Motor Lane', 'New York, NY 10001', 'United States'],
+      details: ['154 Sefako Makgatho Service Ln', 'Sinoville, Pretoria, 0129', 'South Africa'],
     },
     {
       icon: Phone,
       title: 'Call Us',
-      details: ['+1 (555) 123-4567', '+1 (555) 987-6543', 'Toll-free: 1-800-STERLING'],
+      details: ['+27 12 345 6789', '+27 11 234 5678', 'Toll-free: 0800 MAJESTIC'],
     },
     {
       icon: Mail,
       title: 'Email Us',
-      details: ['info@sterlingmotors.com', 'sales@sterlingmotors.com', 'support@sterlingmotors.com'],
+      details: ['info@majesticcars.co.za', 'sales@majesticcars.co.za', 'support@majesticcars.co.za'],
     },
     {
       icon: Clock,
@@ -90,28 +94,47 @@ const Contact = () => {
       <Navbar />
       
       {/* Hero Section */}
-      <section className="relative h-[50vh] min-h-[350px] flex items-center overflow-hidden">
-        <div
+      <section className="relative h-[60vh] min-h-[400px] flex items-center overflow-hidden">
+        <motion.div
+          initial={{ scale: 1.1, filter: 'blur(5px)' }}
+          animate={{ scale: 1, filter: 'blur(0px)' }}
+          transition={{ duration: 1.5, ease: [0.25, 0.4, 0.25, 1] }}
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: `url(${contactHeroImg})` }}
         />
         <div className="hero-overlay" />
         <div className="relative z-10 sterling-container text-center">
-          <h1 className="text-5xl md:text-7xl font-black text-card mb-4">
+          <motion.h1
+            initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }}
+            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 0.4, 0.25, 1] }}
+            className="text-5xl md:text-7xl font-black text-card mb-4"
+            style={{ fontFamily: 'serif', fontStyle: 'italic' }}
+          >
             Contact Us
-          </h1>
-          <p className="text-card/80 text-xl max-w-2xl mx-auto">
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
+            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            transition={{ duration: 0.8, delay: 0.5, ease: [0.25, 0.4, 0.25, 1] }}
+            className="text-card/80 text-xl"
+            style={{ fontStyle: 'italic' }}
+          >
             Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
-          </p>
+          </motion.p>
         </div>
       </section>
 
       {/* Contact Content */}
-      <section className="section-padding bg-card">
+      <section ref={contentRef} className="section-padding bg-card">
         <div className="sterling-container">
           <div className="grid lg:grid-cols-2 gap-16">
             {/* Contact Forms */}
-            <div>
+            <motion.div
+              initial={{ opacity: 0, x: -50, filter: 'blur(10px)' }}
+              animate={contentInView ? { opacity: 1, x: 0, filter: 'blur(0px)' } : {}}
+              transition={{ duration: 0.8, ease: [0.25, 0.4, 0.25, 1] }}
+            >
               <h2 className="text-3xl font-black text-foreground mb-2">Get in Touch</h2>
               <p className="text-muted-foreground mb-8">
                 Choose the type of inquiry and fill out the form below. Our team will get back to you within 24 hours.
@@ -363,10 +386,14 @@ const Contact = () => {
                   </Card>
                 </TabsContent>
               </Tabs>
-            </div>
+            </motion.div>
 
             {/* Contact Info */}
-            <div>
+            <motion.div
+              initial={{ opacity: 0, x: 50, filter: 'blur(10px)' }}
+              animate={contentInView ? { opacity: 1, x: 0, filter: 'blur(0px)' } : {}}
+              transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.4, 0.25, 1] }}
+            >
               <h2 className="text-3xl font-black text-foreground mb-2">Contact Information</h2>
               <p className="text-muted-foreground mb-8">
                 Reach out to us through any of these channels.
@@ -376,38 +403,51 @@ const Contact = () => {
                 {contactInfo.map((info, index) => {
                   const Icon = info.icon;
                   return (
-                    <div
+                    <motion.div
                       key={info.title}
-                      className="bg-background rounded-xl p-6 animate-fade-in"
-                      style={{ animationDelay: `${index * 0.1}s` }}
+                      initial={{ opacity: 0, y: 30, filter: 'blur(10px)', scale: 0.9 }}
+                      animate={contentInView ? { opacity: 1, y: 0, filter: 'blur(0px)', scale: 1 } : {}}
+                      transition={{ duration: 0.6, delay: 0.4 + index * 0.1, ease: [0.25, 0.4, 0.25, 1] }}
+                      className="bg-background rounded-xl p-6"
                     >
-                      <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                      <motion.div
+                        initial={{ scale: 0, rotate: -90 }}
+                        animate={contentInView ? { scale: 1, rotate: 0 } : {}}
+                        transition={{ delay: 0.5 + index * 0.1, duration: 0.5 }}
+                        className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4"
+                      >
                         <Icon size={24} className="text-primary" />
-                      </div>
+                      </motion.div>
                       <h3 className="font-bold text-foreground mb-2">{info.title}</h3>
                       <div className="space-y-1">
                         {info.details.map((detail, idx) => (
                           <p key={idx} className="text-muted-foreground text-sm">{detail}</p>
                         ))}
                       </div>
-                    </div>
+                    </motion.div>
                   );
                 })}
               </div>
 
               {/* Map Placeholder */}
-              <div className="bg-secondary rounded-xl h-64 flex items-center justify-center">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9, filter: 'blur(10px)' }}
+                animate={contentInView ? { opacity: 1, scale: 1, filter: 'blur(0px)' } : {}}
+                transition={{ duration: 0.8, delay: 0.8, ease: [0.25, 0.4, 0.25, 1] }}
+                className="bg-secondary rounded-xl h-64 flex items-center justify-center"
+              >
                 <div className="text-center">
                   <MapPin size={48} className="mx-auto text-muted-foreground/30 mb-2" />
                   <p className="text-muted-foreground">Interactive Map</p>
-                  <p className="text-muted-foreground text-sm">123 Motor Lane, New York, NY</p>
+                  <p className="text-muted-foreground text-sm">154 Sefako Makgatho Service Ln, Sinoville, Pretoria</p>
                 </div>
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           </div>
         </div>
       </section>
 
+      <CTASection />
       <Footer />
     </div>
   );

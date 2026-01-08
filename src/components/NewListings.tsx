@@ -1,7 +1,9 @@
+import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import CarCard, { Car } from './CarCard';
 import { Button } from '@/components/ui/button';
 import { ChevronRight } from 'lucide-react';
+import { motion, useInView } from 'framer-motion';
 
 import bmwM8 from '@/assets/cars/bmw-m8.jpg';
 import mercedesAmgGt from '@/assets/cars/mercedes-amg-gt.jpg';
@@ -64,38 +66,85 @@ const cars: Car[] = [
 ];
 
 const NewListings = () => {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.2,
+      },
+    },
+  };
+
+  const cardVariants = {
+    hidden: { 
+      opacity: 0, 
+      y: 60,
+      filter: 'blur(10px)',
+      scale: 0.9,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      filter: 'blur(0px)',
+      scale: 1,
+      transition: {
+        duration: 0.8,
+        ease: [0.25, 0.4, 0.25, 1],
+      },
+    },
+  };
+
   return (
-    <section className="section-padding bg-background">
+    <section ref={sectionRef} className="section-padding bg-background">
       <div className="sterling-container">
-        <div className="text-center mb-12">
+        <motion.div
+          initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }}
+          animate={isInView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
+          transition={{ duration: 0.8, ease: [0.25, 0.4, 0.25, 1] }}
+          className="text-center mb-12"
+        >
           <h2 className="text-4xl font-black text-foreground mb-4">
             New Listings
           </h2>
           <p className="text-muted-foreground text-lg">
             Check out our latest vehicles
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {cars.map((car, index) => (
-            <div
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate={isInView ? 'visible' : 'hidden'}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+        >
+          {cars.map((car) => (
+            <motion.div
               key={car.id}
-              className="animate-fade-in"
-              style={{ animationDelay: `${index * 0.1}s` }}
+              variants={cardVariants}
             >
               <CarCard car={car} />
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
-        <div className="text-center mt-12">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.8 }}
+          className="text-center mt-12"
+        >
           <Button asChild size="lg" variant="outline">
             <Link to="/inventory">
               View All Vehicles
               <ChevronRight className="ml-2" size={20} />
             </Link>
           </Button>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

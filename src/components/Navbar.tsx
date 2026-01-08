@@ -12,7 +12,7 @@ const Navbar = () => {
 
   const navLinks = [
     { name: 'Home', path: '/' },
-    { name: 'Inventory', path: '/inventory' },
+    { name: 'Browse cars', path: '/inventory' },
     { name: 'About Us', path: '/about' },
     { name: 'Contact', path: '/contact' },
   ];
@@ -127,8 +127,8 @@ const Navbar = () => {
             </button>
             <Button asChild size={scrolled ? "sm" : "default"} className="transition-all duration-300">
               <Link to="/inventory">
-                <span className="hidden xl:inline">View Inventory</span>
-                <span className="xl:hidden">Inventory</span>
+                <span className="hidden xl:inline">Browse cars</span>
+                <span className="xl:hidden">Browse cars</span>
               </Link>
             </Button>
           </div>
@@ -143,7 +143,7 @@ const Navbar = () => {
               {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
             </button>
             <Button asChild size="sm">
-              <Link to="/inventory">Inventory</Link>
+              <Link to="/inventory">Browse cars</Link>
             </Button>
           </div>
 
@@ -202,7 +202,7 @@ const Navbar = () => {
               <div className="px-4 pt-2">
                 <Button asChild className="w-full">
                   <Link to="/inventory" onClick={() => setIsMenuOpen(false)}>
-                    View Inventory
+                    Browse cars
                   </Link>
                 </Button>
               </div>
