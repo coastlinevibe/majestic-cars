@@ -430,7 +430,7 @@ const VehicleDetail = () => {
                     <span className="text-primary-foreground font-bold text-lg">SM</span>
                   </div>
                   <div>
-                    <div className="font-bold text-foreground">Sterling Motors</div>
+                    <div className="font-bold text-foreground">Majesticars</div>
                     <div className="text-muted-foreground text-sm">Authorized Dealer</div>
                   </div>
                 </div>
@@ -442,7 +442,7 @@ const VehicleDetail = () => {
                   </div>
                   <div className="flex items-center gap-3 text-muted-foreground">
                     <Mail size={18} className="text-primary" />
-                    <span>sales@sterlingmotors.com</span>
+                    <span>sales@majesticcars.co.za</span>
                   </div>
                   <div className="flex items-center gap-3 text-muted-foreground">
                     <Clock size={18} className="text-primary" />

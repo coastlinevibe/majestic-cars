@@ -36,7 +36,7 @@ const team = [
     initials: 'JD',
     name: 'James Davidson',
     role: 'Founder & CEO',
-    description: 'With over 30 years in the automotive industry, James founded Sterling Motors with a vision to redefine luxury car retail.',
+    description: 'With over 30 years in the automotive industry, James founded Majesticars with a vision to redefine luxury car retail.',
   },
   {
     initials: 'SM',
@@ -94,7 +94,7 @@ const About = () => {
             className="text-5xl md:text-7xl font-black text-card mb-4"
             style={{ fontFamily: 'serif', fontStyle: 'italic' }}
           >
-            About Sterling Motors
+            About Majesticars
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
@@ -122,13 +122,13 @@ const About = () => {
               
               <div className="space-y-4 text-muted-foreground">
                 <p>
-                  Founded in 1995, Sterling Motors began as a small family-owned dealership with a simple mission: to provide exceptional luxury vehicles paired with unparalleled customer service. What started as a passion project has grown into one of South Africa's most trusted premium automotive destinations.
+                  Founded in 1995, Majesticars began as a small family-owned dealership with a simple mission: to provide exceptional luxury vehicles paired with unparalleled customer service. What started as a passion project has grown into one of South Africa's most trusted premium automotive destinations.
                 </p>
                 <p>
                   Our commitment to excellence extends beyond just selling cars. We believe in building lasting relationships with our clients, understanding their unique needs, and delivering experiences that exceed expectations. Every vehicle in our showroom is carefully selected and thoroughly inspected to meet our rigorous standards.
                 </p>
                 <p>
-                  Today, Sterling Motors represents the finest in luxury automotive retail, offering an extensive collection of premium brands, comprehensive financing solutions, and award-winning after-sales service.
+                  Today, Majesticars represents the finest in luxury automotive retail, offering an extensive collection of premium brands, comprehensive financing solutions, and award-winning after-sales service.
                 </p>
               </div>
             </motion.div>
@@ -249,7 +249,7 @@ const About = () => {
             transition={{ duration: 0.8, ease: [0.25, 0.4, 0.25, 1] }}
             className="text-center mb-12"
           >
-            <h2 className="text-4xl font-black text-foreground mb-4">Why Choose Sterling Motors</h2>
+            <h2 className="text-4xl font-black text-foreground mb-4">Why Choose Majesticars</h2>
             <p className="text-muted-foreground text-lg">Your trusted partner in luxury automotive</p>
           </motion.div>
 

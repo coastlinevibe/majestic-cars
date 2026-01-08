@@ -35,14 +35,14 @@ const Footer = () => {
           <div>
             <Link to="/" className="flex items-center gap-3 mb-6">
               <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-xl">S</span>
+                <span className="text-primary-foreground font-bold text-xl">M</span>
               </div>
               <span className="text-card font-bold text-xl tracking-tight">
-                Sterling Motors
+                Majesticars
               </span>
             </Link>
             <p className="text-muted-foreground text-sm leading-relaxed mb-6">
-              Sterling Motors is your premier destination for luxury and performance vehicles. With 30+ years of excellence, we deliver exceptional automotive experiences.
+              Majesticars is your premier destination for luxury and performance vehicles. With 30+ years of excellence, we deliver exceptional automotive experiences.
             </p>
             <div className="flex gap-4">
               {['facebook', 'twitter', 'instagram'].map((social) => (
@@ -129,7 +129,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="border-t border-card/10 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-muted-foreground text-sm">
-            © 2026 Sterling Motors. All rights reserved.
+            © 2026 Majesticars. All rights reserved.
           </p>
           <div className="flex gap-6 text-muted-foreground text-sm">
             <Link to="/terms-of-service" className="hover:text-primary transition-colors">Terms of Service</Link>

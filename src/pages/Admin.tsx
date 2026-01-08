@@ -226,7 +226,7 @@ const Admin = () => {
           <div className="mb-8 flex items-center justify-between">
             <div>
               <h1 className="text-3xl font-bold text-foreground mb-2">Admin Dashboard</h1>
-              <p className="text-muted-foreground">Manage your Sterling Motors platform</p>
+              <p className="text-muted-foreground">Manage your Majesticars platform</p>
             </div>
             <div className="flex items-center gap-4">
               {userEmail && (

@@ -59,13 +59,13 @@ const Navbar = () => {
             }`}>
               <span className={`text-primary-foreground font-black transition-all duration-300 ${
                 scrolled ? 'text-lg' : 'text-xl sm:text-2xl'
-              }`}>S</span>
+              }`}>M</span>
             </div>
             <div className="flex flex-col">
               <span className={`text-white font-bold tracking-tight leading-none transition-all duration-300 ${
                 scrolled ? 'text-base' : 'text-base sm:text-lg'
               }`}>
-                Sterling
+                Majesticars
               </span>
               <span className={`text-primary font-semibold tracking-widest uppercase transition-all duration-300 ${
                 scrolled ? 'text-[10px]' : 'text-xs'

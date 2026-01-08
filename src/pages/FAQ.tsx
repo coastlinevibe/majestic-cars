@@ -66,7 +66,7 @@ const FAQ = () => {
               <h3 className="text-lg font-semibold text-foreground">Need Instant Answers?</h3>
             </div>
             <p className="text-foreground/80 mb-4">
-              Skip browsing through FAQs! Our Sterling Assistant provides immediate answers to all your questions. 
+              Skip browsing through FAQs! Our Majesticars Assistant provides immediate answers to all your questions. 
               No waiting, no searching - just instant, personalized help.
             </p>
             <div className="flex items-center justify-center gap-2 text-sm text-primary font-medium">
@@ -102,7 +102,7 @@ const FAQ = () => {
           <div className="mt-16 text-center p-8 bg-muted/50 rounded-2xl">
             <h2 className="text-2xl font-semibold mb-4">Still have questions?</h2>
             <p className="text-muted-foreground mb-6">
-              Get instant answers with our Sterling Assistant chatbot, or reach out to our team for personalized assistance.
+              Get instant answers with our Majesticars Assistant chatbot, or reach out to our team for personalized assistance.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <div className="flex items-center gap-2 px-4 py-2 bg-primary/10 text-primary rounded-lg font-medium">

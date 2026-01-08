@@ -118,7 +118,7 @@ const TrustSection = () => {
           className="text-center mb-12"
         >
           <h2 className="text-4xl font-black text-foreground mb-4">
-            Why Customers Trust Sterling Motors
+            Why Customers Trust Majesticars
           </h2>
           <p className="text-muted-foreground text-lg">
             Proven excellence backed by real numbers and customer satisfaction
