@@ -1,0 +1,364 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Sterling Motors Design System */
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&display=swap');
+
+@layer base {
+  :root {
+    /* Primary Orange */
+    --primary: 18 95% 56%;
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 14 100% 50%;
+    
+    /* Backgrounds */
+    --background: 0 0% 97%;
+    --foreground: 0 0% 10%;
+    
+    /* Card & Surfaces */
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 10%;
+    
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 10%;
+    
+    /* Secondary - Light Gray */
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 10%;
+    
+    /* Muted */
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
+    
+    /* Accent */
+    --accent: 0 0% 96%;
+    --accent-foreground: 0 0% 10%;
+    
+    /* Destructive */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    
+    /* Borders */
+    --border: 0 0% 88%;
+    --input: 0 0% 88%;
+    --ring: 18 95% 56%;
+    
+    /* Radius */
+    --radius: 0.5rem;
+    
+    /* Custom Sterling Colors */
+    --sterling-orange: 18 95% 56%;
+    --sterling-orange-hover: 14 100% 50%;
+    --sterling-dark: 0 0% 10%;
+    --sterling-gray: 0 0% 40%;
+    --sterling-light-gray: 0 0% 97%;
+    --sterling-border: 0 0% 88%;
+    
+    /* Shadows */
+    --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.1);
+    --shadow-orange: 0 4px 15px rgba(255, 107, 53, 0.3);
+    --shadow-hover: 0 10px 30px rgba(0, 0, 0, 0.15);
+    
+    /* Sidebar */
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 0 0% 26%;
+    --sidebar-primary: 0 0% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 0 0% 96%;
+    --sidebar-accent-foreground: 0 0% 10%;
+    --sidebar-border: 0 0% 91%;
+    --sidebar-ring: 18 95% 56%;
+  }
+
+  .dark {
+    --background: 0 0% 7%;
+    --foreground: 0 0% 95%;
+    
+    --card: 0 0% 10%;
+    --card-foreground: 0 0% 95%;
+    
+    --popover: 0 0% 10%;
+    --popover-foreground: 0 0% 95%;
+    
+    --primary: 18 95% 56%;
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 95%;
+    
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 65%;
+    
+    --accent: 0 0% 15%;
+    --accent-foreground: 0 0% 95%;
+    
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 95%;
+    
+    --border: 0 0% 18%;
+    --input: 0 0% 18%;
+    --ring: 18 95% 56%;
+    
+    --sidebar-background: 0 0% 10%;
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-primary: 18 95% 56%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 0 0% 15%;
+    --sidebar-accent-foreground: 0 0% 95%;
+    --sidebar-border: 0 0% 15%;
+    --sidebar-ring: 18 95% 56%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  html.theme-transition,
+  html.theme-transition *,
+  html.theme-transition *::before,
+  html.theme-transition *::after {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease !important;
+    transition-delay: 0s !important;
+  }
+  
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+}
+
+@layer components {
+  /* Sterling Container */
+  .sterling-container {
+    @apply max-w-[1400px] mx-auto px-8;
+  }
+  
+  /* Glass Card Effect */
+  .glass-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  /* Section Spacing */
+  .section-padding {
+    @apply py-20 px-8;
+  }
+  
+  /* Card Hover Effect */
+  .card-hover {
+    @apply transition-all duration-300 hover:-translate-y-[5px] hover:shadow-lg;
+  }
+  
+  /* Filter Section */
+  .filter-section {
+    @apply mb-8 pb-8 border-b border-border last:border-b-0 last:mb-0 last:pb-0;
+  }
+  
+  /* Filter Title */
+  .filter-title {
+    @apply text-base font-bold text-foreground mb-4 flex justify-between items-center;
+  }
+  
+  /* Filter Reset Button */
+  .filter-reset {
+    @apply text-primary text-sm cursor-pointer transition-colors hover:opacity-80;
+  }
+  
+  /* Price Input Group */
+  .price-input-group {
+    @apply relative flex items-center bg-secondary rounded-md px-3 py-2;
+  }
+  
+  /* Car Type Button */
+  .car-type-btn {
+    @apply px-8 py-3 border-2 border-border bg-card rounded-[20px] cursor-pointer text-sm transition-all flex flex-col items-center gap-0 min-w-[120px] relative;
+  }
+  
+  .car-type-btn:hover {
+    @apply border-primary;
+  }
+  
+  .car-type-btn.active {
+    @apply bg-primary text-primary-foreground border-primary;
+  }
+  
+  /* Car Card */
+  .car-card {
+    @apply bg-secondary border border-border rounded-[18px] overflow-hidden shadow-sm transition-all duration-300 cursor-pointer flex flex-col;
+  }
+  
+  .car-card:hover {
+    @apply -translate-y-[5px] shadow-lg;
+  }
+  
+  /* Spec Item */
+  .spec-item {
+    @apply bg-muted p-3 rounded-lg flex flex-col items-center gap-1 text-center;
+  }
+  
+  /* Trust Card */
+  .trust-card {
+    @apply bg-card border border-border rounded-xl p-8 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-md;
+  }
+  
+  /* Location Card */
+  .location-card {
+    @apply bg-card rounded-xl overflow-hidden shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-lg;
+  }
+  
+  /* Value Card */
+  .value-card {
+    @apply bg-card border border-border rounded-xl p-8 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-md;
+  }
+  
+  /* Team Card */
+  .team-card {
+    @apply bg-card border border-border rounded-xl p-8 text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-md;
+  }
+  
+  /* Feature Card */
+  .feature-card {
+    @apply bg-card border border-border rounded-xl p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-md;
+  }
+  
+  /* CTA Section */
+  .cta-section {
+    @apply relative overflow-hidden;
+    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary-hover)) 100%);
+  }
+  
+  /* Hero Overlay */
+  .hero-overlay {
+    @apply absolute inset-0;
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.3) 100%);
+  }
+  
+  /* Navigation Glass */
+  .nav-glass {
+    @apply backdrop-blur-md border-b;
+    background: rgba(26, 26, 26, 0.95);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  /* Footer */
+  .footer-section {
+    @apply bg-foreground text-background;
+  }
+}
+
+@layer utilities {
+  /* Text Gradient */
+  .text-gradient-orange {
+    @apply bg-gradient-to-r from-primary to-[hsl(var(--primary-hover))] bg-clip-text text-transparent;
+  }
+  
+  /* Animated Underline */
+  .animated-underline {
+    @apply relative inline-block;
+  }
+  
+  .animated-underline::after {
+    content: '';
+    @apply absolute w-full h-0.5 bottom-0 left-0 origin-bottom-right transition-transform duration-300 scale-x-0;
+    background: hsl(var(--primary));
+  }
+  
+  .animated-underline:hover::after {
+    @apply scale-x-100 origin-bottom-left;
+  }
+  
+  /* Fade In Animation */
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+  
+  /* Slide Up Animation */
+  .animate-slide-up {
+    animation: slideUp 0.5s ease-out forwards;
+  }
+  
+  /* Scale In Animation */
+  .animate-scale-in {
+    animation: scaleIn 0.3s ease-out forwards;
+  }
+  
+  /* Stagger children */
+  .stagger-children > * {
+    @apply opacity-0;
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+  
+  .stagger-children > *:nth-child(1) { animation-delay: 0.1s; }
+  .stagger-children > *:nth-child(2) { animation-delay: 0.2s; }
+  .stagger-children > *:nth-child(3) { animation-delay: 0.3s; }
+  .stagger-children > *:nth-child(4) { animation-delay: 0.4s; }
+  .stagger-children > *:nth-child(5) { animation-delay: 0.5s; }
+  .stagger-children > *:nth-child(6) { animation-delay: 0.6s; }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--primary));
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--primary-hover));
+}
+
+/* Checkbox accent color */
+input[type="checkbox"] {
+  accent-color: hsl(var(--primary));
+}

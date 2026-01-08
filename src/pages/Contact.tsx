@@ -1,0 +1,416 @@
+import { useState } from 'react';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { MapPin, Phone, Mail, Clock, Send, MessageSquare, Car } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
+import contactHeroImg from '@/assets/contact-hero.jpg';
+
+const Contact = () => {
+  const { toast } = useToast();
+  const [activeTab, setActiveTab] = useState('general');
+  
+  const [generalFormData, setGeneralFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    subject: '',
+    message: '',
+  });
+
+  const [vehicleFormData, setVehicleFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    vehicleInterest: '',
+    budgetRange: '',
+    financingNeeded: '',
+    tradeIn: '',
+    message: '',
+  });
+
+  const handleGeneralSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    toast({
+      title: 'General Inquiry Sent!',
+      description: "We'll get back to you within 24 hours.",
+    });
+    setGeneralFormData({ name: '', email: '', phone: '', subject: '', message: '' });
+  };
+
+  const handleVehicleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    toast({
+      title: 'Vehicle Inquiry Sent!',
+      description: "Our sales team will contact you within 24 hours.",
+    });
+    setVehicleFormData({ 
+      name: '', 
+      email: '', 
+      phone: '', 
+      vehicleInterest: '', 
+      budgetRange: '', 
+      financingNeeded: '', 
+      tradeIn: '', 
+      message: '' 
+    });
+  };
+
+  const contactInfo = [
+    {
+      icon: MapPin,
+      title: 'Visit Us',
+      details: ['123 Motor Lane', 'New York, NY 10001', 'United States'],
+    },
+    {
+      icon: Phone,
+      title: 'Call Us',
+      details: ['+1 (555) 123-4567', '+1 (555) 987-6543', 'Toll-free: 1-800-STERLING'],
+    },
+    {
+      icon: Mail,
+      title: 'Email Us',
+      details: ['info@sterlingmotors.com', 'sales@sterlingmotors.com', 'support@sterlingmotors.com'],
+    },
+    {
+      icon: Clock,
+      title: 'Working Hours',
+      details: ['Monday - Friday: 9AM - 6PM', 'Saturday: 10AM - 4PM', 'Sunday: Closed'],
+    },
+  ];
+
+  return (
+    <div className="min-h-screen bg-background">
+      <Navbar />
+      
+      {/* Hero Section */}
+      <section className="relative h-[50vh] min-h-[350px] flex items-center overflow-hidden">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${contactHeroImg})` }}
+        />
+        <div className="hero-overlay" />
+        <div className="relative z-10 sterling-container text-center">
+          <h1 className="text-5xl md:text-7xl font-black text-card mb-4">
+            Contact Us
+          </h1>
+          <p className="text-card/80 text-xl max-w-2xl mx-auto">
+            Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
+          </p>
+        </div>
+      </section>
+
+      {/* Contact Content */}
+      <section className="section-padding bg-card">
+        <div className="sterling-container">
+          <div className="grid lg:grid-cols-2 gap-16">
+            {/* Contact Forms */}
+            <div>
+              <h2 className="text-3xl font-black text-foreground mb-2">Get in Touch</h2>
+              <p className="text-muted-foreground mb-8">
+                Choose the type of inquiry and fill out the form below. Our team will get back to you within 24 hours.
+              </p>
+
+              <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+                <TabsList className="grid w-full grid-cols-2 mb-6">
+                  <TabsTrigger value="general" className="flex items-center gap-2">
+                    <MessageSquare className="w-4 h-4" />
+                    General Inquiry
+                  </TabsTrigger>
+                  <TabsTrigger value="vehicle" className="flex items-center gap-2">
+                    <Car className="w-4 h-4" />
+                    Vehicle Inquiry
+                  </TabsTrigger>
+                </TabsList>
+
+                {/* General Inquiry Form */}
+                <TabsContent value="general">
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>General Inquiry</CardTitle>
+                      <CardDescription>
+                        For general questions, support, or information about our services
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <form onSubmit={handleGeneralSubmit} className="space-y-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div>
+                            <Label htmlFor="general-name" className="mb-2 block">Full Name *</Label>
+                            <Input
+                              id="general-name"
+                              value={generalFormData.name}
+                              onChange={(e) => setGeneralFormData({ ...generalFormData, name: e.target.value })}
+                              placeholder="John Doe"
+                              required
+                              className="bg-background"
+                            />
+                          </div>
+                          <div>
+                            <Label htmlFor="general-email" className="mb-2 block">Email Address *</Label>
+                            <Input
+                              id="general-email"
+                              type="email"
+                              value={generalFormData.email}
+                              onChange={(e) => setGeneralFormData({ ...generalFormData, email: e.target.value })}
+                              placeholder="john@example.com"
+                              required
+                              className="bg-background"
+                            />
+                          </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div>
+                            <Label htmlFor="general-phone" className="mb-2 block">Phone Number</Label>
+                            <Input
+                              id="general-phone"
+                              type="tel"
+                              value={generalFormData.phone}
+                              onChange={(e) => setGeneralFormData({ ...generalFormData, phone: e.target.value })}
+                              placeholder="+1 (555) 000-0000"
+                              className="bg-background"
+                            />
+                          </div>
+                          <div>
+                            <Label htmlFor="general-subject" className="mb-2 block">Subject *</Label>
+                            <Select
+                              value={generalFormData.subject}
+                              onValueChange={(value) => setGeneralFormData({ ...generalFormData, subject: value })}
+                            >
+                              <SelectTrigger className="bg-background">
+                                <SelectValue placeholder="Select a subject" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="general">General Information</SelectItem>
+                                <SelectItem value="service">Service & Maintenance</SelectItem>
+                                <SelectItem value="support">Customer Support</SelectItem>
+                                <SelectItem value="partnership">Partnership Inquiry</SelectItem>
+                                <SelectItem value="feedback">Feedback</SelectItem>
+                                <SelectItem value="other">Other</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </div>
+                        </div>
+
+                        <div>
+                          <Label htmlFor="general-message" className="mb-2 block">Message *</Label>
+                          <Textarea
+                            id="general-message"
+                            value={generalFormData.message}
+                            onChange={(e) => setGeneralFormData({ ...generalFormData, message: e.target.value })}
+                            placeholder="Tell us how we can help you..."
+                            required
+                            rows={6}
+                            className="bg-background resize-none"
+                          />
+                        </div>
+
+                        <Button type="submit" size="lg" className="w-full md:w-auto">
+                          <Send className="mr-2" size={18} />
+                          Send General Inquiry
+                        </Button>
+                      </form>
+                    </CardContent>
+                  </Card>
+                </TabsContent>
+
+                {/* Vehicle Inquiry Form */}
+                <TabsContent value="vehicle">
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>Vehicle Inquiry</CardTitle>
+                      <CardDescription>
+                        Interested in purchasing a vehicle? Let us know your preferences and we'll help you find the perfect match
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <form onSubmit={handleVehicleSubmit} className="space-y-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div>
+                            <Label htmlFor="vehicle-name" className="mb-2 block">Full Name *</Label>
+                            <Input
+                              id="vehicle-name"
+                              value={vehicleFormData.name}
+                              onChange={(e) => setVehicleFormData({ ...vehicleFormData, name: e.target.value })}
+                              placeholder="John Doe"
+                              required
+                              className="bg-background"
+                            />
+                          </div>
+                          <div>
+                            <Label htmlFor="vehicle-email" className="mb-2 block">Email Address *</Label>
+                            <Input
+                              id="vehicle-email"
+                              type="email"
+                              value={vehicleFormData.email}
+                              onChange={(e) => setVehicleFormData({ ...vehicleFormData, email: e.target.value })}
+                              placeholder="john@example.com"
+                              required
+                              className="bg-background"
+                            />
+                          </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div>
+                            <Label htmlFor="vehicle-phone" className="mb-2 block">Phone Number *</Label>
+                            <Input
+                              id="vehicle-phone"
+                              type="tel"
+                              value={vehicleFormData.phone}
+                              onChange={(e) => setVehicleFormData({ ...vehicleFormData, phone: e.target.value })}
+                              placeholder="+1 (555) 000-0000"
+                              required
+                              className="bg-background"
+                            />
+                          </div>
+                          <div>
+                            <Label htmlFor="vehicle-interest" className="mb-2 block">Vehicle of Interest</Label>
+                            <Select
+                              value={vehicleFormData.vehicleInterest}
+                              onValueChange={(value) => setVehicleFormData({ ...vehicleFormData, vehicleInterest: value })}
+                            >
+                              <SelectTrigger className="bg-background">
+                                <SelectValue placeholder="Select a vehicle" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="bmw-m8">BMW M8</SelectItem>
+                                <SelectItem value="mercedes-amg-gt">Mercedes AMG GT</SelectItem>
+                                <SelectItem value="audi-rs6">Audi RS6</SelectItem>
+                                <SelectItem value="audi-tt">Audi TT</SelectItem>
+                                <SelectItem value="bmw-x7">BMW X7</SelectItem>
+                                <SelectItem value="not-sure">Not sure yet</SelectItem>
+                                <SelectItem value="other">Other</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div>
+                            <Label htmlFor="budget-range" className="mb-2 block">Budget Range</Label>
+                            <Select
+                              value={vehicleFormData.budgetRange}
+                              onValueChange={(value) => setVehicleFormData({ ...vehicleFormData, budgetRange: value })}
+                            >
+                              <SelectTrigger className="bg-background">
+                                <SelectValue placeholder="Select budget range" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="under-500k">Under R 500,000</SelectItem>
+                                <SelectItem value="500k-1m">R 500,000 - R 1,000,000</SelectItem>
+                                <SelectItem value="1m-1.5m">R 1,000,000 - R 1,500,000</SelectItem>
+                                <SelectItem value="1.5m-2m">R 1,500,000 - R 2,000,000</SelectItem>
+                                <SelectItem value="over-2m">Over R 2,000,000</SelectItem>
+                                <SelectItem value="flexible">Flexible</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </div>
+                          <div>
+                            <Label htmlFor="financing-needed" className="mb-2 block">Financing Needed?</Label>
+                            <Select
+                              value={vehicleFormData.financingNeeded}
+                              onValueChange={(value) => setVehicleFormData({ ...vehicleFormData, financingNeeded: value })}
+                            >
+                              <SelectTrigger className="bg-background">
+                                <SelectValue placeholder="Select option" />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="yes">Yes, I need financing</SelectItem>
+                                <SelectItem value="no">No, cash purchase</SelectItem>
+                                <SelectItem value="maybe">Maybe, need more info</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </div>
+                        </div>
+
+                        <div>
+                          <Label htmlFor="trade-in" className="mb-2 block">Trade-In Vehicle</Label>
+                          <Input
+                            id="trade-in"
+                            value={vehicleFormData.tradeIn}
+                            onChange={(e) => setVehicleFormData({ ...vehicleFormData, tradeIn: e.target.value })}
+                            placeholder="e.g., 2020 BMW 3 Series"
+                            className="bg-background"
+                          />
+                        </div>
+
+                        <div>
+                          <Label htmlFor="vehicle-message" className="mb-2 block">Additional Information</Label>
+                          <Textarea
+                            id="vehicle-message"
+                            value={vehicleFormData.message}
+                            onChange={(e) => setVehicleFormData({ ...vehicleFormData, message: e.target.value })}
+                            placeholder="Tell us about your preferences, timeline, or any specific requirements..."
+                            rows={4}
+                            className="bg-background resize-none"
+                          />
+                        </div>
+
+                        <Button type="submit" size="lg" className="w-full md:w-auto">
+                          <Send className="mr-2" size={18} />
+                          Send Vehicle Inquiry
+                        </Button>
+                      </form>
+                    </CardContent>
+                  </Card>
+                </TabsContent>
+              </Tabs>
+            </div>
+
+            {/* Contact Info */}
+            <div>
+              <h2 className="text-3xl font-black text-foreground mb-2">Contact Information</h2>
+              <p className="text-muted-foreground mb-8">
+                Reach out to us through any of these channels.
+              </p>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12">
+                {contactInfo.map((info, index) => {
+                  const Icon = info.icon;
+                  return (
+                    <div
+                      key={info.title}
+                      className="bg-background rounded-xl p-6 animate-fade-in"
+                      style={{ animationDelay: `${index * 0.1}s` }}
+                    >
+                      <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
+                        <Icon size={24} className="text-primary" />
+                      </div>
+                      <h3 className="font-bold text-foreground mb-2">{info.title}</h3>
+                      <div className="space-y-1">
+                        {info.details.map((detail, idx) => (
+                          <p key={idx} className="text-muted-foreground text-sm">{detail}</p>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Map Placeholder */}
+              <div className="bg-secondary rounded-xl h-64 flex items-center justify-center">
+                <div className="text-center">
+                  <MapPin size={48} className="mx-auto text-muted-foreground/30 mb-2" />
+                  <p className="text-muted-foreground">Interactive Map</p>
+                  <p className="text-muted-foreground text-sm">123 Motor Lane, New York, NY</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <Footer />
+    </div>
+  );
+};
+
+export default Contact;
