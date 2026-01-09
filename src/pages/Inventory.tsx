@@ -11,7 +11,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Car as CarIcon, X, ChevronDown, Loader2, SlidersHorizontal, Search, ChevronUp } from 'lucide-react';
+import { Car as CarIcon, X, ChevronDown, Loader2, SlidersHorizontal, Search, ChevronUp, Phone } from 'lucide-react';
 import { getCarService } from '@/lib/supabase-lazy';
 import { setPageTitle, setPageDescription, addJsonLd, generateCollectionSchema } from '@/lib/seo';
 
@@ -498,21 +498,76 @@ const Inventory = () => {
             {/* Content Area */}
             <div className="space-y-8">
               {/* Header */}
-              <div className="bg-card rounded-xl p-6 shadow-sm">
-                <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
-                  <div className="flex items-center gap-4">
-                    <h1 className="text-3xl font-black text-foreground">Browse Cars</h1>
+              <div className="bg-gradient-to-br from-card to-secondary rounded-xl p-6 shadow-md border border-border">
+                <div className="flex flex-col gap-5">
+                  {/* Title and Count */}
+                  <div className="flex items-center gap-3">
+                    <h1 className="text-2xl md:text-3xl font-black text-foreground">Browse Cars</h1>
                     <span className="bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-bold">
                       {filteredCars.length}
                     </span>
                   </div>
-                  <p className="text-muted-foreground hidden md:block">
+
+                  {/* Description */}
+                  <p className="text-muted-foreground text-sm md:text-base leading-relaxed">
                     Explore our premium collection of luxury and performance cars
                   </p>
+
+                  {/* Contact Details - Mobile */}
+                  <div className="lg:hidden flex flex-col gap-3 pt-3 border-t border-border">
+                    <div className="flex items-center gap-2">
+                      <Phone size={18} className="text-primary flex-shrink-0" />
+                      <div className="flex flex-col">
+                        <span className="text-xs text-muted-foreground">Call us</span>
+                        <a href="tel:0608579146" className="text-sm font-semibold text-foreground hover:text-primary transition-colors">
+                          060 857 9146
+                        </a>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
-                {/* Mobile Filter Button */}
-                <div className="lg:hidden mb-6">
+                {/* Vehicle Types Filter - Mobile */}
+                <div className="lg:hidden mt-6">
+                  <button
+                    onClick={() => setShowVehicleTypes(!showVehicleTypes)}
+                    className="w-full flex items-center justify-between text-foreground hover:text-primary transition-colors mb-3 px-1"
+                  >
+                    <span className="text-sm font-semibold">Filter by Vehicle Type</span>
+                    {showVehicleTypes ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
+                  </button>
+                  
+                  {showVehicleTypes && (
+                    <div className="grid grid-cols-4 gap-2 animate-fade-in">
+                      {carTypes.map((type) => (
+                        <button
+                          key={type.value}
+                          onClick={() => setSelectedType(type.value)}
+                          className={`relative flex flex-col items-center justify-center p-3 rounded-lg border-2 transition-all ${
+                            selectedType === type.value
+                              ? 'bg-primary border-primary text-primary-foreground shadow-md'
+                              : 'bg-secondary border-border hover:border-primary/50'
+                          }`}
+                        >
+                          <span className="absolute -top-1.5 -right-1.5 bg-primary text-primary-foreground w-4 h-4 rounded-full flex items-center justify-center text-xs font-bold shadow-md">
+                            {getTypeCount(type.value)}
+                          </span>
+                          <img 
+                            src={type.image} 
+                            alt={type.label}
+                            className={`w-6 h-6 mb-1 object-contain dark:invert ${
+                              selectedType === type.value ? 'brightness-0 invert dark:brightness-100 dark:invert-0' : ''
+                            }`}
+                          />
+                          <span className="text-xs font-medium text-center leading-tight">{type.label}</span>
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+
+                {/* Filter Button - Mobile */}
+                <div className="lg:hidden mt-6">
                   <Button 
                     onClick={() => setShowMobileFilters(true)}
                     variant="outline" 
@@ -523,44 +578,37 @@ const Inventory = () => {
                   </Button>
                 </div>
 
-                {/* Car Type Filter with Collapsible */}
-                <div className="border-t border-border pt-6">
-                  <button
-                    onClick={() => setShowMainVehicleTypes(!showMainVehicleTypes)}
-                    className="w-full flex items-center justify-center gap-2 text-foreground hover:text-primary transition-colors mb-4"
-                  >
-                    <span className="text-base font-semibold">Filter by Car Type</span>
-                    {showMainVehicleTypes ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
-                  </button>
-                  
-                  {showMainVehicleTypes && (
-                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-7 gap-3">
-                      {carTypes.map((type) => (
-                        <button
-                          key={type.value}
-                          onClick={() => setSelectedType(type.value)}
-                          className={`relative flex flex-col items-center justify-center p-4 rounded-xl border-2 transition-all hover:scale-105 ${
-                            selectedType === type.value
-                              ? 'bg-primary border-primary text-primary-foreground shadow-lg'
-                              : 'bg-card border-border hover:border-primary/50'
+                {/* Vehicle Types Filter - Desktop */}
+                <div className="hidden lg:block border-t border-border pt-6">
+                  <h3 className="text-base font-semibold text-foreground mb-4">Filter by Vehicle Type</h3>
+                  <div className="grid grid-cols-7 gap-2">
+                    {carTypes.map((type) => (
+                      <button
+                        key={type.value}
+                        onClick={() => setSelectedType(type.value)}
+                        className={`relative flex flex-col items-center justify-center p-2 rounded-lg border-2 transition-all hover:scale-105 ${
+                          selectedType === type.value
+                            ? 'bg-primary border-primary text-primary-foreground shadow-lg'
+                            : 'bg-card border-border hover:border-primary/50'
+                        }`}
+                      >
+                        <span className="absolute -top-1.5 -right-1.5 bg-primary text-primary-foreground w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold shadow-md">
+                          {getTypeCount(type.value)}
+                        </span>
+                        <img 
+                          src={type.image} 
+                          alt={type.label}
+                          className={`w-6 h-6 mb-1 object-contain dark:invert ${
+                            selectedType === type.value ? 'brightness-0 invert dark:brightness-100 dark:invert-0' : ''
                           }`}
-                        >
-                          <span className="absolute -top-2 -right-2 bg-primary text-primary-foreground w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shadow-md">
-                            {getTypeCount(type.value)}
-                          </span>
-                          <img 
-                            src={type.image} 
-                            alt={type.label}
-                            className={`w-12 h-12 mb-2 object-contain ${
-                              selectedType === type.value ? 'brightness-0 invert' : ''
-                            }`}
-                          />
-                          <span className="text-xs font-medium text-center leading-tight">{type.label}</span>
-                        </button>
-                      ))}
-                    </div>
-                  )}
+                        />
+                        <span className="text-xs font-medium text-center leading-tight">{type.label}</span>
+                      </button>
+                    ))}
+                  </div>
                 </div>
+
+
               </div>
 
               {/* Cars Grid */}
@@ -650,6 +698,51 @@ const Inventory = () => {
                 </div>
               </div>
 
+              {/* Vehicle Types Dropdown */}
+              <div className="filter-section">
+                <button
+                  onClick={() => setShowVehicleTypes(!showVehicleTypes)}
+                  className="w-full flex items-center justify-between text-foreground hover:text-primary transition-colors mb-4"
+                >
+                  <span className="text-base font-semibold">Vehicle Type</span>
+                  {showVehicleTypes ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+                </button>
+                
+                {showVehicleTypes && (
+                  <div className="grid grid-cols-2 gap-2 animate-fade-in">
+                    {carTypes.map((type) => (
+                      <button
+                        key={type.value}
+                        onClick={() => {
+                          setSelectedType(type.value);
+                          setShowMobileFilters(false);
+                        }}
+                        className={`flex flex-col items-center gap-2 p-3 rounded-lg border-2 transition-all ${
+                          selectedType === type.value
+                            ? 'bg-primary border-primary text-primary-foreground'
+                            : 'bg-card border-border hover:border-primary/50'
+                        }`}
+                      >
+                        <img 
+                          src={type.image} 
+                          alt={type.label}
+                          className={`w-8 h-8 object-contain dark:invert ${
+                            selectedType === type.value ? 'brightness-0 invert dark:brightness-100 dark:invert-0' : ''
+                          }`}
+                        />
+                        <span className="text-xs font-medium text-center leading-tight">{type.label}</span>
+                        <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${
+                          selectedType === type.value
+                            ? 'bg-primary-foreground/20'
+                            : 'bg-muted'
+                        }`}>
+                          {getTypeCount(type.value)}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
               {/* Make and Model */}
               <div className="filter-section">
                 <div className="filter-title">
