@@ -9,7 +9,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import CarCard, { Car } from '@/components/CarCard';
-import { carService } from '@/lib/supabase';
+import { getCarService } from '@/lib/supabase-lazy';
 import { setPageTitle, setPageDescription, setPageImage, addJsonLd, clearJsonLd, generateCarSchema, generateBreadcrumbSchema } from '@/lib/seo';
 import {
   Heart,
@@ -60,6 +60,7 @@ const VehicleDetail = () => {
     console.log('loadVehicle called with ID:', carId);
     setLoading(true);
     try {
+      const carService = await getCarService();
       const carData = await carService.getCarById(carId);
       console.log('Loaded car data:', carData);
       
@@ -160,6 +161,7 @@ const VehicleDetail = () => {
 
   const loadRelatedCars = async (make: string) => {
     try {
+      const carService = await getCarService();
       const allCars = await carService.getAllCars();
       // Filter cars by same make, exclude current car, limit to 3
       const related = allCars

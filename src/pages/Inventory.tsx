@@ -12,7 +12,7 @@ import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Car as CarIcon, X, ChevronDown, Loader2, SlidersHorizontal, Search, ChevronUp } from 'lucide-react';
-import { carService } from '@/lib/supabase';
+import { getCarService } from '@/lib/supabase-lazy';
 import { setPageTitle, setPageDescription, addJsonLd, generateCollectionSchema } from '@/lib/seo';
 
 const brands = [
@@ -82,6 +82,7 @@ const Inventory = () => {
   const loadCars = async () => {
     setLoading(true);
     try {
+      const carService = await getCarService();
       const data = await carService.getAllCars();
       console.log('Loaded cars from Supabase:', data);
       
