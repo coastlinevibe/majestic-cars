@@ -43,20 +43,29 @@ const Footer = () => {
             </p>
             <div className="flex gap-4">
               <a
-                href="#"
+                href="https://facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors"
+                aria-label="Visit our Facebook page"
               >
                 <Facebook size={20} className="text-white" />
               </a>
               <a
-                href="#"
+                href="https://twitter.com"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors"
+                aria-label="Visit our Twitter page"
               >
                 <Twitter size={20} className="text-white" />
               </a>
               <a
-                href="#"
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors"
+                aria-label="Visit our Instagram page"
               >
                 <Instagram size={20} className="text-white" />
               </a>
@@ -65,7 +74,7 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-white font-bold mb-6">Quick Links</h4>
+            <h3 className="text-white font-bold mb-6">Quick Links</h3>
             <ul className="space-y-3">
               {quickLinks.map((link) => (
                 <li key={link.name}>
@@ -82,8 +91,8 @@ const Footer = () => {
           </div>
 
           {/* Services */}
-          <div>
-            <h4 className="text-white font-bold mb-6">Services</h4>
+          <div id="services">
+            <h3 className="text-white font-bold mb-6">Services</h3>
             <ul className="space-y-3">
               {services.map((service) => (
                 <li key={service}>
@@ -98,7 +107,7 @@ const Footer = () => {
 
           {/* Support & Contact */}
           <div>
-            <h4 className="text-white font-bold mb-6">Support</h4>
+            <h3 className="text-white font-bold mb-6">Support</h3>
             <ul className="space-y-3 mb-8">
               {support.map((item) => (
                 <li key={item.name}>
@@ -113,7 +122,7 @@ const Footer = () => {
               ))}
             </ul>
 
-            <h4 className="text-white font-bold mb-4">Contact Info</h4>
+            <h3 className="text-white font-bold mb-4">Contact Info</h3>
             <div className="space-y-3">
               <div className="flex items-center gap-3 text-muted-foreground text-sm">
                 <Phone size={16} className="text-primary" />
@@ -144,7 +153,7 @@ const Footer = () => {
           <div className="flex gap-6 text-muted-foreground text-sm">
             <Link to="/terms-of-service" className="hover:text-primary transition-colors">Terms of Service</Link>
             <Link to="/privacy-policy" className="hover:text-primary transition-colors">Privacy Policy</Link>
-            <Link to="#" className="hover:text-primary transition-colors">Cookie Policy</Link>
+            <Link to="/cookies" className="hover:text-primary transition-colors">Cookie Policy</Link>
           </div>
         </div>
       </div>

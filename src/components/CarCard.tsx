@@ -106,6 +106,7 @@ const CarCard = ({ car, onCompare, isInCompare = false }: CarCardProps) => {
                 ? 'bg-primary border-primary text-primary-foreground'
                 : 'border-primary text-primary hover:bg-primary hover:text-primary-foreground'
             }`}
+            aria-label={isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
           >
             <Heart size={18} fill={isWishlisted ? 'currentColor' : 'none'} />
           </button>

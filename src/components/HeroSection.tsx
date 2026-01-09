@@ -180,7 +180,7 @@ const HeroSection = () => {
           >
             <div className="glass-card rounded-2xl p-8">
               <nav className="space-y-4 mb-8">
-                {['Browse Cars', 'About Us', 'Services', 'Contact'].map((item, idx) => (
+                {['Browse Cars', 'About Us', 'FAQ', 'Contact'].map((item, idx) => (
                   <motion.div
                     key={item}
                     custom={idx}
@@ -189,7 +189,7 @@ const HeroSection = () => {
                     animate="visible"
                   >
                     <Link
-                      to={item === 'Services' ? '/#services' : `/${item.toLowerCase().replace(' ', '-')}`}
+                      to={item === 'FAQ' ? '/faq' : item === 'Browse Cars' ? '/inventory' : `/${item.toLowerCase().replace(' ', '-')}`}
                       className="flex items-center justify-between py-4 px-4 rounded-lg hover:bg-white/10 transition-colors text-white group"
                     >
                       <span className="font-medium">{item}</span>

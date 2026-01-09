@@ -47,6 +47,7 @@ const WhatsAppWidget = () => {
               <button
                 onClick={() => setIsOpen(false)}
                 className="text-muted-foreground hover:text-foreground"
+                aria-label="Close chat popup"
               >
                 <X size={20} />
               </button>
@@ -72,6 +73,7 @@ const WhatsAppWidget = () => {
         whileTap={{ scale: 0.95 }}
         onClick={() => setIsOpen(!isOpen)}
         className="w-14 h-14 bg-[#25D366] hover:bg-[#20BA5A] text-white rounded-full shadow-lg flex items-center justify-center transition-colors"
+        aria-label={isOpen ? "Close WhatsApp chat" : "Open WhatsApp chat"}
       >
         {isOpen ? <X size={24} /> : <MessageCircle size={24} />}
       </motion.button>
