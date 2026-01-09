@@ -36,7 +36,7 @@ const CarCard = ({ car, onCompare, isInCompare = false }: CarCardProps) => {
         <img
           src={car.image}
           alt={car.name}
-          className="w-full h-[220px] object-contain bg-secondary rounded-[14px] p-2"
+          className="w-full h-[220px] object-cover bg-secondary rounded-[9px]"
         />
         {onCompare && (
           <button
