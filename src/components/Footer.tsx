@@ -39,6 +39,9 @@ const Footer = () => {
             <p className="text-muted-foreground text-sm leading-relaxed mb-6">
               Best selection of quality second-hand cars. Carefully inspected vehicles that look great and drive even better.
             </p>
+            <p className="text-primary text-sm font-medium mb-6">
+              www.majesticars.com
+            </p>
             <div className="flex gap-4">
               <a
                 href="https://facebook.com"
@@ -128,7 +131,7 @@ const Footer = () => {
               </div>
               <div className="flex items-center gap-3 text-muted-foreground text-sm">
                 <Mail size={16} className="text-primary" />
-                <span>info@majesticcars.co.za</span>
+                <span>majesticcarssinoville@gmail.com</span>
               </div>
               <div className="flex items-start gap-3 text-muted-foreground text-sm">
                 <MapPin size={16} className="text-primary mt-0.5" />
@@ -145,7 +148,7 @@ const Footer = () => {
               © 2026 Majesticars. All rights reserved.
             </p>
             <p className="text-muted-foreground text-sm">
-              Powered by <a href="https://wabi-sabi.click" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Wabi-sabi systems</a>
+              Powered by <a href="https://wabi-sabi.click" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Wabi-Sabi Systems</a>
             </p>
           </div>
         </div>

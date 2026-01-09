@@ -162,8 +162,9 @@ const PrivacyPolicy = () => {
                   <p>154 Sefako Makgatho Service Ln</p>
                   <p>Sinoville, Pretoria, 0129</p>
                   <p>South Africa</p>
-                  <p className="mt-2">Email: privacy@majesticcars.co.za</p>
+                  <p className="mt-2">Email: majesticcarssinoville@gmail.com</p>
                   <p>Phone: 060 857 9146</p>
+                  <p className="mt-2 text-primary">www.majesticars.com</p>
                 </div>
               </section>
             </div>

@@ -64,8 +64,6 @@ const Admin = () => {
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
   const [carToDelete, setCarToDelete] = useState<string | null>(null);
   const [userEmail, setUserEmail] = useState<string>('');
-  const [widgetType, setWidgetType] = useState<'chatbot' | 'whatsapp'>('chatbot');
-  const [whatsappNumber, setWhatsappNumber] = useState('0608579146');
 
   // Mock data for demonstration
   const analyticsData = {
@@ -88,7 +86,6 @@ const Admin = () => {
   useEffect(() => {
     loadCars();
     loadUser();
-    loadGlobalSettings();
   }, []);
 
   // Filter cars based on search and status
@@ -222,47 +219,6 @@ const Admin = () => {
 
   const formatPrice = (price: number) => `R ${price?.toLocaleString() || 0}`;
 
-  const loadGlobalSettings = async () => {
-    const settings = await globalSettingsService.getSettings();
-    if (settings) {
-      setWidgetType(settings.widget_type);
-      setWhatsappNumber(settings.whatsapp_number);
-    }
-  };
-
-  const handleWidgetTypeChange = async (type: 'chatbot' | 'whatsapp') => {
-    const success = await globalSettingsService.setWidgetType(type);
-    if (success) {
-      setWidgetType(type);
-      toast({
-        title: 'Widget Updated',
-        description: `Switched to ${type === 'chatbot' ? 'AI Chatbot' : 'WhatsApp'} widget globally.`,
-      });
-    } else {
-      toast({
-        title: 'Error',
-        description: 'Failed to update widget type.',
-        variant: 'destructive',
-      });
-    }
-  };
-
-  const handleSaveWhatsAppNumber = async () => {
-    const success = await globalSettingsService.setWhatsAppNumber(whatsappNumber);
-    if (success) {
-      toast({
-        title: 'Saved',
-        description: 'WhatsApp number updated globally.',
-      });
-    } else {
-      toast({
-        title: 'Error',
-        description: 'Failed to save WhatsApp number.',
-        variant: 'destructive',
-      });
-    }
-  };
-
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -291,7 +247,7 @@ const Admin = () => {
 
           {/* Main Tabs */}
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-4 mb-8">
+            <TabsList className="grid w-full grid-cols-3 mb-8">
               <TabsTrigger value="analytics" className="flex items-center gap-2">
                 <BarChart3 className="w-4 h-4" />
                 Analytics
@@ -303,10 +259,6 @@ const Admin = () => {
               <TabsTrigger value="inquiries" className="flex items-center gap-2">
                 <MessageSquare className="w-4 h-4" />
                 Inquiries
-              </TabsTrigger>
-              <TabsTrigger value="settings" className="flex items-center gap-2">
-                <Settings className="w-4 h-4" />
-                Settings
               </TabsTrigger>
             </TabsList>
 
@@ -684,89 +636,6 @@ const Admin = () => {
               </Card>
             </TabsContent>
 
-            {/* Settings Tab */}
-            <TabsContent value="settings" className="space-y-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Widget Settings</CardTitle>
-                  <CardDescription>
-                    Configure the chat widget displayed on your website
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <div className="space-y-4">
-                    <Label>Widget Type</Label>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div
-                        onClick={() => handleWidgetTypeChange('chatbot')}
-                        className={`cursor-pointer border-2 rounded-lg p-6 transition-all ${
-                          widgetType === 'chatbot'
-                            ? 'border-primary bg-primary/5'
-                            : 'border-border hover:border-primary/50'
-                        }`}
-                      >
-                        <div className="flex items-center gap-4">
-                          <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center">
-                            <MessageSquare className="w-6 h-6 text-primary-foreground" />
-                          </div>
-                          <div>
-                            <h3 className="font-semibold">AI Chatbot</h3>
-                            <p className="text-sm text-muted-foreground">
-                              Automated chat assistant
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div
-                        onClick={() => handleWidgetTypeChange('whatsapp')}
-                        className={`cursor-pointer border-2 rounded-lg p-6 transition-all ${
-                          widgetType === 'whatsapp'
-                            ? 'border-primary bg-primary/5'
-                            : 'border-border hover:border-primary/50'
-                        }`}
-                      >
-                        <div className="flex items-center gap-4">
-                          <div className="w-12 h-12 bg-[#25D366] rounded-full flex items-center justify-center">
-                            <MessageSquare className="w-6 h-6 text-white" />
-                          </div>
-                          <div>
-                            <h3 className="font-semibold">WhatsApp</h3>
-                            <p className="text-sm text-muted-foreground">
-                              Direct WhatsApp chat
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {widgetType === 'whatsapp' && (
-                    <div className="space-y-2">
-                      <Label htmlFor="whatsapp-number">WhatsApp Number</Label>
-                      <Input
-                        id="whatsapp-number"
-                        value={whatsappNumber}
-                        onChange={(e) => setWhatsappNumber(e.target.value)}
-                        placeholder="0608579146"
-                      />
-                      <p className="text-sm text-muted-foreground">
-                        Enter your WhatsApp number (with country code if international)
-                      </p>
-                      <Button onClick={handleSaveWhatsAppNumber} className="mt-2">
-                        Save Number
-                      </Button>
-                    </div>
-                  )}
-
-                  <div className="pt-4 border-t">
-                    <p className="text-sm text-muted-foreground">
-                      The widget will appear in the bottom-right corner of your website. Changes take effect immediately.
-                    </p>
-                  </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
           </Tabs>
         </div>
       </main>

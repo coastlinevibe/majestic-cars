@@ -80,12 +80,12 @@ const Contact = () => {
     {
       icon: Mail,
       title: 'Email Us',
-      details: ['info@majesticcars.co.za', 'sales@majesticcars.co.za', 'support@majesticcars.co.za'],
+      details: ['majesticcarssinoville@gmail.com'],
     },
     {
       icon: Clock,
       title: 'Working Hours',
-      details: ['Monday - Friday: 9AM - 6PM', 'Saturday: 10AM - 4PM', 'Sunday: Closed'],
+      details: ['Monday - Friday: 9AM - 6PM', 'Saturday: 10AM - 4PM', 'Sunday: Closed', 'www.majesticars.com'],
     },
   ];
 

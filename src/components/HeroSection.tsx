@@ -211,7 +211,7 @@ const HeroSection = () => {
                       <Mail size={18} className="text-primary-foreground" />
                     </div>
                     <p className="text-white/60 text-xs">Email</p>
-                    <p className="text-white text-xs font-medium truncate">info@majesticcars.co.za</p>
+                    <p className="text-white text-xs font-medium truncate">majesticcarssinoville@gmail.com</p>
                   </div>
                   <div className="text-center">
                     <div className="w-10 h-10 mx-auto bg-primary rounded-lg flex items-center justify-center mb-2">

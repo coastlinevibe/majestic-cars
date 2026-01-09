@@ -57,21 +57,21 @@ const FAQ = () => {
             Find answers to common questions about our vehicles, services, and policies.
           </p>
           
-          {/* Chatbot Promotion */}
-          <div className="bg-primary/10 border border-primary/20 rounded-xl p-6 max-w-2xl mx-auto">
+          {/* WhatsApp Promotion */}
+          <div className="bg-[#25D366]/10 border border-[#25D366]/20 rounded-xl p-6 max-w-2xl mx-auto">
             <div className="flex items-center justify-center gap-3 mb-3">
-              <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-sm">S</span>
+              <div className="w-8 h-8 bg-[#25D366] rounded-full flex items-center justify-center">
+                <span className="text-white font-bold text-sm">W</span>
               </div>
               <h3 className="text-lg font-semibold text-foreground">Need Instant Answers?</h3>
             </div>
             <p className="text-foreground/80 mb-4">
-              Skip browsing through FAQs! Our Majesticars Assistant provides immediate answers to all your questions. 
+              Skip browsing through FAQs! Connect with us directly on WhatsApp for immediate answers to all your questions. 
               No waiting, no searching - just instant, personalized help.
             </p>
-            <div className="flex items-center justify-center gap-2 text-sm text-primary font-medium">
+            <div className="flex items-center justify-center gap-2 text-sm text-[#25D366] font-medium">
               <span>💬</span>
-              <span>Chat with our bot now - it's faster than reading FAQs!</span>
+              <span>Connect with us now on WhatsApp - it's faster than reading FAQs!</span>
               <span>⚡</span>
             </div>
           </div>

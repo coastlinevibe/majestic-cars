@@ -1,22 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { MessageCircle, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { globalSettingsService } from '@/lib/globalSettings';
 
 const WhatsAppWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [whatsappNumber, setWhatsappNumber] = useState('0608579146');
-
-  useEffect(() => {
-    loadNumber();
-  }, []);
-
-  const loadNumber = async () => {
-    const settings = await globalSettingsService.getSettings();
-    if (settings) {
-      setWhatsappNumber(settings.whatsapp_number);
-    }
-  };
+  const whatsappNumber = '0608579146';
 
   const handleWhatsAppClick = () => {
     const formattedNumber = whatsappNumber.replace(/\D/g, '');

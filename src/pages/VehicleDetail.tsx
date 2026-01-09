@@ -421,7 +421,7 @@ const VehicleDetail = () => {
                   </div>
                   <div className="flex items-center gap-3 text-muted-foreground">
                     <Mail size={18} className="text-primary" />
-                    <span>sales@majesticcars.co.za</span>
+                    <span>majesticcarssinoville@gmail.com</span>
                   </div>
                   <div className="flex items-center gap-3 text-muted-foreground">
                     <Clock size={18} className="text-primary" />
