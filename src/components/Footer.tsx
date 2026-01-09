@@ -24,8 +24,8 @@ const Footer = () => {
 
   return (
     <footer className="bg-black text-white">
-      <div className="sterling-container py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+      <div className="sterling-container py-12 md:py-16 px-4 md:px-0">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
           {/* Brand Column */}
           <div>
             <Link to="/" className="flex items-center gap-3 mb-6">
@@ -142,7 +142,7 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-card/10 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="border-t border-card/10 mt-8 md:mt-12 pt-6 md:pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
           <div className="flex flex-col md:flex-row items-center gap-4">
             <p className="text-muted-foreground text-sm">
               © 2026 Majesticars. All rights reserved.

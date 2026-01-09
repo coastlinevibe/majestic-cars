@@ -42,7 +42,7 @@ const CarManagementDialog = ({ open, onOpenChange, car, onSuccess }: CarManageme
     model: '',
     year: new Date().getFullYear(),
     price: 0,
-    body_type: '',
+    body_type: 'Sedan',
     mileage: 0,
     fuel_type: 'Petrol',
     transmission: 'Automatic',
@@ -87,7 +87,7 @@ const CarManagementDialog = ({ open, onOpenChange, car, onSuccess }: CarManageme
         model: '',
         year: new Date().getFullYear(),
         price: 0,
-        body_type: '',
+        body_type: 'Sedan',
         mileage: 0,
         fuel_type: 'Petrol',
         transmission: 'Automatic',
@@ -390,8 +390,8 @@ const CarManagementDialog = ({ open, onOpenChange, car, onSuccess }: CarManageme
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Basic Information */}
           <div className="space-y-4">
-            <h3 className="font-semibold text-lg">Basic Information</h3>
-            <div className="grid grid-cols-2 gap-4">
+            <h3 className="font-semibold text-base md:text-lg">Basic Information</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
               <div>
                 <Label htmlFor="make">Make</Label>
                 <Input
@@ -430,12 +430,22 @@ const CarManagementDialog = ({ open, onOpenChange, car, onSuccess }: CarManageme
               </div>
               <div>
                 <Label htmlFor="body_type">Body Type</Label>
-                <Input
-                  id="body_type"
+                <Select
                   value={formData.body_type}
-                  onChange={(e) => setFormData({ ...formData, body_type: capitalizeWords(e.target.value) })}
-                  placeholder="e.g., Coupe, Sedan, SUV"
-                />
+                  onValueChange={(value) => setFormData({ ...formData, body_type: value })}
+                >
+                  <SelectTrigger id="body_type">
+                    <SelectValue placeholder="Select body type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Hatchback">Hatchback</SelectItem>
+                    <SelectItem value="SUV">SUV</SelectItem>
+                    <SelectItem value="Single Cab">Single Cab</SelectItem>
+                    <SelectItem value="Double Cab">Double Cab</SelectItem>
+                    <SelectItem value="Sedan">Sedan</SelectItem>
+                    <SelectItem value="Coupe">Coupe</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
               <div>
                 <Label htmlFor="mileage">Mileage (km)</Label>
@@ -508,8 +518,8 @@ const CarManagementDialog = ({ open, onOpenChange, car, onSuccess }: CarManageme
 
           {/* Performance Specs */}
           <div className="space-y-4">
-            <h3 className="font-semibold text-lg">Performance Specifications</h3>
-            <div className="grid grid-cols-2 gap-4">
+            <h3 className="font-semibold text-base md:text-lg">Performance Specifications</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
               <div>
                 <Label htmlFor="engine">Engine</Label>
                 <Input
@@ -533,8 +543,8 @@ const CarManagementDialog = ({ open, onOpenChange, car, onSuccess }: CarManageme
 
           {/* Appearance */}
           <div className="space-y-4">
-            <h3 className="font-semibold text-lg">Appearance</h3>
-            <div className="grid grid-cols-2 gap-4">
+            <h3 className="font-semibold text-base md:text-lg">Appearance</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
               <div>
                 <Label htmlFor="color">Exterior Color</Label>
                 <Input
@@ -643,7 +653,7 @@ const CarManagementDialog = ({ open, onOpenChange, car, onSuccess }: CarManageme
                 <p className="text-sm text-muted-foreground mb-2">
                   {images.length} image(s) • Drag to reorder • First image will be the main display
                 </p>
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-3">
                   {images.map((image, index) => (
                     <div
                       key={index}

@@ -224,14 +224,14 @@ const Admin = () => {
       <Navbar />
       
       <main className="pt-20">
-        <div className="sterling-container py-8">
+        <div className="sterling-container py-6 md:py-8 px-4 md:px-6">
           {/* Header */}
-          <div className="mb-8 flex items-center justify-between">
+          <div className="mb-6 md:mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
-              <h1 className="text-3xl font-bold text-foreground mb-2">Admin Dashboard</h1>
-              <p className="text-muted-foreground">Manage your Majesticars platform</p>
+              <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-2">Admin Dashboard</h1>
+              <p className="text-sm md:text-base text-muted-foreground">Manage your Majesticars platform</p>
             </div>
-            <div className="flex items-center gap-4">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 md:gap-4">
               {userEmail && (
                 <div className="text-right">
                   <p className="text-sm text-muted-foreground">Signed in as</p>
@@ -247,25 +247,28 @@ const Admin = () => {
 
           {/* Main Tabs */}
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-3 mb-8">
-              <TabsTrigger value="analytics" className="flex items-center gap-2">
-                <BarChart3 className="w-4 h-4" />
-                Analytics
+            <TabsList className="grid w-full grid-cols-3 mb-6 md:mb-8 h-auto">
+              <TabsTrigger value="analytics" className="flex items-center gap-1 md:gap-2 text-xs md:text-sm py-2 md:py-3">
+                <BarChart3 className="w-3 h-3 md:w-4 md:h-4" />
+                <span className="hidden sm:inline">Analytics</span>
+                <span className="sm:hidden">Stats</span>
               </TabsTrigger>
-              <TabsTrigger value="inventory" className="flex items-center gap-2">
-                <Car className="w-4 h-4" />
-                Inventory
+              <TabsTrigger value="inventory" className="flex items-center gap-1 md:gap-2 text-xs md:text-sm py-2 md:py-3">
+                <Car className="w-3 h-3 md:w-4 md:h-4" />
+                <span className="hidden sm:inline">Inventory</span>
+                <span className="sm:hidden">Cars</span>
               </TabsTrigger>
-              <TabsTrigger value="inquiries" className="flex items-center gap-2">
-                <MessageSquare className="w-4 h-4" />
-                Inquiries
+              <TabsTrigger value="inquiries" className="flex items-center gap-1 md:gap-2 text-xs md:text-sm py-2 md:py-3">
+                <MessageSquare className="w-3 h-3 md:w-4 md:h-4" />
+                <span className="hidden sm:inline">Inquiries</span>
+                <span className="sm:hidden">Leads</span>
               </TabsTrigger>
             </TabsList>
 
             {/* Analytics Tab */}
-            <TabsContent value="analytics" className="space-y-6">
+            <TabsContent value="analytics" className="space-y-4 md:space-y-6">
               {/* Key Metrics */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                 <Card>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-sm font-medium">Total Views</CardTitle>
@@ -346,7 +349,7 @@ const Admin = () => {
               </div>
 
               {/* Charts Section */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
                 <Card>
                   <CardHeader>
                     <CardTitle>Monthly Performance</CardTitle>
@@ -391,14 +394,14 @@ const Admin = () => {
               </div>
             </TabsContent>
             {/* Inventory Tab */}
-            <TabsContent value="inventory" className="space-y-6">
+            <TabsContent value="inventory" className="space-y-4 md:space-y-6">
               {/* Inventory Header */}
-              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 md:gap-4">
                 <div>
-                  <h2 className="text-2xl font-bold">Car Inventory</h2>
-                  <p className="text-muted-foreground">Manage your car listings</p>
+                  <h2 className="text-xl md:text-2xl font-bold">Car Inventory</h2>
+                  <p className="text-sm md:text-base text-muted-foreground">Manage your car listings</p>
                 </div>
-                <div className="flex gap-2">
+                <div className="flex flex-wrap gap-2 w-full sm:w-auto">
                   <Button variant="outline" size="sm" onClick={loadCars} disabled={loading}>
                     <RefreshCw className={`w-4 h-4 mr-2 ${loading ? 'animate-spin' : ''}`} />
                     Refresh
@@ -556,7 +559,7 @@ const Admin = () => {
               </div>
 
               {/* Inquiry Stats */}
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
                 <Card>
                   <CardContent className="pt-6">
                     <div className="text-2xl font-bold">24</div>

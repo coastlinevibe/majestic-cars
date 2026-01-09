@@ -3,9 +3,9 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import CTASection from '@/components/CTASection';
 import { Button } from '@/components/ui/button';
-import { Trophy, Heart, Shield, Rocket, CheckCircle } from 'lucide-react';
+import { Trophy, Heart, Shield, Rocket, CheckCircle, ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import aboutHeroImg from '@/assets/about-hero.jpg';
 
 const values = [
@@ -70,6 +70,25 @@ const About = () => {
   const valuesInView = useInView(valuesRef, { once: true, margin: '-100px' });
   const featuresInView = useInView(featuresRef, { once: true, margin: '-100px' });
 
+  const [valuesSlide, setValuesSlide] = useState(0);
+  const [featuresSlide, setFeaturesSlide] = useState(0);
+
+  const nextValuesSlide = () => {
+    setValuesSlide((prev) => (prev + 1) % values.length);
+  };
+
+  const prevValuesSlide = () => {
+    setValuesSlide((prev) => (prev - 1 + values.length) % values.length);
+  };
+
+  const nextFeaturesSlide = () => {
+    setFeaturesSlide((prev) => (prev + 1) % features.length);
+  };
+
+  const prevFeaturesSlide = () => {
+    setFeaturesSlide((prev) => (prev - 1 + features.length) % features.length);
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -84,12 +103,12 @@ const About = () => {
           style={{ backgroundImage: `url(${aboutHeroImg})` }}
         />
         <div className="hero-overlay" />
-        <div className="relative z-10 sterling-container text-center">
+        <div className="relative z-10 sterling-container text-center px-4">
           <motion.h1
             initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }}
             animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
             transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 0.4, 0.25, 1] }}
-            className="text-5xl md:text-7xl font-black text-white mb-4"
+            className="text-4xl md:text-5xl lg:text-7xl font-black text-white mb-4"
             style={{ fontFamily: 'serif', fontStyle: 'italic' }}
           >
             About Majesticars
@@ -98,7 +117,7 @@ const About = () => {
             initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
             animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
             transition={{ duration: 0.8, delay: 0.5, ease: [0.25, 0.4, 0.25, 1] }}
-            className="text-white/80 text-xl"
+            className="text-white/80 text-lg md:text-xl"
             style={{ fontStyle: 'italic' }}
           >
             Simple, Honest, Stress-Free
@@ -108,17 +127,17 @@ const About = () => {
 
       {/* Our Story */}
       <section ref={storyRef} className="section-padding bg-card">
-        <div className="sterling-container">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="sterling-container px-4">
+          <div className="grid lg:grid-cols-2 gap-12 md:gap-16 items-center">
             <motion.div
               initial={{ opacity: 0, x: -50, filter: 'blur(10px)' }}
               animate={storyInView ? { opacity: 1, x: 0, filter: 'blur(0px)' } : {}}
               transition={{ duration: 0.8, ease: [0.25, 0.4, 0.25, 1] }}
             >
-              <h2 className="text-4xl font-black text-foreground mb-4">Our Story</h2>
+              <h2 className="text-3xl md:text-4xl font-black text-foreground mb-4">Our Story</h2>
               <p className="text-muted-foreground mb-6">Building trust one customer at a time</p>
               
-              <div className="space-y-4 text-muted-foreground">
+              <div className="space-y-4 text-muted-foreground text-sm md:text-base">
                 <p>
                   Majesticars started as a passion project. I've been into cars for as long as I can remember — flipping my first car while still in my teens, learning everything hands-on, and building trust one customer at a time. What began as buying and selling a few cars turned into a full dealership before I even turned 20.
                 </p>
@@ -131,28 +150,30 @@ const About = () => {
               </div>
             </motion.div>
 
+            {/* Stats - 3 Column Grid on All Screens */}
             <motion.div
               initial={{ opacity: 0, x: 50 }}
               animate={storyInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.4, 0.25, 1] }}
-              className="space-y-8"
             >
-              {[
-                { value: '100%', label: 'Inspected Cars' },
-                { value: '500+', label: 'Happy Customers' },
-                { value: 'Fair', label: 'Pricing Always' },
-              ].map((stat, index) => (
-                <motion.div
-                  key={stat.label}
-                  initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
-                  animate={storyInView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
-                  transition={{ duration: 0.6, delay: 0.4 + index * 0.1 }}
-                  className="text-right"
-                >
-                  <div className="text-5xl font-black text-primary mb-1">{stat.value}</div>
-                  <div className="text-muted-foreground">{stat.label}</div>
-                </motion.div>
-              ))}
+              <div className="grid grid-cols-3 gap-4 md:gap-6">
+                {[
+                  { value: '100%', label: 'Inspected Cars' },
+                  { value: '500+', label: 'Happy Customers' },
+                  { value: 'Fair', label: 'Pricing Always' },
+                ].map((stat, index) => (
+                  <motion.div
+                    key={stat.label}
+                    initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
+                    animate={storyInView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
+                    transition={{ duration: 0.6, delay: 0.4 + index * 0.1 }}
+                    className="bg-background rounded-xl p-4 md:p-6 text-center"
+                  >
+                    <div className="text-3xl md:text-4xl lg:text-5xl font-black text-primary mb-1">{stat.value}</div>
+                    <div className="text-muted-foreground text-xs md:text-sm">{stat.label}</div>
+                  </motion.div>
+                ))}
+              </div>
             </motion.div>
           </div>
         </div>
@@ -165,13 +186,14 @@ const About = () => {
             initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }}
             animate={valuesInView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
             transition={{ duration: 0.8, ease: [0.25, 0.4, 0.25, 1] }}
-            className="text-center mb-12"
+            className="text-center mb-8 md:mb-12 px-4"
           >
-            <h2 className="text-4xl font-black text-foreground mb-4">Our Values</h2>
-            <p className="text-muted-foreground text-lg">What drives us every day</p>
+            <h2 className="text-3xl md:text-4xl font-black text-foreground mb-4">Our Values</h2>
+            <p className="text-muted-foreground text-base md:text-lg">What drives us every day</p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {/* Desktop Grid View */}
+          <div className="hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 px-4">
             {values.map((value, index) => {
               const Icon = value.icon;
               return (
@@ -196,23 +218,104 @@ const About = () => {
               );
             })}
           </div>
+
+          {/* Mobile Carousel View */}
+          <div className="md:hidden w-full">
+            <div className="overflow-hidden">
+              <motion.div
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.2}
+                onDragEnd={(e, { offset, velocity }) => {
+                  const swipe = offset.x * velocity.x;
+                  if (swipe < -500 || offset.x < -100) {
+                    nextValuesSlide();
+                  } else if (swipe > 500 || offset.x > 100) {
+                    prevValuesSlide();
+                  }
+                }}
+                animate={{ x: `-${valuesSlide * 100}%` }}
+                transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                className="flex cursor-grab active:cursor-grabbing"
+              >
+                {values.map((value) => {
+                  const Icon = value.icon;
+                  return (
+                    <div key={value.title} className="w-full flex-shrink-0 px-2">
+                      <div className="value-card">
+                        <div className="w-16 h-16 mx-auto bg-primary/10 rounded-xl flex items-center justify-center mb-4">
+                          <Icon size={32} className="text-primary" />
+                        </div>
+                        <h3 className="text-xl font-bold text-foreground mb-2">{value.title}</h3>
+                        <p className="text-muted-foreground text-sm">{value.description}</p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </motion.div>
+            </div>
+
+            {/* Carousel Controls - Below Card */}
+            <div className="flex justify-center items-center gap-4 mt-6 px-4">
+              <button
+                onClick={prevValuesSlide}
+                disabled={valuesSlide === 0}
+                className={`w-10 h-10 rounded-full flex items-center justify-center transition-all shadow-md ${
+                  valuesSlide === 0
+                    ? 'bg-muted text-muted-foreground cursor-not-allowed opacity-50'
+                    : 'bg-card hover:bg-primary hover:text-primary-foreground'
+                }`}
+                aria-label="Previous value"
+              >
+                <ChevronLeft size={20} />
+              </button>
+
+              {/* Dots Indicator */}
+              <div className="flex gap-2">
+                {values.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setValuesSlide(index)}
+                    className={`w-2 h-2 rounded-full transition-all ${
+                      index === valuesSlide ? 'bg-primary w-6' : 'bg-muted-foreground/30'
+                    }`}
+                    aria-label={`Go to slide ${index + 1}`}
+                  />
+                ))}
+              </div>
+
+              <button
+                onClick={nextValuesSlide}
+                disabled={valuesSlide === values.length - 1}
+                className={`w-10 h-10 rounded-full flex items-center justify-center transition-all shadow-md ${
+                  valuesSlide === values.length - 1
+                    ? 'bg-muted text-muted-foreground cursor-not-allowed opacity-50'
+                    : 'bg-card hover:bg-primary hover:text-primary-foreground'
+                }`}
+                aria-label="Next value"
+              >
+                <ChevronRight size={20} />
+              </button>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Why Choose Us */}
-      <section ref={featuresRef} className="section-padding bg-card">
-        <div className="sterling-container">
+      <section ref={featuresRef} className="section-padding bg-card md:px-8 px-0">
+        <div className="sterling-container md:px-0 px-0">
           <motion.div
             initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }}
             animate={featuresInView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
             transition={{ duration: 0.8, ease: [0.25, 0.4, 0.25, 1] }}
-            className="text-center mb-12"
+            className="text-center mb-8 md:mb-12 px-4"
           >
-            <h2 className="text-4xl font-black text-foreground mb-4">Why Choose Majesticars</h2>
-            <p className="text-muted-foreground text-lg">Simple, honest, and stress-free car buying</p>
+            <h2 className="text-3xl md:text-4xl font-black text-foreground mb-4">Why Choose Majesticars</h2>
+            <p className="text-muted-foreground text-base md:text-lg">Simple, honest, and stress-free car buying</p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Desktop Grid View */}
+          <div className="hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
             {features.map((feature, index) => (
               <motion.div
                 key={feature.title}
@@ -235,6 +338,85 @@ const About = () => {
                 </div>
               </motion.div>
             ))}
+          </div>
+
+          {/* Mobile Carousel View */}
+          <div className="md:hidden w-full">
+            <div className="overflow-hidden px-1">
+              <motion.div
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.2}
+                onDragEnd={(e, { offset, velocity }) => {
+                  const swipe = offset.x * velocity.x;
+                  if (swipe < -500 || offset.x < -100) {
+                    nextFeaturesSlide();
+                  } else if (swipe > 500 || offset.x > 100) {
+                    prevFeaturesSlide();
+                  }
+                }}
+                animate={{ x: `-${featuresSlide * 100}%` }}
+                transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+                className="flex cursor-grab active:cursor-grabbing"
+              >
+                {features.map((feature) => (
+                  <div key={feature.title} className="w-full flex-shrink-0">
+                    <div className="bg-card border border-border rounded-xl md:p-6 p-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md flex gap-4">
+                      <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <CheckCircle size={20} className="text-primary" />
+                      </div>
+                      <div>
+                        <h3 className="font-bold text-foreground mb-1">{feature.title}</h3>
+                        <p className="text-muted-foreground text-sm">{feature.description}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </motion.div>
+            </div>
+
+            {/* Carousel Controls - Below Card */}
+            <div className="flex justify-center items-center gap-4 mt-6">
+              <button
+                onClick={prevFeaturesSlide}
+                disabled={featuresSlide === 0}
+                className={`w-10 h-10 rounded-full flex items-center justify-center transition-all shadow-md ${
+                  featuresSlide === 0
+                    ? 'bg-muted text-muted-foreground cursor-not-allowed opacity-50'
+                    : 'bg-card hover:bg-primary hover:text-primary-foreground'
+                }`}
+                aria-label="Previous feature"
+              >
+                <ChevronLeft size={20} />
+              </button>
+
+              {/* Dots Indicator */}
+              <div className="flex gap-2">
+                {features.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setFeaturesSlide(index)}
+                    className={`w-2 h-2 rounded-full transition-all ${
+                      index === featuresSlide ? 'bg-primary w-6' : 'bg-muted-foreground/30'
+                    }`}
+                    aria-label={`Go to slide ${index + 1}`}
+                  />
+                ))}
+              </div>
+
+              <button
+                onClick={nextFeaturesSlide}
+                disabled={featuresSlide === features.length - 1}
+                className={`w-10 h-10 rounded-full flex items-center justify-center transition-all shadow-md ${
+                  featuresSlide === features.length - 1
+                    ? 'bg-muted text-muted-foreground cursor-not-allowed opacity-50'
+                    : 'bg-card hover:bg-primary hover:text-primary-foreground'
+                }`}
+                aria-label="Next feature"
+              >
+                <ChevronRight size={20} />
+              </button>
+            </div>
           </div>
         </div>
       </section>

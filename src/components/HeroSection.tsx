@@ -96,7 +96,7 @@ const HeroSection = () => {
         initial={{ scale: 1.1, filter: 'blur(5px)' }}
         animate={{ scale: 1, filter: 'blur(0px)' }}
         transition={{ duration: 1.5, ease: [0.25, 0.4, 0.25, 1] }}
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        className="absolute inset-0 bg-cover bg-left md:bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${heroImage})` }}
       />
       <div className="hero-overlay" />
@@ -157,7 +157,7 @@ const HeroSection = () => {
             {/* Trust Badges */}
             <motion.div
               variants={itemVariants}
-              className="flex gap-8 mt-12"
+              className="hidden md:flex gap-8 mt-12"
             >
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 bg-primary rounded-full" />

@@ -10,24 +10,27 @@ const CTASection = () => {
   const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
 
   return (
-    <section ref={sectionRef} className="relative py-24 overflow-hidden">
+    <section ref={sectionRef} className="relative py-16 md:py-24 overflow-hidden">
       {/* Background Image */}
       <motion.div
         initial={{ scale: 1.1, filter: 'blur(5px)' }}
         animate={isInView ? { scale: 1, filter: 'blur(0px)' } : {}}
         transition={{ duration: 1.2, ease: [0.25, 0.4, 0.25, 1] }}
-        className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${heroImage})` }}
+        className="absolute inset-0 bg-cover bg-no-repeat md:bg-center"
+        style={{ 
+          backgroundImage: `url(${heroImage})`,
+          backgroundPosition: '10% center'
+        }}
       />
       <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-black/50" />
       
       <div className="sterling-container relative z-10">
-        <div className="text-center max-w-3xl mx-auto">
+        <div className="text-center max-w-3xl mx-auto px-4">
           <motion.h2
             initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }}
             animate={isInView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
             transition={{ duration: 0.8, ease: [0.25, 0.4, 0.25, 1] }}
-            className="text-4xl md:text-5xl font-black text-white mb-6"
+            className="text-3xl md:text-4xl lg:text-5xl font-black text-white mb-4 md:mb-6"
           >
             Ready to Drive Your Dream Car?
           </motion.h2>
@@ -36,7 +39,7 @@ const CTASection = () => {
             initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
             animate={isInView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
             transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.4, 0.25, 1] }}
-            className="text-white/80 text-lg mb-8"
+            className="text-white/80 text-base md:text-lg mb-6 md:mb-8"
           >
             Join thousands of satisfied customers who found their perfect vehicle at Majesticars.
             Browse our premium collection today and find your next ride.
@@ -46,7 +49,7 @@ const CTASection = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="flex flex-wrap justify-center gap-4 mb-12"
+            className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 md:gap-4 mb-8 md:mb-12"
           >
             <Button
               size="lg"
@@ -75,7 +78,7 @@ const CTASection = () => {
             initial={{ opacity: 0 }}
             animate={isInView ? { opacity: 1 } : {}}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="flex flex-wrap justify-center gap-8"
+            className="flex flex-col sm:flex-row flex-wrap justify-center gap-4 md:gap-8"
           >
             {[
               { icon: Shield, text: '100% Certified Vehicles' },

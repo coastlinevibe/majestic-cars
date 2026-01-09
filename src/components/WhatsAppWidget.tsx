@@ -2,7 +2,11 @@ import { useState } from 'react';
 import { MessageCircle, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const WhatsAppWidget = () => {
+interface WhatsAppWidgetProps {
+  hide?: boolean;
+}
+
+const WhatsAppWidget = ({ hide = false }: WhatsAppWidgetProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const whatsappNumber = '27608579146';
 
@@ -11,6 +15,8 @@ const WhatsAppWidget = () => {
     const message = encodeURIComponent('Hi! I\'m interested in your cars.');
     window.open(`https://wa.me/${formattedNumber}?text=${message}`, '_blank');
   };
+
+  if (hide) return null;
 
   return (
     <div className="fixed bottom-6 right-6 z-50">

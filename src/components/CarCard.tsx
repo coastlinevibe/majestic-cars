@@ -14,7 +14,7 @@ export interface Car {
   location: string;
   description: string;
   image: string;
-  type: 'sedan' | 'suv' | 'coupe' | 'hatchback';
+  type: 'sedan' | 'suv' | 'coupe' | 'hatchback' | 'single-cab' | 'double-cab';
 }
 
 interface CarCardProps {

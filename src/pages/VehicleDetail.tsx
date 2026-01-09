@@ -7,7 +7,6 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
 import CarCard, { Car } from '@/components/CarCard';
 import { carService } from '@/lib/supabase';
@@ -45,6 +44,8 @@ const VehicleDetail = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  const [thumbnailScrollPosition, setThumbnailScrollPosition] = useState(0);
+  const [relatedCarsIndex, setRelatedCarsIndex] = useState(0);
 
   // Load vehicle data from Supabase
   useEffect(() => {
@@ -161,7 +162,7 @@ const VehicleDetail = () => {
       <div className="min-h-screen bg-background">
         <Navbar />
         <main className="pt-20">
-          <div className="sterling-container py-8">
+          <div className="max-w-7xl mx-auto py-8 px-4 md:px-6">
             <div className="flex items-center justify-center py-16">
               <div className="text-center">
                 <Loader2 className="w-12 h-12 animate-spin text-primary mx-auto mb-4" />
@@ -180,7 +181,7 @@ const VehicleDetail = () => {
       <div className="min-h-screen bg-background">
         <Navbar />
         <main className="pt-20">
-          <div className="sterling-container py-8">
+          <div className="max-w-7xl mx-auto py-8 px-4 md:px-6">
             <div className="flex flex-col items-center justify-center py-16">
               <AlertCircle className="w-16 h-16 text-destructive mb-4" />
               <h2 className="text-2xl font-bold mb-2">Car Not Found</h2>
@@ -208,6 +209,18 @@ const VehicleDetail = () => {
     setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
   };
 
+  const nextThumbnail = () => {
+    if (thumbnailScrollPosition < images.length - 1) {
+      setThumbnailScrollPosition(prev => prev + 1);
+    }
+  };
+
+  const prevThumbnail = () => {
+    if (thumbnailScrollPosition > 0) {
+      setThumbnailScrollPosition(prev => prev - 1);
+    }
+  };
+
   const handleInquiry = (e: React.FormEvent) => {
     e.preventDefault();
     toast({
@@ -229,109 +242,149 @@ const VehicleDetail = () => {
       <Navbar />
 
       <main className="pt-20">
-        <div className="sterling-container py-8">
+        <div className="max-w-7xl mx-auto py-6 md:py-8 px-4 md:px-6 overflow-hidden">
           {/* Breadcrumb */}
-          <div className="flex items-center gap-2 text-sm text-muted-foreground mb-6">
-            <Link to="/" className="hover:text-primary transition-colors">Home</Link>
-            <span>/</span>
-            <Link to="/inventory" className="hover:text-primary transition-colors">Inventory</Link>
-            <span>/</span>
-            <span className="text-foreground">{car.name}</span>
+          <div className="flex items-center gap-2 text-xs md:text-sm text-muted-foreground mb-4 md:mb-6 overflow-x-auto whitespace-nowrap pb-2">
+            <Link to="/" className="hover:text-primary transition-colors flex-shrink-0">Home</Link>
+            <span className="flex-shrink-0">/</span>
+            <Link to="/inventory" className="hover:text-primary transition-colors flex-shrink-0">Inventory</Link>
+            <span className="flex-shrink-0">/</span>
+            <span className="text-foreground truncate">{car.name}</span>
           </div>
 
-          <div className="grid lg:grid-cols-3 gap-8">
+          <div className="grid lg:grid-cols-3 gap-6 md:gap-8">
             {/* Left Column - Gallery & Details */}
-            <div className="lg:col-span-2 space-y-8">
+            <div className="lg:col-span-2 space-y-6 md:space-y-8">
               {/* Image Gallery */}
               <div className="bg-card rounded-2xl overflow-hidden shadow-sm">
                 {/* Main Image */}
-                <div className="relative aspect-[16/10] bg-secondary">
+                <div className="relative aspect-[4/3] md:aspect-[16/10] bg-secondary overflow-hidden">
                   <img
                     src={images[currentImageIndex]}
                     alt={`${car.name} - Image ${currentImageIndex + 1}`}
-                    className="w-full h-full object-contain cursor-pointer"
+                    className="w-full h-full object-cover md:object-contain cursor-pointer"
                     onClick={() => setIsLightboxOpen(true)}
                   />
                   
                   {/* Navigation Arrows */}
-                  <button
-                    onClick={prevImage}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-card/90 rounded-full flex items-center justify-center hover:bg-card transition-colors shadow-md"
-                  >
-                    <ChevronLeft size={24} />
-                  </button>
-                  <button
-                    onClick={nextImage}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-card/90 rounded-full flex items-center justify-center hover:bg-card transition-colors shadow-md"
-                  >
-                    <ChevronRight size={24} />
-                  </button>
+                  {images.length > 1 && (
+                    <>
+                      <button
+                        onClick={prevImage}
+                        className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 bg-card/90 rounded-full flex items-center justify-center hover:bg-card transition-colors shadow-md z-10"
+                      >
+                        <ChevronLeft size={20} className="md:w-6 md:h-6" />
+                      </button>
+                      <button
+                        onClick={nextImage}
+                        className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 bg-card/90 rounded-full flex items-center justify-center hover:bg-card transition-colors shadow-md z-10"
+                      >
+                        <ChevronRight size={20} className="md:w-6 md:h-6" />
+                      </button>
+                    </>
+                  )}
 
                   {/* Fullscreen Button */}
                   <button
                     onClick={() => setIsLightboxOpen(true)}
-                    className="absolute top-4 right-4 w-10 h-10 bg-card/90 rounded-full flex items-center justify-center hover:bg-card transition-colors shadow-md"
+                    className="absolute top-2 md:top-4 right-2 md:right-4 w-8 h-8 md:w-10 md:h-10 bg-card/90 rounded-full flex items-center justify-center hover:bg-card transition-colors shadow-md z-10"
                   >
-                    <Expand size={18} />
+                    <Expand size={16} className="md:w-5 md:h-5" />
                   </button>
 
                   {/* Image Counter */}
-                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-foreground/80 text-card px-4 py-2 rounded-full text-sm font-medium">
-                    {currentImageIndex + 1} / {images.length}
-                  </div>
+                  {images.length > 1 && (
+                    <div className="absolute bottom-2 md:bottom-4 left-1/2 -translate-x-1/2 bg-foreground/80 text-card px-3 py-1.5 md:px-4 md:py-2 rounded-full text-xs md:text-sm font-medium">
+                      {currentImageIndex + 1} / {images.length}
+                    </div>
+                  )}
                 </div>
 
                 {/* Thumbnail Strip */}
-                <div className="p-4 flex gap-3 overflow-x-auto">
-                  {images.map((img, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => setCurrentImageIndex(idx)}
-                      className={`flex-shrink-0 w-24 h-16 rounded-lg overflow-hidden border-2 transition-all ${
-                        idx === currentImageIndex ? 'border-primary' : 'border-transparent opacity-60 hover:opacity-100'
-                      }`}
-                    >
-                      <img src={img} alt={`Thumbnail ${idx + 1}`} className="w-full h-full object-cover" />
-                    </button>
-                  ))}
-                </div>
+                {images.length > 1 && (
+                  <div className="p-3 md:p-4 relative">
+                    {/* Thumbnail Container - Max width to show only 4 thumbnails */}
+                    <div className="overflow-hidden max-w-[352px] md:max-w-[416px] mx-auto">
+                      <div 
+                        className="flex gap-2 md:gap-3 transition-transform duration-300"
+                        style={{
+                          transform: `translateX(-${thumbnailScrollPosition * 88}px)`
+                        }}
+                      >
+                        {images.map((img: string, idx: number) => (
+                          <button
+                            key={idx}
+                            onClick={() => setCurrentImageIndex(idx)}
+                            className={`flex-shrink-0 w-20 h-14 md:w-24 md:h-16 rounded-lg overflow-hidden border-2 transition-all ${
+                              idx === currentImageIndex ? 'border-primary' : 'border-transparent opacity-60 hover:opacity-100'
+                            }`}
+                          >
+                            <img src={img} alt={`Thumbnail ${idx + 1}`} className="w-full h-full object-cover" />
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Thumbnail Navigation Arrows - Show if more than 4 images */}
+                    {images.length > 4 && (
+                      <>
+                        {thumbnailScrollPosition > 0 && (
+                          <button
+                            onClick={prevThumbnail}
+                            className="absolute left-1 md:left-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-card/90 rounded-full flex items-center justify-center hover:bg-card transition-colors shadow-md z-10"
+                          >
+                            <ChevronLeft size={16} />
+                          </button>
+                        )}
+                        {thumbnailScrollPosition < images.length - 4 && (
+                          <button
+                            onClick={nextThumbnail}
+                            className="absolute right-1 md:right-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-card/90 rounded-full flex items-center justify-center hover:bg-card transition-colors shadow-md z-10"
+                          >
+                            <ChevronRight size={16} />
+                          </button>
+                        )}
+                      </>
+                    )}
+                  </div>
+                )}
               </div>
 
               {/* Title & Quick Actions */}
-              <div className="bg-card rounded-2xl p-6 shadow-sm">
-                <div className="flex flex-wrap items-start justify-between gap-4 mb-6">
-                  <div>
-                    <h1 className="text-3xl font-black text-foreground mb-2">{car.name}</h1>
-                    <div className="flex items-center gap-2 text-primary font-semibold">
-                      <MapPin size={18} />
-                      <span>{car.location}</span>
+              <div className="bg-card rounded-2xl p-4 md:p-6 shadow-sm">
+                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-4 md:mb-6">
+                  <div className="flex-1 min-w-0">
+                    <h1 className="text-2xl md:text-3xl font-black text-foreground mb-2 break-words">{car.name}</h1>
+                    <div className="flex items-center gap-2 text-primary font-semibold text-sm md:text-base">
+                      <MapPin size={16} className="md:w-5 md:h-5 flex-shrink-0" />
+                      <span className="truncate">{car.location}</span>
                     </div>
                   </div>
-                  <div className="text-right">
-                    <div className="text-3xl font-black text-primary">{formatPrice(car.price)}</div>
+                  <div className="sm:text-right flex-shrink-0">
+                    <div className="text-2xl md:text-3xl font-black text-primary whitespace-nowrap">{formatPrice(car.price)}</div>
                   </div>
                 </div>
 
                 {/* Quick Specs */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                  <div className="spec-item">
-                    <Calendar size={20} className="text-muted-foreground" />
-                    <span className="text-sm font-medium">{car.year}</span>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-4 md:mb-6">
+                  <div className="spec-item min-w-0">
+                    <Calendar size={18} className="text-muted-foreground md:w-5 md:h-5 flex-shrink-0" />
+                    <span className="text-xs md:text-sm font-medium truncate">{car.year}</span>
                     <span className="text-xs text-muted-foreground">Year</span>
                   </div>
-                  <div className="spec-item">
-                    <Gauge size={20} className="text-muted-foreground" />
-                    <span className="text-sm font-medium">{car.mileage.toLocaleString()} km</span>
+                  <div className="spec-item min-w-0">
+                    <Gauge size={18} className="text-muted-foreground md:w-5 md:h-5 flex-shrink-0" />
+                    <span className="text-xs md:text-sm font-medium truncate">{car.mileage.toLocaleString()} km</span>
                     <span className="text-xs text-muted-foreground">Mileage</span>
                   </div>
-                  <div className="spec-item">
-                    <Fuel size={20} className="text-muted-foreground" />
-                    <span className="text-sm font-medium">{car.fuel}</span>
+                  <div className="spec-item min-w-0">
+                    <Fuel size={18} className="text-muted-foreground md:w-5 md:h-5 flex-shrink-0" />
+                    <span className="text-xs md:text-sm font-medium truncate">{car.fuel}</span>
                     <span className="text-xs text-muted-foreground">Fuel Type</span>
                   </div>
-                  <div className="spec-item">
-                    <Settings size={20} className="text-muted-foreground" />
-                    <span className="text-sm font-medium">Automatic</span>
+                  <div className="spec-item min-w-0">
+                    <Settings size={18} className="text-muted-foreground md:w-5 md:h-5 flex-shrink-0" />
+                    <span className="text-xs md:text-sm font-medium truncate">Automatic</span>
                     <span className="text-xs text-muted-foreground">Transmission</span>
                   </div>
                 </div>
@@ -339,12 +392,12 @@ const VehicleDetail = () => {
                 {/* Actions */}
                 <div className="flex gap-3">
                   <Button className="flex-1" size="lg">
-                    <Phone className="mr-2" size={18} />
-                    Call Dealer
+                    <Phone className="mr-2 flex-shrink-0" size={18} />
+                    <span className="truncate">Call Dealer</span>
                   </Button>
                   <button
                     onClick={() => setIsWishlisted(!isWishlisted)}
-                    className={`w-12 h-12 border-2 rounded-lg flex items-center justify-center transition-all ${
+                    className={`w-12 h-12 flex-shrink-0 border-2 rounded-lg flex items-center justify-center transition-all ${
                       isWishlisted
                         ? 'bg-primary border-primary text-primary-foreground'
                         : 'border-border hover:border-primary hover:text-primary'
@@ -354,7 +407,7 @@ const VehicleDetail = () => {
                   </button>
                   <button
                     onClick={handleShare}
-                    className="w-12 h-12 border-2 border-border rounded-lg flex items-center justify-center hover:border-primary hover:text-primary transition-all"
+                    className="w-12 h-12 flex-shrink-0 border-2 border-border rounded-lg flex items-center justify-center hover:border-primary hover:text-primary transition-all"
                   >
                     <Share2 size={20} />
                   </button>
@@ -362,36 +415,36 @@ const VehicleDetail = () => {
               </div>
 
               {/* Description */}
-              <div className="bg-card rounded-2xl p-6 shadow-sm">
-                <h2 className="text-xl font-bold text-foreground mb-4">Description</h2>
-                <div className="text-muted-foreground whitespace-pre-line leading-relaxed">
+              <div className="bg-card rounded-2xl p-4 md:p-6 shadow-sm overflow-hidden">
+                <h2 className="text-lg md:text-xl font-bold text-foreground mb-3 md:mb-4">Description</h2>
+                <div className="text-muted-foreground text-sm md:text-base whitespace-pre-line leading-relaxed break-words">
                   {description}
                 </div>
               </div>
 
               {/* Specifications */}
-              <div className="bg-card rounded-2xl p-6 shadow-sm">
-                <h2 className="text-xl font-bold text-foreground mb-6">Specifications</h2>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  {specs.map((spec, idx) => (
-                    <div key={idx} className="p-4 bg-secondary rounded-xl">
-                      <div className="text-muted-foreground text-xs mb-1">{spec.label}</div>
-                      <div className="font-semibold text-foreground">{spec.value}</div>
+              <div className="bg-card rounded-2xl p-4 md:p-6 shadow-sm overflow-hidden">
+                <h2 className="text-lg md:text-xl font-bold text-foreground mb-4 md:mb-6">Specifications</h2>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+                  {specs.map((spec: any, idx: number) => (
+                    <div key={idx} className="p-3 md:p-4 bg-secondary rounded-xl min-w-0 overflow-hidden">
+                      <div className="text-muted-foreground text-xs mb-1 truncate">{spec.label}</div>
+                      <div className="font-semibold text-foreground text-sm md:text-base break-words">{spec.value}</div>
                     </div>
                   ))}
                 </div>
               </div>
 
               {/* Features */}
-              <div className="bg-card rounded-2xl p-6 shadow-sm">
-                <h2 className="text-xl font-bold text-foreground mb-6">Features & Options</h2>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                  {features.map((feature, idx) => (
-                    <div key={idx} className="flex items-center gap-3">
+              <div className="bg-card rounded-2xl p-4 md:p-6 shadow-sm overflow-hidden">
+                <h2 className="text-lg md:text-xl font-bold text-foreground mb-4 md:mb-6">Features & Options</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
+                  {features.map((feature: string, idx: number) => (
+                    <div key={idx} className="flex items-center gap-3 min-w-0 overflow-hidden">
                       <div className="w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
                         <Check size={14} className="text-primary" />
                       </div>
-                      <span className="text-muted-foreground text-sm">{feature}</span>
+                      <span className="text-muted-foreground text-sm break-words flex-1">{feature}</span>
                     </div>
                   ))}
                 </div>
@@ -399,33 +452,33 @@ const VehicleDetail = () => {
             </div>
 
             {/* Right Column - Contact & Finance */}
-            <div className="space-y-6 lg:sticky lg:top-28 lg:self-start">
+            <div className="space-y-4 md:space-y-6 lg:sticky lg:top-28 lg:self-start overflow-hidden">
               {/* Dealer Contact */}
-              <div className="bg-card rounded-2xl p-6 shadow-sm">
-                <h3 className="text-lg font-bold text-foreground mb-4">Contact Dealer</h3>
+              <div className="bg-card rounded-2xl p-4 md:p-6 shadow-sm overflow-hidden">
+                <h3 className="text-base md:text-lg font-bold text-foreground mb-3 md:mb-4">Contact Dealer</h3>
                 
-                <div className="flex items-center gap-4 p-4 bg-secondary rounded-xl mb-6">
-                  <div className="w-14 h-14 bg-primary rounded-full flex items-center justify-center">
-                    <span className="text-primary-foreground font-bold text-lg">SM</span>
+                <div className="flex items-center gap-3 md:gap-4 p-3 md:p-4 bg-secondary rounded-xl mb-4 md:mb-6 overflow-hidden">
+                  <div className="w-12 h-12 md:w-14 md:h-14 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
+                    <span className="text-primary-foreground font-bold text-base md:text-lg">MC</span>
                   </div>
-                  <div>
-                    <div className="font-bold text-foreground">Majesticars</div>
-                    <div className="text-muted-foreground text-sm">Authorized Dealer</div>
+                  <div className="min-w-0 flex-1">
+                    <div className="font-bold text-foreground text-sm md:text-base truncate">Majesticars</div>
+                    <div className="text-muted-foreground text-xs md:text-sm truncate">Authorized Dealer</div>
                   </div>
                 </div>
 
-                <div className="space-y-3 mb-6">
-                  <div className="flex items-center gap-3 text-muted-foreground">
-                    <Phone size={18} className="text-primary" />
-                    <span>060 857 9146</span>
+                <div className="space-y-2 md:space-y-3 mb-4 md:mb-6">
+                  <div className="flex items-center gap-2 md:gap-3 text-muted-foreground text-sm md:text-base min-w-0 overflow-hidden">
+                    <Phone size={16} className="text-primary md:w-5 md:h-5 flex-shrink-0" />
+                    <span className="truncate">060 857 9146</span>
                   </div>
-                  <div className="flex items-center gap-3 text-muted-foreground">
-                    <Mail size={18} className="text-primary" />
-                    <span>majesticcarssinoville@gmail.com</span>
+                  <div className="flex items-center gap-2 md:gap-3 text-muted-foreground min-w-0 overflow-hidden">
+                    <Mail size={16} className="text-primary md:w-5 md:h-5 flex-shrink-0" />
+                    <span className="break-all text-xs md:text-sm">majesticcarssinoville@gmail.com</span>
                   </div>
-                  <div className="flex items-center gap-3 text-muted-foreground">
-                    <Clock size={18} className="text-primary" />
-                    <span>Mon-Fri: 9AM - 6PM</span>
+                  <div className="flex items-center gap-2 md:gap-3 text-muted-foreground text-sm md:text-base min-w-0 overflow-hidden">
+                    <Clock size={16} className="text-primary md:w-5 md:h-5 flex-shrink-0" />
+                    <span className="truncate">Mon-Fri: 9AM - 6PM</span>
                   </div>
                 </div>
 
@@ -433,21 +486,21 @@ const VehicleDetail = () => {
                 <form onSubmit={handleInquiry} className="space-y-4">
                   <div>
                     <Label className="text-sm mb-1.5 block">Your Name</Label>
-                    <Input placeholder="John Doe" className="bg-secondary" required />
+                    <Input placeholder="John Doe" className="bg-secondary w-full" required />
                   </div>
                   <div>
                     <Label className="text-sm mb-1.5 block">Phone Number</Label>
-                    <Input placeholder="060 857 9146" className="bg-secondary" required />
+                    <Input placeholder="060 857 9146" className="bg-secondary w-full" required />
                   </div>
                   <div>
                     <Label className="text-sm mb-1.5 block">Email</Label>
-                    <Input type="email" placeholder="john@example.com" className="bg-secondary" required />
+                    <Input type="email" placeholder="john@example.com" className="bg-secondary w-full" required />
                   </div>
                   <div>
                     <Label className="text-sm mb-1.5 block">Message</Label>
                     <Textarea
                       placeholder={`I'm interested in the ${car.name}...`}
-                      className="bg-secondary resize-none"
+                      className="bg-secondary resize-none w-full"
                       rows={3}
                     />
                   </div>
@@ -458,33 +511,33 @@ const VehicleDetail = () => {
               </div>
 
               {/* Trust Badges */}
-              <div className="bg-card rounded-2xl p-6 shadow-sm">
-                <div className="space-y-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
-                      <Shield size={20} className="text-primary" />
+              <div className="bg-card rounded-2xl p-4 md:p-6 shadow-sm overflow-hidden">
+                <div className="space-y-3 md:space-y-4">
+                  <div className="flex items-center gap-3 min-w-0 overflow-hidden">
+                    <div className="w-9 h-9 md:w-10 md:h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <Shield size={18} className="text-primary md:w-5 md:h-5" />
                     </div>
-                    <div>
-                      <div className="font-semibold text-foreground text-sm">Certified Vehicle</div>
-                      <div className="text-muted-foreground text-xs">150-point inspection passed</div>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
-                      <Zap size={20} className="text-primary" />
-                    </div>
-                    <div>
-                      <div className="font-semibold text-foreground text-sm">Extended Warranty</div>
-                      <div className="text-muted-foreground text-xs">Up to 5 years available</div>
+                    <div className="min-w-0 flex-1">
+                      <div className="font-semibold text-foreground text-xs md:text-sm truncate">Certified Vehicle</div>
+                      <div className="text-muted-foreground text-xs truncate">150-point inspection passed</div>
                     </div>
                   </div>
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
-                      <CarIcon size={20} className="text-primary" />
+                  <div className="flex items-center gap-3 min-w-0 overflow-hidden">
+                    <div className="w-9 h-9 md:w-10 md:h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <Zap size={18} className="text-primary md:w-5 md:h-5" />
                     </div>
-                    <div>
-                      <div className="font-semibold text-foreground text-sm">Trade-In Welcome</div>
-                      <div className="text-muted-foreground text-xs">Get instant valuation</div>
+                    <div className="min-w-0 flex-1">
+                      <div className="font-semibold text-foreground text-xs md:text-sm truncate">Extended Warranty</div>
+                      <div className="text-muted-foreground text-xs truncate">Up to 5 years available</div>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3 min-w-0 overflow-hidden">
+                    <div className="w-9 h-9 md:w-10 md:h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <CarIcon size={18} className="text-primary md:w-5 md:h-5" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <div className="font-semibold text-foreground text-xs md:text-sm truncate">Trade-In Welcome</div>
+                      <div className="text-muted-foreground text-xs truncate">Get instant valuation</div>
                     </div>
                   </div>
                 </div>
@@ -493,23 +546,82 @@ const VehicleDetail = () => {
           </div>
 
           {/* Related Vehicles */}
-          <section className="mt-16">
-            <div className="flex items-center justify-between mb-8">
-              <div>
-                <h2 className="text-2xl font-black text-foreground">Similar Cars</h2>
-                <p className="text-muted-foreground">You might also be interested in</p>
+          <section className="mt-12 md:mt-16 overflow-hidden">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 md:mb-8">
+              <div className="min-w-0 flex-1">
+                <h2 className="text-xl md:text-2xl font-black text-foreground truncate">Similar Cars</h2>
+                <p className="text-sm md:text-base text-muted-foreground truncate">You might also be interested in</p>
               </div>
-              <Button variant="outline" asChild>
+              <Button variant="outline" asChild className="flex-shrink-0 w-full sm:w-auto">
                 <Link to="/inventory">View All</Link>
               </Button>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Desktop Grid */}
+            <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
               {relatedCars.map((relatedCar, idx) => (
                 <div key={relatedCar.id} className="animate-fade-in" style={{ animationDelay: `${idx * 0.1}s` }}>
                   <CarCard car={relatedCar} />
                 </div>
               ))}
+            </div>
+
+            {/* Mobile Carousel */}
+            <div className="md:hidden">
+              <div className="overflow-hidden">
+                <div 
+                  className="flex transition-transform duration-300 ease-out"
+                  style={{ transform: `translateX(-${relatedCarsIndex * 100}%)` }}
+                >
+                  {relatedCars.map((relatedCar) => (
+                    <div key={relatedCar.id} className="w-full flex-shrink-0 px-1">
+                      <CarCard car={relatedCar} />
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Navigation Arrows Below Card */}
+              {relatedCars.length > 1 && (
+                <div className="flex justify-center items-center gap-4 mt-6">
+                  <button
+                    onClick={() => setRelatedCarsIndex(prev => Math.max(0, prev - 1))}
+                    disabled={relatedCarsIndex === 0}
+                    className={`w-10 h-10 rounded-full flex items-center justify-center transition-all shadow-md ${
+                      relatedCarsIndex === 0
+                        ? 'bg-muted text-muted-foreground cursor-not-allowed opacity-50'
+                        : 'bg-card hover:bg-primary hover:text-primary-foreground'
+                    }`}
+                  >
+                    <ChevronLeft size={20} />
+                  </button>
+
+                  {/* Dot Indicators */}
+                  <div className="flex gap-2">
+                    {relatedCars.map((_, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => setRelatedCarsIndex(idx)}
+                        className={`w-2 h-2 rounded-full transition-all ${
+                          idx === relatedCarsIndex ? 'bg-primary w-6' : 'bg-muted-foreground/30'
+                        }`}
+                      />
+                    ))}
+                  </div>
+
+                  <button
+                    onClick={() => setRelatedCarsIndex(prev => Math.min(relatedCars.length - 1, prev + 1))}
+                    disabled={relatedCarsIndex === relatedCars.length - 1}
+                    className={`w-10 h-10 rounded-full flex items-center justify-center transition-all shadow-md ${
+                      relatedCarsIndex === relatedCars.length - 1
+                        ? 'bg-muted text-muted-foreground cursor-not-allowed opacity-50'
+                        : 'bg-card hover:bg-primary hover:text-primary-foreground'
+                    }`}
+                  >
+                    <ChevronRight size={20} />
+                  </button>
+                </div>
+              )}
             </div>
           </section>
         </div>

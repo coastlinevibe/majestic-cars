@@ -103,12 +103,12 @@ const Contact = () => {
           style={{ backgroundImage: `url(${contactHeroImg})` }}
         />
         <div className="hero-overlay" />
-        <div className="relative z-10 sterling-container text-center">
+        <div className="relative z-10 sterling-container text-center px-4">
           <motion.h1
             initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }}
             animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
             transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 0.4, 0.25, 1] }}
-            className="text-5xl md:text-7xl font-black text-white mb-4"
+            className="text-4xl md:text-5xl lg:text-7xl font-black text-white mb-4"
             style={{ fontFamily: 'serif', fontStyle: 'italic' }}
           >
             Contact Us
@@ -117,7 +117,7 @@ const Contact = () => {
             initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
             animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
             transition={{ duration: 0.8, delay: 0.5, ease: [0.25, 0.4, 0.25, 1] }}
-            className="text-white/80 text-xl"
+            className="text-white/80 text-base md:text-lg lg:text-xl max-w-3xl mx-auto"
             style={{ fontStyle: 'italic' }}
           >
             Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
@@ -126,29 +126,31 @@ const Contact = () => {
       </section>
 
       {/* Contact Content */}
-      <section ref={contentRef} className="section-padding bg-card">
-        <div className="sterling-container">
-          <div className="grid lg:grid-cols-2 gap-16">
+      <section ref={contentRef} className="section-padding bg-card md:px-8 px-2">
+        <div className="max-w-7xl mx-auto md:px-6 lg:px-8 px-2">
+          <div className="grid lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16">
             {/* Contact Forms */}
             <motion.div
               initial={{ opacity: 0, x: -50, filter: 'blur(10px)' }}
               animate={contentInView ? { opacity: 1, x: 0, filter: 'blur(0px)' } : {}}
               transition={{ duration: 0.8, ease: [0.25, 0.4, 0.25, 1] }}
             >
-              <h2 className="text-3xl font-black text-foreground mb-2">Get in Touch</h2>
-              <p className="text-muted-foreground mb-8">
+              <h2 className="text-2xl md:text-3xl font-black text-foreground mb-2">Get in Touch</h2>
+              <p className="text-muted-foreground mb-6 md:mb-8 text-sm md:text-base">
                 Choose the type of inquiry and fill out the form below. Our team will get back to you within 24 hours.
               </p>
 
               <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-                <TabsList className="grid w-full grid-cols-2 mb-6">
-                  <TabsTrigger value="general" className="flex items-center gap-2">
-                    <MessageSquare className="w-4 h-4" />
-                    General Inquiry
+                <TabsList className="grid w-full grid-cols-2 mb-4 md:mb-6">
+                  <TabsTrigger value="general" className="flex items-center gap-2 text-xs md:text-sm">
+                    <MessageSquare className="w-3 h-3 md:w-4 md:h-4" />
+                    <span className="hidden sm:inline">General Inquiry</span>
+                    <span className="sm:hidden">General</span>
                   </TabsTrigger>
-                  <TabsTrigger value="vehicle" className="flex items-center gap-2">
-                    <Car className="w-4 h-4" />
-                    Car Inquiry
+                  <TabsTrigger value="vehicle" className="flex items-center gap-2 text-xs md:text-sm">
+                    <Car className="w-3 h-3 md:w-4 md:h-4" />
+                    <span className="hidden sm:inline">Car Inquiry</span>
+                    <span className="sm:hidden">Car</span>
                   </TabsTrigger>
                 </TabsList>
 
@@ -394,12 +396,12 @@ const Contact = () => {
               animate={contentInView ? { opacity: 1, x: 0, filter: 'blur(0px)' } : {}}
               transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.4, 0.25, 1] }}
             >
-              <h2 className="text-3xl font-black text-foreground mb-2">Contact Information</h2>
-              <p className="text-muted-foreground mb-8">
+              <h2 className="text-2xl md:text-3xl font-black text-foreground mb-2">Contact Information</h2>
+              <p className="text-muted-foreground mb-6 md:mb-8 text-sm md:text-base">
                 Reach out to us through any of these channels.
               </p>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 mb-8 md:mb-12">
                 {contactInfo.map((info, index) => {
                   const Icon = info.icon;
                   return (
@@ -408,20 +410,20 @@ const Contact = () => {
                       initial={{ opacity: 0, y: 30, filter: 'blur(10px)', scale: 0.9 }}
                       animate={contentInView ? { opacity: 1, y: 0, filter: 'blur(0px)', scale: 1 } : {}}
                       transition={{ duration: 0.6, delay: 0.4 + index * 0.1, ease: [0.25, 0.4, 0.25, 1] }}
-                      className="bg-background rounded-xl p-6"
+                      className="bg-background rounded-xl p-4 md:p-6"
                     >
                       <motion.div
                         initial={{ scale: 0, rotate: -90 }}
                         animate={contentInView ? { scale: 1, rotate: 0 } : {}}
                         transition={{ delay: 0.5 + index * 0.1, duration: 0.5 }}
-                        className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4"
+                        className="w-10 h-10 md:w-12 md:h-12 bg-primary/10 rounded-lg flex items-center justify-center mb-3 md:mb-4"
                       >
-                        <Icon size={24} className="text-primary" />
+                        <Icon size={20} className="text-primary md:w-6 md:h-6" />
                       </motion.div>
-                      <h3 className="font-bold text-foreground mb-2">{info.title}</h3>
+                      <h3 className="font-bold text-foreground mb-2 text-sm md:text-base">{info.title}</h3>
                       <div className="space-y-1">
                         {info.details.map((detail, idx) => (
-                          <p key={idx} className="text-muted-foreground text-sm">{detail}</p>
+                          <p key={idx} className="text-muted-foreground text-xs md:text-sm">{detail}</p>
                         ))}
                       </div>
                     </motion.div>
