@@ -161,7 +161,7 @@ const Inventory = () => {
         <div className="sterling-container py-12">
           <div className="grid lg:grid-cols-[312px_1fr] gap-8">
             {/* Sidebar */}
-            <aside className="bg-card rounded-xl p-6 shadow-sm h-fit lg:sticky lg:top-28">
+            <aside className="bg-card rounded-xl p-6 shadow-sm lg:sticky lg:top-28 lg:max-h-[calc(100vh-8rem)] lg:overflow-y-auto">
               {/* Make and Model */}
               <div className="filter-section">
                 <div className="filter-title">
