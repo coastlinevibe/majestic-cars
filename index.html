@@ -41,6 +41,46 @@
     <!-- Additional Meta Tags -->
     <meta name="theme-color" content="#000000" />
     <meta name="mobile-web-app-capable" content="yes" />
+
+    <!-- Preload critical fonts -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&display=swap" as="style" />
+    
+    <!-- Defer non-critical CSS with async loading -->
+    <link rel="preload" href="/assets/index.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript><link rel="stylesheet" href="/assets/index.css" /></noscript>
+
+    <!-- Critical inline styles for above-the-fold content -->
+    <style>
+      :root {
+        --primary: 18 95% 56%;
+        --primary-foreground: 0 0% 100%;
+        --background: 0 0% 97%;
+        --foreground: 0 0% 10%;
+        --card: 0 0% 100%;
+        --secondary: 0 0% 96%;
+        --muted-foreground: 0 0% 45%;
+        --border: 0 0% 88%;
+      }
+      .dark {
+        --background: 0 0% 7%;
+        --foreground: 0 0% 95%;
+        --card: 0 0% 10%;
+        --secondary: 0 0% 15%;
+        --muted-foreground: 0 0% 65%;
+        --border: 0 0% 18%;
+      }
+      * { border-color: hsl(var(--border)); }
+      html { scroll-behavior: smooth; }
+      body {
+        background-color: hsl(var(--background));
+        color: hsl(var(--foreground));
+        font-family: 'Archivo', 'Segoe UI', 'Tahoma', 'Geneva', 'Verdana', sans-serif;
+        -webkit-font-smoothing: antialiased;
+        margin: 0;
+        padding: 0;
+      }
+      #root { display: contents; }
+    </style>
   </head>
 
   <body>
