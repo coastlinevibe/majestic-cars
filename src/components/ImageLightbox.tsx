@@ -22,6 +22,7 @@ const ImageLightbox = ({
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+  const [thumbnailScrollPosition, setThumbnailScrollPosition] = useState(0);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -47,7 +48,16 @@ const ImageLightbox = ({
     // Reset zoom and position when image changes
     setZoom(1);
     setPosition({ x: 0, y: 0 });
-  }, [currentIndex]);
+    
+    // Auto-scroll thumbnails to keep current image visible
+    if (currentIndex < thumbnailScrollPosition) {
+      // Scroll left if current image is before visible range
+      setThumbnailScrollPosition(currentIndex);
+    } else if (currentIndex >= thumbnailScrollPosition + 4) {
+      // Scroll right if current image is after visible range
+      setThumbnailScrollPosition(currentIndex - 3);
+    }
+  }, [currentIndex, thumbnailScrollPosition]);
 
   useEffect(() => {
     if (isOpen) {
@@ -102,6 +112,20 @@ const ImageLightbox = ({
   const handleNext = (e: React.MouseEvent) => {
     e.stopPropagation();
     onNavigate((currentIndex + 1) % images.length);
+  };
+
+  const nextThumbnail = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (thumbnailScrollPosition < images.length - 4) {
+      setThumbnailScrollPosition(prev => prev + 1);
+    }
+  };
+
+  const prevThumbnail = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (thumbnailScrollPosition > 0) {
+      setThumbnailScrollPosition(prev => prev - 1);
+    }
   };
 
   if (!isOpen) return null;
@@ -187,23 +211,54 @@ const ImageLightbox = ({
 
       {/* Thumbnail Strip */}
       {images.length > 1 && (
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 p-2 bg-black/50 rounded-lg">
-          {images.map((img, idx) => (
-            <button
-              key={idx}
-              onClick={(e) => {
-                e.stopPropagation();
-                onNavigate(idx);
-              }}
-              className={`w-16 h-12 rounded-md overflow-hidden border-2 transition-all ${
-                idx === currentIndex
-                  ? 'border-primary'
-                  : 'border-transparent opacity-60 hover:opacity-100'
-              }`}
-            >
-              <img src={img} alt={`Thumbnail ${idx + 1}`} className="w-full h-full object-cover" />
-            </button>
-          ))}
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 w-full max-w-md px-4">
+          <div className="relative bg-black/50 rounded-lg p-2">
+            {/* Thumbnail Navigation Arrows - Show if more than 4 images */}
+            {images.length > 4 && thumbnailScrollPosition > 0 && (
+              <button
+                onClick={prevThumbnail}
+                className="absolute left-0 top-1/2 -translate-y-1/2 w-8 h-8 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors z-10 -translate-x-1/2"
+              >
+                <ChevronLeft size={16} className="text-white" />
+              </button>
+            )}
+            
+            {/* Thumbnail Container - Show only 4 thumbnails */}
+            <div className="overflow-hidden mx-auto" style={{ width: '288px' }}>
+              <div 
+                className="flex gap-2 transition-transform duration-300"
+                style={{
+                  transform: `translateX(-${thumbnailScrollPosition * 72}px)`
+                }}
+              >
+                {images.map((img, idx) => (
+                  <button
+                    key={idx}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onNavigate(idx);
+                    }}
+                    className={`flex-shrink-0 w-16 h-12 rounded-md overflow-hidden border-2 transition-all ${
+                      idx === currentIndex
+                        ? 'border-primary'
+                        : 'border-transparent opacity-60 hover:opacity-100'
+                    }`}
+                  >
+                    <img src={img} alt={`Thumbnail ${idx + 1}`} className="w-full h-full object-cover" />
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {images.length > 4 && thumbnailScrollPosition < images.length - 4 && (
+              <button
+                onClick={nextThumbnail}
+                className="absolute right-0 top-1/2 -translate-y-1/2 w-8 h-8 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors z-10 translate-x-1/2"
+              >
+                <ChevronRight size={16} className="text-white" />
+              </button>
+            )}
+          </div>
         </div>
       )}
 

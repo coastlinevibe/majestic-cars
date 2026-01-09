@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { MessageCircle, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -8,7 +8,31 @@ interface WhatsAppWidgetProps {
 
 const WhatsAppWidget = ({ hide = false }: WhatsAppWidgetProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isCompareModalOpen, setIsCompareModalOpen] = useState(false);
   const whatsappNumber = '27608579146';
+
+  // Check if compare modal or image lightbox is open
+  useEffect(() => {
+    const checkModals = () => {
+      // Check for compare modal or image lightbox by looking for elements with z-index 100 or higher
+      const modals = document.querySelectorAll('[class*="z-[100]"], [class*="z-[200]"]');
+      setIsCompareModalOpen(modals.length > 0);
+    };
+
+    // Initial check
+    checkModals();
+
+    // Set up a MutationObserver to watch for DOM changes
+    const observer = new MutationObserver(checkModals);
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ['class']
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   const handleWhatsAppClick = () => {
     const formattedNumber = whatsappNumber.replace(/\D/g, '');
@@ -16,7 +40,7 @@ const WhatsAppWidget = ({ hide = false }: WhatsAppWidgetProps) => {
     window.open(`https://wa.me/${formattedNumber}?text=${message}`, '_blank');
   };
 
-  if (hide) return null;
+  if (hide || isCompareModalOpen) return null;
 
   return (
     <div className="fixed bottom-6 right-6 z-50">

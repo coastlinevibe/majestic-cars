@@ -100,14 +100,9 @@ const VehicleDetail = () => {
           { label: 'Transmission', value: carData.transmission || 'N/A' },
           { label: 'Drive Type', value: carData.drive_type || 'N/A' },
           { label: 'Engine', value: carData.engine || 'N/A' },
-          { label: 'Power', value: carData.power || 'N/A' },
-          { label: 'Torque', value: carData.torque || 'N/A' },
-          { label: '0-100 km/h', value: carData.acceleration || 'N/A' },
-          { label: 'Top Speed', value: carData.top_speed || 'N/A' },
           { label: 'Color', value: carData.color || 'N/A' },
           { label: 'Interior', value: carData.interior || 'N/A' },
-          { label: 'VIN', value: carData.vin || 'N/A' },
-        ],
+        ].filter(spec => spec.value !== 'N/A'),
         features: carData.features || [],
         description: carData.description || 'No description available.',
       };
@@ -241,8 +236,8 @@ const VehicleDetail = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
 
-      <main className="pt-20">
-        <div className="max-w-7xl mx-auto py-6 md:py-8 px-4 md:px-6 overflow-hidden">
+      <main className="pt-20 overflow-x-hidden">
+        <div className="max-w-7xl mx-auto py-6 md:py-8 px-4 md:px-6">
           {/* Breadcrumb */}
           <div className="flex items-center gap-2 text-xs md:text-sm text-muted-foreground mb-4 md:mb-6 overflow-x-auto whitespace-nowrap pb-2">
             <Link to="/" className="hover:text-primary transition-colors flex-shrink-0">Home</Link>
@@ -252,11 +247,11 @@ const VehicleDetail = () => {
             <span className="text-foreground truncate">{car.name}</span>
           </div>
 
-          <div className="grid lg:grid-cols-3 gap-6 md:gap-8">
+          <div className="grid lg:grid-cols-3 gap-6 md:gap-8 overflow-hidden">
             {/* Left Column - Gallery & Details */}
-            <div className="lg:col-span-2 space-y-6 md:space-y-8">
+            <div className="lg:col-span-2 space-y-6 md:space-y-8 min-w-0 overflow-hidden">
               {/* Image Gallery */}
-              <div className="bg-card rounded-2xl overflow-hidden shadow-sm">
+              <div className="bg-card rounded-2xl overflow-hidden shadow-sm w-full">
                 {/* Main Image */}
                 <div className="relative aspect-[4/3] md:aspect-[16/10] bg-secondary overflow-hidden">
                   <img
@@ -351,7 +346,7 @@ const VehicleDetail = () => {
               </div>
 
               {/* Title & Quick Actions */}
-              <div className="bg-card rounded-2xl p-4 md:p-6 shadow-sm">
+              <div className="bg-card rounded-2xl p-4 md:p-6 shadow-sm w-full overflow-hidden">
                 <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-4 md:mb-6">
                   <div className="flex-1 min-w-0">
                     <h1 className="text-2xl md:text-3xl font-black text-foreground mb-2 break-words">{car.name}</h1>
@@ -415,7 +410,7 @@ const VehicleDetail = () => {
               </div>
 
               {/* Description */}
-              <div className="bg-card rounded-2xl p-4 md:p-6 shadow-sm overflow-hidden">
+              <div className="bg-card rounded-2xl p-4 md:p-6 shadow-sm overflow-hidden w-full">
                 <h2 className="text-lg md:text-xl font-bold text-foreground mb-3 md:mb-4">Description</h2>
                 <div className="text-muted-foreground text-sm md:text-base whitespace-pre-line leading-relaxed break-words">
                   {description}
@@ -423,7 +418,7 @@ const VehicleDetail = () => {
               </div>
 
               {/* Specifications */}
-              <div className="bg-card rounded-2xl p-4 md:p-6 shadow-sm overflow-hidden">
+              <div className="bg-card rounded-2xl p-4 md:p-6 shadow-sm overflow-hidden w-full">
                 <h2 className="text-lg md:text-xl font-bold text-foreground mb-4 md:mb-6">Specifications</h2>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
                   {specs.map((spec: any, idx: number) => (
@@ -436,7 +431,7 @@ const VehicleDetail = () => {
               </div>
 
               {/* Features */}
-              <div className="bg-card rounded-2xl p-4 md:p-6 shadow-sm overflow-hidden">
+              <div className="bg-card rounded-2xl p-4 md:p-6 shadow-sm overflow-hidden w-full">
                 <h2 className="text-lg md:text-xl font-bold text-foreground mb-4 md:mb-6">Features & Options</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
                   {features.map((feature: string, idx: number) => (
@@ -452,9 +447,9 @@ const VehicleDetail = () => {
             </div>
 
             {/* Right Column - Contact & Finance */}
-            <div className="space-y-4 md:space-y-6 lg:sticky lg:top-28 lg:self-start overflow-hidden">
+            <div className="space-y-4 md:space-y-6 lg:sticky lg:top-28 lg:self-start overflow-hidden min-w-0">
               {/* Dealer Contact */}
-              <div className="bg-card rounded-2xl p-4 md:p-6 shadow-sm overflow-hidden">
+              <div className="bg-card rounded-2xl p-4 md:p-6 shadow-sm overflow-hidden w-full">
                 <h3 className="text-base md:text-lg font-bold text-foreground mb-3 md:mb-4">Contact Dealer</h3>
                 
                 <div className="flex items-center gap-3 md:gap-4 p-3 md:p-4 bg-secondary rounded-xl mb-4 md:mb-6 overflow-hidden">
@@ -511,7 +506,7 @@ const VehicleDetail = () => {
               </div>
 
               {/* Trust Badges */}
-              <div className="bg-card rounded-2xl p-4 md:p-6 shadow-sm overflow-hidden">
+              <div className="bg-card rounded-2xl p-4 md:p-6 shadow-sm overflow-hidden w-full">
                 <div className="space-y-3 md:space-y-4">
                   <div className="flex items-center gap-3 min-w-0 overflow-hidden">
                     <div className="w-9 h-9 md:w-10 md:h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
