@@ -8,7 +8,7 @@ const stats = [
     value: 5000,
     suffix: '+',
     label: 'Happy Customers',
-    description: 'Join thousands of satisfied customers who have found their dream vehicle through us with confidence.',
+    description: 'Join thousands of satisfied customers who have found their dream car through us with confidence.',
   },
   {
     icon: Car,
@@ -43,7 +43,7 @@ const stats = [
     icon: CheckCircle,
     value: 100,
     suffix: '%',
-    label: 'Certified Vehicles',
+    label: 'Certified Cars',
     description: 'Every car undergoes rigorous inspection and comes with warranty coverage.',
   },
 ];

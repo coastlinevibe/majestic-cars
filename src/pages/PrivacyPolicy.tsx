@@ -55,8 +55,8 @@ const PrivacyPolicy = () => {
                   <li>Name and contact information (email, phone number, address)</li>
                   <li>Driver's license information</li>
                   <li>Financial information for financing applications</li>
-                  <li>Vehicle preferences and purchase history</li>
-                  <li>Trade-in vehicle information</li>
+                  <li>Car preferences and purchase history</li>
+                  <li>Trade-in car information</li>
                 </ul>
 
                 <h3 className="text-xl font-semibold text-foreground mt-6 mb-2">Automatically Collected Information</h3>
@@ -73,7 +73,7 @@ const PrivacyPolicy = () => {
                 <h2 className="text-2xl font-bold text-foreground mb-4">3. How We Use Your Information</h2>
                 <p>We use the information we collect to:</p>
                 <ul className="list-disc pl-6 mt-4 space-y-2">
-                  <li>Process vehicle purchases and financing applications</li>
+                  <li>Process car purchases and financing applications</li>
                   <li>Communicate with you about our products and services</li>
                   <li>Provide customer support and respond to inquiries</li>
                   <li>Send marketing communications (with your consent)</li>

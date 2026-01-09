@@ -503,7 +503,7 @@ const Inventory = () => {
                     onClick={() => setShowMainVehicleTypes(!showMainVehicleTypes)}
                     className="w-full flex items-center justify-center gap-2 text-foreground hover:text-primary transition-colors mb-4"
                   >
-                    <span className="text-base font-semibold">Filter by Vehicle Type</span>
+                    <span className="text-base font-semibold">Filter by Car Type</span>
                     {showMainVehicleTypes ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
                   </button>
                   

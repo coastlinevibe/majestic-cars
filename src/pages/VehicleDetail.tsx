@@ -518,7 +518,7 @@ const VehicleDetail = () => {
                       <Shield size={18} className="text-primary md:w-5 md:h-5" />
                     </div>
                     <div className="min-w-0 flex-1">
-                      <div className="font-semibold text-foreground text-xs md:text-sm truncate">Certified Vehicle</div>
+                      <div className="font-semibold text-foreground text-xs md:text-sm truncate">Certified Car</div>
                       <div className="text-muted-foreground text-xs truncate">150-point inspection passed</div>
                     </div>
                   </div>

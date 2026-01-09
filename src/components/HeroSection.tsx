@@ -161,7 +161,7 @@ const HeroSection = () => {
             >
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 bg-primary rounded-full" />
-                <span className="text-white/70 text-sm">100% Certified Vehicles</span>
+                <span className="text-white/70 text-sm">100% Certified Cars</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 bg-primary rounded-full" />

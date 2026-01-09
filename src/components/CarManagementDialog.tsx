@@ -367,9 +367,9 @@ const CarManagementDialog = ({ open, onOpenChange, car, onSuccess }: CarManageme
         <DialogHeader>
           <div className="flex items-center justify-between">
             <div>
-              <DialogTitle>{car ? 'Edit Vehicle' : 'Add New Vehicle'}</DialogTitle>
+              <DialogTitle>{car ? 'Edit Car' : 'Add New Car'}</DialogTitle>
               <DialogDescription>
-                {car ? 'Update vehicle information' : 'Enter vehicle details to add to inventory'}
+                {car ? 'Update car information' : 'Enter car details to add to inventory'}
               </DialogDescription>
             </div>
             {!car && (
@@ -574,7 +574,7 @@ const CarManagementDialog = ({ open, onOpenChange, car, onSuccess }: CarManageme
               value={formData.description}
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
               rows={4}
-              placeholder="Enter detailed vehicle description..."
+              placeholder="Enter detailed car description..."
             />
           </div>
 
@@ -730,7 +730,7 @@ const CarManagementDialog = ({ open, onOpenChange, car, onSuccess }: CarManageme
             </Button>
             <Button type="submit" disabled={loading}>
               {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-              {car ? 'Update Vehicle' : 'Add Vehicle'}
+              {car ? 'Update Car' : 'Add Car'}
             </Button>
           </DialogFooter>
         </form>

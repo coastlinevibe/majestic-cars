@@ -41,7 +41,7 @@ const CTASection = () => {
             transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.4, 0.25, 1] }}
             className="text-white/80 text-base md:text-lg mb-6 md:mb-8"
           >
-            Join thousands of satisfied customers who found their perfect vehicle at Majesticars.
+            Join thousands of satisfied customers who found their perfect car at Majesticars.
             Browse our premium collection today and find your next ride.
           </motion.p>
 
@@ -81,7 +81,7 @@ const CTASection = () => {
             className="flex flex-col sm:flex-row flex-wrap justify-center gap-4 md:gap-8"
           >
             {[
-              { icon: Shield, text: '100% Certified Vehicles' },
+              { icon: Shield, text: '100% Certified Cars' },
               { icon: Award, text: 'Best Price Guarantee' },
               { icon: Headphones, text: '24/7 Support' },
             ].map((badge, index) => {

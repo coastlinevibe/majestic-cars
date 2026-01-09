@@ -37,7 +37,7 @@ const Footer = () => {
               </span>
             </Link>
             <p className="text-muted-foreground text-sm leading-relaxed mb-6">
-              Best selection of quality second-hand cars. Carefully inspected vehicles that look great and drive even better.
+              Best selection of quality second-hand cars. Carefully inspected cars that look great and drive even better.
             </p>
             <p className="text-primary text-sm font-medium mb-6">
               www.majesticars.com

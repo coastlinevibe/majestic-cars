@@ -14,27 +14,27 @@ const faqs = [
   },
   {
     question: "Do you accept trade-ins?",
-    answer: "Yes, we accept trade-ins of all makes and models. Our expert appraisers will evaluate your vehicle and provide a competitive offer that can be applied toward your new purchase."
+    answer: "Yes, we accept trade-ins of all makes and models. Our expert appraisers will evaluate your car and provide a competitive offer that can be applied toward your new purchase."
   },
   {
-    question: "What is included in your vehicle warranty?",
-    answer: "All our certified pre-owned vehicles come with a comprehensive warranty covering major components. New vehicles include the full manufacturer's warranty. Extended warranty options are also available for additional peace of mind."
+    question: "What is included in your car warranty?",
+    answer: "All our certified pre-owned cars come with a comprehensive warranty covering major components. New cars include the full manufacturer's warranty. Extended warranty options are also available for additional peace of mind."
   },
   {
     question: "Can I schedule a test drive?",
-    answer: "Absolutely! You can schedule a test drive online through our contact page or by calling our showroom directly. We also offer at-home test drives for select vehicles within our service area."
+    answer: "Absolutely! You can schedule a test drive online through our contact page or by calling our showroom directly. We also offer at-home test drives for select cars within our service area."
   },
   {
-    question: "Do you offer vehicle delivery?",
-    answer: "Yes, we provide nationwide delivery services. Our white-glove delivery ensures your vehicle arrives in pristine condition. Delivery fees vary based on distance and are calculated at the time of purchase."
+    question: "Do you offer car delivery?",
+    answer: "Yes, we provide nationwide delivery services. Our white-glove delivery ensures your car arrives in pristine condition. Delivery fees vary based on distance and are calculated at the time of purchase."
   },
   {
-    question: "What documents do I need to purchase a vehicle?",
-    answer: "You'll need a valid driver's license, proof of insurance, and proof of income if financing. For trade-ins, please bring your vehicle title. Our sales team can guide you through any additional requirements."
+    question: "What documents do I need to purchase a car?",
+    answer: "You'll need a valid driver's license, proof of insurance, and proof of income if financing. For trade-ins, please bring your car title. Our sales team can guide you through any additional requirements."
   },
   {
-    question: "Are your vehicles inspected before sale?",
-    answer: "Every vehicle in our inventory undergoes a rigorous multi-point inspection by our certified technicians. We ensure all vehicles meet our high standards for quality, safety, and performance before being listed for sale."
+    question: "Are your cars inspected before sale?",
+    answer: "Every car in our inventory undergoes a rigorous multi-point inspection by our certified technicians. We ensure all cars meet our high standards for quality, safety, and performance before being listed for sale."
   },
   {
     question: "What are your showroom hours?",
@@ -54,7 +54,7 @@ const FAQ = () => {
             Frequently Asked Questions
           </h1>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-8">
-            Find answers to common questions about our vehicles, services, and policies.
+            Find answers to common questions about our cars, services, and policies.
           </p>
           
           {/* WhatsApp Promotion */}

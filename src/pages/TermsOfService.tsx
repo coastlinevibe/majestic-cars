@@ -50,7 +50,7 @@ const TermsOfService = () => {
               <section>
                 <h2 className="text-2xl font-bold text-foreground mb-4">2. Use of Services</h2>
                 <p>
-                  Our services are provided for the purpose of browsing, purchasing, and financing luxury vehicles. You agree to use our services only for lawful purposes and in accordance with these Terms of Service.
+                  Our services are provided for the purpose of browsing, purchasing, and financing luxury cars. You agree to use our services only for lawful purposes and in accordance with these Terms of Service.
                 </p>
                 <ul className="list-disc pl-6 mt-4 space-y-2">
                   <li>You must be at least 18 years old to use our services</li>
@@ -61,16 +61,16 @@ const TermsOfService = () => {
               </section>
 
               <section>
-                <h2 className="text-2xl font-bold text-foreground mb-4">3. Vehicle Listings and Pricing</h2>
+                <h2 className="text-2xl font-bold text-foreground mb-4">3. Car Listings and Pricing</h2>
                 <p>
-                  All vehicle listings, specifications, and pricing information are subject to change without notice. While we strive to provide accurate information, we do not warrant that product descriptions or other content is accurate, complete, reliable, current, or error-free.
+                  All car listings, specifications, and pricing information are subject to change without notice. While we strive to provide accurate information, we do not warrant that product descriptions or other content is accurate, complete, reliable, current, or error-free.
                 </p>
               </section>
 
               <section>
                 <h2 className="text-2xl font-bold text-foreground mb-4">4. Purchase Terms</h2>
                 <p>
-                  All vehicle purchases are subject to availability and final approval. A deposit may be required to reserve a vehicle. Final pricing may vary based on financing terms, trade-in values, and additional services selected.
+                  All car purchases are subject to availability and final approval. A deposit may be required to reserve a car. Final pricing may vary based on financing terms, trade-in values, and additional services selected.
                 </p>
               </section>
 
@@ -84,7 +84,7 @@ const TermsOfService = () => {
               <section>
                 <h2 className="text-2xl font-bold text-foreground mb-4">6. Warranties</h2>
                 <p>
-                  Vehicle warranties are provided as specified in individual vehicle listings. Extended warranty options may be available for purchase. All warranties are subject to the terms and conditions of the warranty provider.
+                  Car warranties are provided as specified in individual car listings. Extended warranty options may be available for purchase. All warranties are subject to the terms and conditions of the warranty provider.
                 </p>
               </section>
 

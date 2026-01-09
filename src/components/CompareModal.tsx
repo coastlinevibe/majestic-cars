@@ -310,7 +310,7 @@ const CompareModal = ({ cars, isOpen, onClose, onRemoveCar, allAvailableCars = [
                 You Might Also Like
               </h3>
               <p className="text-muted-foreground text-xs md:text-sm mb-4">
-                Based on your comparison, here are some similar vehicles you might be interested in
+                Based on your comparison, here are some similar cars you might be interested in
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {suggestedCars.map((car) => (

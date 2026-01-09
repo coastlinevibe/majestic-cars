@@ -99,7 +99,7 @@ const NewListings = () => {
             New Listings
           </h2>
           <p className="text-muted-foreground text-base md:text-lg">
-            Check out our latest vehicles
+            Check out our latest cars
           </p>
         </motion.div>
       </div>
@@ -110,7 +110,7 @@ const NewListings = () => {
         </div>
       ) : cars.length === 0 ? (
         <div className="text-center py-20">
-          <p className="text-muted-foreground text-lg">No vehicles available yet. Check back soon!</p>
+          <p className="text-muted-foreground text-lg">No cars available yet. Check back soon!</p>
         </div>
       ) : (
         <>
@@ -216,7 +216,7 @@ const NewListings = () => {
         >
           <Button asChild size="lg" variant="outline">
             <Link to="/inventory">
-              View All Vehicles
+              View All Cars
               <ChevronRight className="ml-2" size={20} />
             </Link>
           </Button>

@@ -97,7 +97,7 @@ const CarCard = ({ car, onCompare, isInCompare = false }: CarCardProps) => {
         {/* Actions */}
         <div className="flex gap-2 items-center">
           <Button asChild className="flex-1">
-            <Link to={`/inventory/${car.id}`}>View Vehicle</Link>
+            <Link to={`/inventory/${car.id}`}>View Car</Link>
           </Button>
           <button
             onClick={() => setIsWishlisted(!isWishlisted)}
