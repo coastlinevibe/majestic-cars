@@ -401,7 +401,7 @@ const Inventory = () => {
                     </span>
                   </div>
                   <p className="text-muted-foreground">
-                    Explore our premium collection of luxury and performance vehicles
+                    Explore our premium collection of luxury and performance cars
                   </p>
                 </div>
 
@@ -428,7 +428,7 @@ const Inventory = () => {
                 <div className="flex items-center justify-center py-16">
                   <div className="text-center">
                     <Loader2 className="w-12 h-12 animate-spin text-primary mx-auto mb-4" />
-                    <p className="text-muted-foreground">Loading vehicles...</p>
+                    <p className="text-muted-foreground">Loading cars...</p>
                   </div>
                 </div>
               ) : (
@@ -455,8 +455,8 @@ const Inventory = () => {
                   <h3 className="text-xl font-bold text-foreground mb-2">No cars found</h3>
                   <p className="text-muted-foreground">
                     {(allCars?.length === 0 || !allCars)
-                      ? 'No vehicles in inventory yet. Check back soon!' 
-                      : 'Try adjusting your filters to find more vehicles.'}
+                      ? 'No cars in inventory yet. Check back soon!' 
+                      : 'Try adjusting your filters to find more cars.'}
                   </p>
                 </div>
               )}

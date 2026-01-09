@@ -144,7 +144,7 @@ const ChatbotWidget = () => {
     }
     
     if (message.includes('inventory') || message.includes('cars') || message.includes('vehicles')) {
-      return "We have an extensive inventory of premium vehicles including BMW, Mercedes, and Audi. You can browse our complete inventory online or visit our showroom. Are you looking for a specific make or model?";
+      return "We have an extensive inventory of premium cars including BMW, Mercedes, and Audi. You can browse our complete inventory online or visit our showroom. Are you looking for a specific make or model?";
     }
     
     if (message.includes('hours') || message.includes('open')) {

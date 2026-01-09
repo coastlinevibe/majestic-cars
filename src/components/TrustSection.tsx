@@ -12,9 +12,9 @@ const stats = [
   },
   {
     icon: Car,
-    value: 150,
+    value: 50,
     suffix: '+',
-    label: 'Premium Vehicles',
+    label: 'Premium Cars',
     description: 'Carefully curated collection of luxury and performance cars to suit all tastes.',
   },
   {

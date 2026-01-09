@@ -20,7 +20,7 @@ const WhatsAppWidget = () => {
 
   const handleWhatsAppClick = () => {
     const formattedNumber = whatsappNumber.replace(/\D/g, '');
-    const message = encodeURIComponent('Hi! I\'m interested in your vehicles.');
+    const message = encodeURIComponent('Hi! I\'m interested in your cars.');
     window.open(`https://wa.me/${formattedNumber}?text=${message}`, '_blank');
   };
 

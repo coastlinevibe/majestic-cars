@@ -11,23 +11,23 @@ import aboutHeroImg from '@/assets/about-hero.jpg';
 const values = [
   {
     icon: Trophy,
-    title: 'Excellence',
-    description: 'We maintain the highest standards in everything we do, from vehicle selection to customer service.',
+    title: 'Honesty',
+    description: 'No pushy sales talk, no hidden surprises. We price our cars fairly from the start and treat every customer with respect.',
   },
   {
     icon: Heart,
-    title: 'Trust',
-    description: 'Building lasting relationships through transparency, honesty, and reliable service.',
+    title: 'Transparency',
+    description: 'Every car is fully inspected and we explain everything clearly. You know exactly what you\'re getting.',
   },
   {
     icon: Shield,
     title: 'Quality',
-    description: 'Every vehicle meets our rigorous inspection standards and comes with comprehensive warranties.',
+    description: 'Every car goes through a full inspection. If a car isn\'t up to standard, we don\'t sell it — simple as that.',
   },
   {
     icon: Rocket,
-    title: 'Innovation',
-    description: 'Embracing the latest technology and trends to enhance your automotive experience.',
+    title: 'Trust',
+    description: 'Our reputation means everything to us. We\'re building something long-term, and that means treating customers right every single time.',
   },
 ];
 
@@ -53,23 +53,21 @@ const team = [
 ];
 
 const features = [
-  { title: 'Comprehensive Warranties', description: 'All vehicles come with extensive warranty coverage for your peace of mind.' },
-  { title: 'Flexible Financing', description: 'Tailored financing solutions to match your budget and preferences.' },
-  { title: 'Trade-In Services', description: 'Competitive valuations and seamless trade-in processes.' },
-  { title: 'Nationwide Delivery', description: 'Professional delivery service to your preferred location.' },
-  { title: 'Expert Maintenance', description: 'Certified technicians and genuine parts for optimal performance.' },
-  { title: '24/7 Support', description: 'Round-the-clock customer support for all your automotive needs.' },
+  { title: 'Full Inspections', description: 'Every car is carefully inspected to make sure it\'s safe, reliable, and ready to drive.' },
+  { title: 'Finance Options', description: 'We work with trusted finance partners and explain everything clearly.' },
+  { title: 'Trade-In Services', description: 'Bring your car in and we\'ll give you a fair, honest trade-in value with no pressure.' },
+  { title: 'Test Drives', description: 'We encourage test drives — it\'s the best way to know if a car is right for you.' },
+  { title: 'Warranty Options', description: 'Many of our cars come with warranty options for extra peace of mind.' },
+  { title: 'Fair Pricing', description: 'We price our cars fairly from the start. No games, no fake discounts.' },
 ];
 
 const About = () => {
   const storyRef = useRef<HTMLDivElement>(null);
   const valuesRef = useRef<HTMLDivElement>(null);
-  const teamRef = useRef<HTMLDivElement>(null);
   const featuresRef = useRef<HTMLDivElement>(null);
   
   const storyInView = useInView(storyRef, { once: true, margin: '-100px' });
   const valuesInView = useInView(valuesRef, { once: true, margin: '-100px' });
-  const teamInView = useInView(teamRef, { once: true, margin: '-100px' });
   const featuresInView = useInView(featuresRef, { once: true, margin: '-100px' });
 
   return (
@@ -103,7 +101,7 @@ const About = () => {
             className="text-white/80 text-xl"
             style={{ fontStyle: 'italic' }}
           >
-            We Sell Memories
+            Simple, Honest, Stress-Free
           </motion.p>
         </div>
       </section>
@@ -118,17 +116,17 @@ const About = () => {
               transition={{ duration: 0.8, ease: [0.25, 0.4, 0.25, 1] }}
             >
               <h2 className="text-4xl font-black text-foreground mb-4">Our Story</h2>
-              <p className="text-muted-foreground mb-6">Three decades of automotive excellence</p>
+              <p className="text-muted-foreground mb-6">Building trust one customer at a time</p>
               
               <div className="space-y-4 text-muted-foreground">
                 <p>
-                  Founded in 1995, Majesticars began as a small family-owned dealership with a simple mission: to provide exceptional luxury vehicles paired with unparalleled customer service. What started as a passion project has grown into one of South Africa's most trusted premium automotive destinations.
+                  Majesticars started as a passion project. I've been into cars for as long as I can remember — flipping my first car while still in my teens, learning everything hands-on, and building trust one customer at a time. What began as buying and selling a few cars turned into a full dealership before I even turned 20.
                 </p>
                 <p>
-                  Our commitment to excellence extends beyond just selling cars. We believe in building lasting relationships with our clients, understanding their unique needs, and delivering experiences that exceed expectations. Every vehicle in our showroom is carefully selected and thoroughly inspected to meet our rigorous standards.
+                  I started this dealership because I was tired of seeing people my age (and honestly everyone else) get overcharged, confused, or pressured when buying a car. Here, it's different. No pushy sales talk, no hidden surprises — just good, reliable cars at fair prices.
                 </p>
                 <p>
-                  Today, Majesticars represents the finest in luxury automotive retail, offering an extensive collection of premium brands, comprehensive financing solutions, and award-winning after-sales service.
+                  Even though we're young, we take things seriously. Every car is carefully selected, inspected, and priced fairly. Our goal isn't just to sell cars — it's to build long-term relationships and a reputation we can stand behind. We're proud to be a modern dealership with old-school values: honesty, transparency, and respect.
                 </p>
               </div>
             </motion.div>
@@ -140,9 +138,9 @@ const About = () => {
               className="space-y-8"
             >
               {[
-                { value: '30+', label: 'Years of Excellence' },
-                { value: '5000+', label: 'Happy Customers' },
-                { value: '15+', label: 'Premium Brands' },
+                { value: '100%', label: 'Inspected Cars' },
+                { value: '500+', label: 'Happy Customers' },
+                { value: 'Fair', label: 'Pricing Always' },
               ].map((stat, index) => (
                 <motion.div
                   key={stat.label}
@@ -201,47 +199,8 @@ const About = () => {
         </div>
       </section>
 
-      {/* Meet Our Team */}
-      <section ref={teamRef} className="section-padding bg-card">
-        <div className="sterling-container">
-          <motion.div
-            initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }}
-            animate={teamInView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
-            transition={{ duration: 0.8, ease: [0.25, 0.4, 0.25, 1] }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-4xl font-black text-foreground mb-4">Meet Our Team</h2>
-            <p className="text-muted-foreground text-lg">Passionate professionals dedicated to your success</p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {team.map((member, index) => (
-              <motion.div
-                key={member.name}
-                initial={{ opacity: 0, y: 60, filter: 'blur(10px)', scale: 0.9 }}
-                animate={teamInView ? { opacity: 1, y: 0, filter: 'blur(0px)', scale: 1 } : {}}
-                transition={{ duration: 0.8, delay: index * 0.2, ease: [0.25, 0.4, 0.25, 1] }}
-                className="team-card"
-              >
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={teamInView ? { scale: 1 } : {}}
-                  transition={{ delay: 0.3 + index * 0.2, duration: 0.5, type: 'spring' }}
-                  className="w-24 h-24 mx-auto bg-primary rounded-full flex items-center justify-center mb-4"
-                >
-                  <span className="text-2xl font-bold text-primary-foreground">{member.initials}</span>
-                </motion.div>
-                <h3 className="text-xl font-bold text-foreground mb-1">{member.name}</h3>
-                <p className="text-primary font-medium text-sm mb-4">{member.role}</p>
-                <p className="text-muted-foreground text-sm">{member.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Why Choose Us */}
-      <section ref={featuresRef} className="section-padding bg-background">
+      <section ref={featuresRef} className="section-padding bg-card">
         <div className="sterling-container">
           <motion.div
             initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }}
@@ -250,7 +209,7 @@ const About = () => {
             className="text-center mb-12"
           >
             <h2 className="text-4xl font-black text-foreground mb-4">Why Choose Majesticars</h2>
-            <p className="text-muted-foreground text-lg">Your trusted partner in luxury automotive</p>
+            <p className="text-muted-foreground text-lg">Simple, honest, and stress-free car buying</p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

@@ -63,8 +63,8 @@ const VehicleDetail = () => {
       
       if (!carData) {
         toast({
-          title: 'Vehicle not found',
-          description: 'The requested vehicle could not be found.',
+          title: 'Car not found',
+          description: 'The requested car could not be found.',
           variant: 'destructive',
         });
         navigate('/inventory');
@@ -119,7 +119,7 @@ const VehicleDetail = () => {
       console.error('Error loading vehicle:', error);
       toast({
         title: 'Error',
-        description: 'Failed to load vehicle details.',
+        description: 'Failed to load car details.',
         variant: 'destructive',
       });
       navigate('/inventory');
@@ -165,7 +165,7 @@ const VehicleDetail = () => {
             <div className="flex items-center justify-center py-16">
               <div className="text-center">
                 <Loader2 className="w-12 h-12 animate-spin text-primary mx-auto mb-4" />
-                <p className="text-muted-foreground">Loading vehicle details...</p>
+                <p className="text-muted-foreground">Loading car details...</p>
               </div>
             </div>
           </div>
@@ -183,8 +183,8 @@ const VehicleDetail = () => {
           <div className="sterling-container py-8">
             <div className="flex flex-col items-center justify-center py-16">
               <AlertCircle className="w-16 h-16 text-destructive mb-4" />
-              <h2 className="text-2xl font-bold mb-2">Vehicle Not Found</h2>
-              <p className="text-muted-foreground mb-6">The vehicle you're looking for doesn't exist.</p>
+              <h2 className="text-2xl font-bold mb-2">Car Not Found</h2>
+              <p className="text-muted-foreground mb-6">The car you're looking for doesn't exist.</p>
               <Button onClick={() => navigate('/inventory')}>
                 Back to Inventory
               </Button>
@@ -212,7 +212,7 @@ const VehicleDetail = () => {
     e.preventDefault();
     toast({
       title: 'Inquiry Sent!',
-      description: "We'll contact you within 24 hours about this vehicle.",
+      description: "We'll contact you within 24 hours about this car.",
     });
   };
 
@@ -220,7 +220,7 @@ const VehicleDetail = () => {
     navigator.clipboard.writeText(window.location.href);
     toast({
       title: 'Link Copied!',
-      description: 'Vehicle link copied to clipboard.',
+      description: 'Car link copied to clipboard.',
     });
   };
 
@@ -496,7 +496,7 @@ const VehicleDetail = () => {
           <section className="mt-16">
             <div className="flex items-center justify-between mb-8">
               <div>
-                <h2 className="text-2xl font-black text-foreground">Similar Vehicles</h2>
+                <h2 className="text-2xl font-black text-foreground">Similar Cars</h2>
                 <p className="text-muted-foreground">You might also be interested in</p>
               </div>
               <Button variant="outline" asChild>

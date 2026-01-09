@@ -113,7 +113,7 @@ const HeroSection = () => {
               variants={slideInVariants}
               className="inline-block px-4 py-2 backdrop-blur-md bg-white/10 border border-white/20 text-white rounded-[9px] text-sm font-semibold mb-6"
             >
-              Premium Automotive Excellence
+              Honest & Transparent
             </motion.span>
             
             <motion.h1
@@ -136,8 +136,7 @@ const HeroSection = () => {
               variants={itemVariants}
               className="text-white/80 text-lg mb-8 max-w-lg"
             >
-              Discover South Africa's finest collection of luxury vehicles. 
-              Premium quality, exceptional service, unbeatable prices.
+              Where buying a car is simple, honest, and stress-free. No pushy sales talk, no hidden surprises — just good, reliable cars at fair prices.
             </motion.p>
             
             <motion.div

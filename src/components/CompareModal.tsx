@@ -95,9 +95,9 @@ const CompareModal = ({ cars, isOpen, onClose, onRemoveCar }: CompareModalProps)
         {/* Header */}
         <div className="sticky top-0 bg-card border-b border-border p-6 flex items-center justify-between z-10">
           <div>
-            <h2 className="text-2xl font-black text-foreground">Compare Vehicles</h2>
+            <h2 className="text-2xl font-black text-foreground">Compare Cars</h2>
             <p className="text-muted-foreground">
-              Comparing {cars.length} vehicle{cars.length !== 1 ? 's' : ''} side by side
+              Comparing {cars.length} car{cars.length !== 1 ? 's' : ''} side by side
             </p>
           </div>
           <button

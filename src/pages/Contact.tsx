@@ -51,7 +51,7 @@ const Contact = () => {
   const handleVehicleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     toast({
-      title: 'Vehicle Inquiry Sent!',
+      title: 'Car Inquiry Sent!',
       description: "Our sales team will contact you within 24 hours.",
     });
     setVehicleFormData({ 
@@ -148,7 +148,7 @@ const Contact = () => {
                   </TabsTrigger>
                   <TabsTrigger value="vehicle" className="flex items-center gap-2">
                     <Car className="w-4 h-4" />
-                    Vehicle Inquiry
+                    Car Inquiry
                   </TabsTrigger>
                 </TabsList>
 
@@ -244,13 +244,13 @@ const Contact = () => {
                   </Card>
                 </TabsContent>
 
-                {/* Vehicle Inquiry Form */}
+                {/* Car Inquiry Form */}
                 <TabsContent value="vehicle">
                   <Card>
                     <CardHeader>
-                      <CardTitle>Vehicle Inquiry</CardTitle>
+                      <CardTitle>Car Inquiry</CardTitle>
                       <CardDescription>
-                        Interested in purchasing a vehicle? Let us know your preferences and we'll help you find the perfect match
+                        Interested in purchasing a car? Let us know your preferences and we'll help you find the perfect match
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
@@ -295,13 +295,13 @@ const Contact = () => {
                             />
                           </div>
                           <div>
-                            <Label htmlFor="vehicle-interest" className="mb-2 block">Vehicle of Interest</Label>
+                            <Label htmlFor="vehicle-interest" className="mb-2 block">Car of Interest</Label>
                             <Select
                               value={vehicleFormData.vehicleInterest}
                               onValueChange={(value) => setVehicleFormData({ ...vehicleFormData, vehicleInterest: value })}
                             >
                               <SelectTrigger className="bg-background">
-                                <SelectValue placeholder="Select a vehicle" />
+                                <SelectValue placeholder="Select a car" />
                               </SelectTrigger>
                               <SelectContent>
                                 <SelectItem value="bmw-m8">BMW M8</SelectItem>
@@ -355,7 +355,7 @@ const Contact = () => {
                         </div>
 
                         <div>
-                          <Label htmlFor="trade-in" className="mb-2 block">Trade-In Vehicle</Label>
+                          <Label htmlFor="trade-in" className="mb-2 block">Trade-In Car</Label>
                           <Input
                             id="trade-in"
                             value={vehicleFormData.tradeIn}

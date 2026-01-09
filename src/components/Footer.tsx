@@ -19,8 +19,6 @@ const Footer = () => {
 
   const support = [
     { name: 'FAQ', path: '/faq' },
-    { name: 'Terms of Service', path: '/terms-of-service' },
-    { name: 'Privacy Policy', path: '/privacy-policy' },
     { name: 'Admin', path: '/admin' },
   ];
 
@@ -149,11 +147,6 @@ const Footer = () => {
             <p className="text-muted-foreground text-sm">
               Powered by <a href="https://wabi-sabi.click" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Wabi-sabi systems</a>
             </p>
-          </div>
-          <div className="flex gap-6 text-muted-foreground text-sm">
-            <Link to="/terms-of-service" className="hover:text-primary transition-colors">Terms of Service</Link>
-            <Link to="/privacy-policy" className="hover:text-primary transition-colors">Privacy Policy</Link>
-            <Link to="/cookies" className="hover:text-primary transition-colors">Cookie Policy</Link>
           </div>
         </div>
       </div>

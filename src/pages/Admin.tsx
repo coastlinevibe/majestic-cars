@@ -411,8 +411,8 @@ const Admin = () => {
 
                 <Card>
                   <CardHeader>
-                    <CardTitle>Top Performing Vehicles</CardTitle>
-                    <CardDescription>Most viewed and inquired vehicles</CardDescription>
+                    <CardTitle>Top Performing Cars</CardTitle>
+                    <CardDescription>Most viewed and inquired cars</CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     {cars.slice(0, 4).map((vehicle, index) => (
@@ -432,7 +432,7 @@ const Admin = () => {
                       </div>
                     ))}
                     {cars.length === 0 && (
-                      <p className="text-center text-muted-foreground py-4">No vehicles yet</p>
+                      <p className="text-center text-muted-foreground py-4">No cars yet</p>
                     )}
                   </CardContent>
                 </Card>
@@ -443,8 +443,8 @@ const Admin = () => {
               {/* Inventory Header */}
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
-                  <h2 className="text-2xl font-bold">Vehicle Inventory</h2>
-                  <p className="text-muted-foreground">Manage your vehicle listings</p>
+                  <h2 className="text-2xl font-bold">Car Inventory</h2>
+                  <p className="text-muted-foreground">Manage your car listings</p>
                 </div>
                 <div className="flex gap-2">
                   <Button variant="outline" size="sm" onClick={loadCars} disabled={loading}>
@@ -453,7 +453,7 @@ const Admin = () => {
                   </Button>
                   <Button size="sm" onClick={handleAddCar}>
                     <Plus className="w-4 h-4 mr-2" />
-                    Add Vehicle
+                    Add Car
                   </Button>
                 </div>
               </div>
@@ -463,7 +463,7 @@ const Admin = () => {
                 <CardContent className="pt-6">
                   <div className="flex flex-col sm:flex-row gap-4">
                     <div className="flex-1">
-                      <Label htmlFor="search">Search Vehicles</Label>
+                      <Label htmlFor="search">Search Cars</Label>
                       <div className="relative">
                         <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                         <Input 
@@ -496,9 +496,9 @@ const Admin = () => {
               {/* Inventory Table */}
               <Card>
                 <CardHeader>
-                  <CardTitle>Vehicle Listings</CardTitle>
+                  <CardTitle>Car Listings</CardTitle>
                   <CardDescription>
-                    {filteredCars.length} vehicles in inventory
+                    {filteredCars.length} cars in inventory
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -509,16 +509,16 @@ const Admin = () => {
                   ) : filteredCars.length === 0 ? (
                     <div className="flex flex-col items-center justify-center py-12 text-center">
                       <AlertCircle className="w-12 h-12 text-muted-foreground mb-4" />
-                      <h3 className="text-lg font-semibold mb-2">No vehicles found</h3>
+                      <h3 className="text-lg font-semibold mb-2">No cars found</h3>
                       <p className="text-muted-foreground mb-4">
                         {cars.length === 0 
-                          ? 'Get started by adding your first vehicle to the inventory.'
+                          ? 'Get started by adding your first car to the inventory.'
                           : 'Try adjusting your search or filter criteria.'}
                       </p>
                       {cars.length === 0 && (
                         <Button onClick={handleAddCar}>
                           <Plus className="w-4 h-4 mr-2" />
-                          Add Your First Vehicle
+                          Add Your First Car
                         </Button>
                       )}
                     </div>
@@ -526,7 +526,7 @@ const Admin = () => {
                     <Table>
                       <TableHeader>
                         <TableRow>
-                          <TableHead>Vehicle</TableHead>
+                          <TableHead>Car</TableHead>
                           <TableHead>Year</TableHead>
                           <TableHead>Price</TableHead>
                           <TableHead>Status</TableHead>
@@ -643,7 +643,7 @@ const Admin = () => {
                       <TableRow>
                         <TableHead>Customer</TableHead>
                         <TableHead>Email</TableHead>
-                        <TableHead>Vehicle</TableHead>
+                        <TableHead>Car</TableHead>
                         <TableHead>Date</TableHead>
                         <TableHead>Status</TableHead>
                         <TableHead>Actions</TableHead>
@@ -787,7 +787,7 @@ const Admin = () => {
           <AlertDialogHeader>
             <AlertDialogTitle>Are you sure?</AlertDialogTitle>
             <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete the vehicle from your inventory.
+              This action cannot be undone. This will permanently delete the car from your inventory.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
