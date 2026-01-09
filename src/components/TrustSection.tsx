@@ -27,10 +27,10 @@ const stats = [
   },
   {
     icon: Award,
-    value: 4,
+    value: 20,
     suffix: '+',
     label: 'Years Experience',
-    description: 'Over four years of expertise in premium automotive sales and service.',
+    description: 'Over twenty years of expertise in premium automotive sales and service.',
   },
   {
     icon: Headphones,

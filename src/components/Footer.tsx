@@ -13,7 +13,6 @@ const Footer = () => {
 
   const services = [
     'Trade-In',
-    'Warranty',
     'Maintenance',
   ];
 

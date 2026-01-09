@@ -93,7 +93,7 @@ const Contact = () => {
     {
       icon: Clock,
       title: 'Working Hours',
-      details: ['Monday - Friday: 9AM - 6PM', 'Saturday: 10AM - 4PM', 'Sunday: Closed', 'www.majesticars.com'],
+      details: ['Monday - Friday: 8:00 - 17:00', 'Saturday - Sunday: 8:00 - 16:00', 'www.majesticars.com'],
     },
   ];
 

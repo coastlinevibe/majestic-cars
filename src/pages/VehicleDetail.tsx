@@ -31,6 +31,8 @@ import {
   Expand,
   Loader2,
   AlertCircle,
+  Copy,
+  X,
 } from 'lucide-react';
 
 // Remove hardcoded vehicle data - now loaded from Supabase
@@ -47,6 +49,7 @@ const VehicleDetail = () => {
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [thumbnailScrollPosition, setThumbnailScrollPosition] = useState(0);
   const [relatedCarsIndex, setRelatedCarsIndex] = useState(0);
+  const [showCallPopup, setShowCallPopup] = useState(false);
 
   // Load vehicle data from Supabase
   useEffect(() => {
@@ -425,7 +428,7 @@ const VehicleDetail = () => {
                   <Button 
                     className="flex-1" 
                     size="lg"
-                    onClick={() => window.location.href = 'tel:0608579146'}
+                    onClick={() => setShowCallPopup(true)}
                   >
                     <Phone className="mr-2 flex-shrink-0" size={18} />
                     <span className="truncate">Call Dealer</span>
@@ -505,7 +508,7 @@ const VehicleDetail = () => {
                 <div className="space-y-2 md:space-y-3 mb-4 md:mb-6">
                   <div className="flex items-center gap-2 md:gap-3 text-muted-foreground text-sm md:text-base min-w-0 overflow-hidden">
                     <Phone size={16} className="text-primary md:w-5 md:h-5 flex-shrink-0" />
-                    <span className="truncate">060 857 9146</span>
+                    <span className="truncate">079 202 1308</span>
                   </div>
                   <div className="flex items-center gap-2 md:gap-3 text-muted-foreground min-w-0 overflow-hidden">
                     <Mail size={16} className="text-primary md:w-5 md:h-5 flex-shrink-0" />
@@ -513,7 +516,10 @@ const VehicleDetail = () => {
                   </div>
                   <div className="flex items-center gap-2 md:gap-3 text-muted-foreground text-sm md:text-base min-w-0 overflow-hidden">
                     <Clock size={16} className="text-primary md:w-5 md:h-5 flex-shrink-0" />
-                    <span className="truncate">Mon-Fri: 9AM - 6PM</span>
+                    <div className="flex flex-col text-xs md:text-sm">
+                      <span>Mon-Fri: 8:00 - 17:00</span>
+                      <span>Sat-Sun: 8:00 - 16:00</span>
+                    </div>
                   </div>
                 </div>
 
@@ -553,8 +559,8 @@ const VehicleDetail = () => {
                       <Shield size={18} className="text-primary md:w-5 md:h-5" />
                     </div>
                     <div className="min-w-0 flex-1">
-                      <div className="font-semibold text-foreground text-xs md:text-sm truncate">Certified Car</div>
-                      <div className="text-muted-foreground text-xs truncate">150-point inspection passed</div>
+                      <div className="font-semibold text-foreground text-xs md:text-sm truncate">Trade-In Welcome</div>
+                      <div className="text-muted-foreground text-xs truncate">Get instant valuation</div>
                     </div>
                   </div>
                   <div className="flex items-center gap-3 min-w-0 overflow-hidden">
@@ -562,8 +568,8 @@ const VehicleDetail = () => {
                       <Zap size={18} className="text-primary md:w-5 md:h-5" />
                     </div>
                     <div className="min-w-0 flex-1">
-                      <div className="font-semibold text-foreground text-xs md:text-sm truncate">Extended Warranty</div>
-                      <div className="text-muted-foreground text-xs truncate">Up to 5 years available</div>
+                      <div className="font-semibold text-foreground text-xs md:text-sm truncate">Free Test Drive</div>
+                      <div className="text-muted-foreground text-xs truncate">Experience the car firsthand</div>
                     </div>
                   </div>
                   <div className="flex items-center gap-3 min-w-0 overflow-hidden">
@@ -571,8 +577,8 @@ const VehicleDetail = () => {
                       <CarIcon size={18} className="text-primary md:w-5 md:h-5" />
                     </div>
                     <div className="min-w-0 flex-1">
-                      <div className="font-semibold text-foreground text-xs md:text-sm truncate">Trade-In Welcome</div>
-                      <div className="text-muted-foreground text-xs truncate">Get instant valuation</div>
+                      <div className="font-semibold text-foreground text-xs md:text-sm truncate">Full Inspection Report</div>
+                      <div className="text-muted-foreground text-xs truncate">Transparent vehicle history</div>
                     </div>
                   </div>
                 </div>
@@ -661,6 +667,68 @@ const VehicleDetail = () => {
           </section>
         </div>
       </main>
+
+      {/* Call Dealer Popup */}
+      {showCallPopup && (
+        <>
+          {/* Backdrop */}
+          <div 
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
+            onClick={() => setShowCallPopup(false)}
+          />
+          
+          {/* Popup */}
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <div className="bg-card rounded-2xl shadow-2xl p-6 md:p-8 max-w-sm w-full animate-scale-in">
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-xl font-bold text-foreground">Call Dealer</h3>
+                <button
+                  onClick={() => setShowCallPopup(false)}
+                  className="w-8 h-8 rounded-full bg-secondary flex items-center justify-center hover:bg-secondary/80 transition-colors"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+
+              <div className="flex items-center gap-4 p-4 bg-secondary rounded-xl">
+                <Copy 
+                  size={24} 
+                  className="text-primary flex-shrink-0 cursor-pointer hover:text-primary/80 transition-colors"
+                  onClick={() => {
+                    navigator.clipboard.writeText('0792021308');
+                    toast({
+                      title: 'Copied!',
+                      description: 'Phone number copied to clipboard.',
+                    });
+                    setShowCallPopup(false);
+                  }}
+                />
+                <div className="flex-1">
+                  <div className="text-sm text-muted-foreground mb-1">Phone Number</div>
+                  <div className="text-2xl font-bold text-foreground">079 202 1308</div>
+                </div>
+              </div>
+
+              <div className="mt-6 flex gap-3">
+                <Button 
+                  className="flex-1"
+                  onClick={() => window.location.href = 'tel:0792021308'}
+                >
+                  <Phone size={18} className="mr-2" />
+                  Call Now
+                </Button>
+                <Button 
+                  variant="outline"
+                  className="flex-1"
+                  onClick={() => setShowCallPopup(false)}
+                >
+                  Close
+                </Button>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
 
       {/* Lightbox */}
       <ImageLightbox
