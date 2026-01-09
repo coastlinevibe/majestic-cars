@@ -44,10 +44,6 @@ const VehicleDetail = () => {
   const [relatedCars, setRelatedCars] = useState<Car[]>([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isWishlisted, setIsWishlisted] = useState(false);
-  const [monthlyPayment, setMonthlyPayment] = useState(0);
-  const [loanTerm, setLoanTerm] = useState('72');
-  const [deposit, setDeposit] = useState(0);
-  const [interestRate] = useState(11.5);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
   // Load vehicle data from Supabase
@@ -159,20 +155,6 @@ const VehicleDetail = () => {
       setRelatedCars([]);
     }
   };
-
-  // Calculate monthly payment
-  useEffect(() => {
-    if (vehicle) {
-      const principal = vehicle.car.price - deposit;
-      const monthlyRate = interestRate / 100 / 12;
-      const months = parseInt(loanTerm);
-      
-      if (monthlyRate > 0 && principal > 0) {
-        const payment = principal * (monthlyRate * Math.pow(1 + monthlyRate, months)) / (Math.pow(1 + monthlyRate, months) - 1);
-        setMonthlyPayment(Math.round(payment));
-      }
-    }
-  }, [vehicle, deposit, loanTerm, interestRate]);
 
   if (loading) {
     return (
@@ -327,9 +309,6 @@ const VehicleDetail = () => {
                   </div>
                   <div className="text-right">
                     <div className="text-3xl font-black text-primary">{formatPrice(car.price)}</div>
-                    <div className="text-muted-foreground text-sm">
-                      Est. {formatPrice(monthlyPayment)}/month
-                    </div>
                   </div>
                 </div>
 
@@ -476,55 +455,6 @@ const VehicleDetail = () => {
                     Send Inquiry
                   </Button>
                 </form>
-              </div>
-
-              {/* Finance Calculator */}
-              <div className="bg-card rounded-2xl p-6 shadow-sm">
-                <h3 className="text-lg font-bold text-foreground mb-4">Finance Calculator</h3>
-                
-                <div className="text-center p-4 bg-primary/10 rounded-xl mb-6">
-                  <div className="text-muted-foreground text-sm mb-1">Estimated Monthly Payment</div>
-                  <div className="text-3xl font-black text-primary">{formatPrice(monthlyPayment)}</div>
-                  <div className="text-muted-foreground text-xs mt-1">Based on {interestRate}% interest</div>
-                </div>
-
-                <div className="space-y-4">
-                  <div>
-                    <Label className="text-sm mb-1.5 block">Vehicle Price</Label>
-                    <div className="price-input-group">
-                      <span className="text-foreground font-semibold">{formatPrice(car.price)}</span>
-                    </div>
-                  </div>
-                  <div>
-                    <Label className="text-sm mb-1.5 block">Deposit Amount</Label>
-                    <Input
-                      type="number"
-                      value={deposit}
-                      onChange={(e) => setDeposit(Number(e.target.value))}
-                      className="bg-secondary"
-                      placeholder="0"
-                    />
-                  </div>
-                  <div>
-                    <Label className="text-sm mb-1.5 block">Loan Term</Label>
-                    <Select value={loanTerm} onValueChange={setLoanTerm}>
-                      <SelectTrigger className="bg-secondary">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="36">36 months</SelectItem>
-                        <SelectItem value="48">48 months</SelectItem>
-                        <SelectItem value="60">60 months</SelectItem>
-                        <SelectItem value="72">72 months</SelectItem>
-                        <SelectItem value="84">84 months</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-
-                <Button variant="outline" className="w-full mt-4">
-                  Apply for Finance
-                </Button>
               </div>
 
               {/* Trust Badges */}

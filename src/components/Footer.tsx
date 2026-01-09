@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { MapPin, Phone, Mail } from 'lucide-react';
+import { MapPin, Phone, Mail, Facebook, Twitter, Instagram } from 'lucide-react';
 
 const Footer = () => {
   const quickLinks = [
@@ -37,30 +37,38 @@ const Footer = () => {
               <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
                 <span className="text-primary-foreground font-bold text-xl">M</span>
               </div>
-              <span className="text-card font-bold text-xl tracking-tight">
+              <span className="text-white font-bold text-xl tracking-tight">
                 Majesticars
               </span>
             </Link>
             <p className="text-muted-foreground text-sm leading-relaxed mb-6">
-              Majesticars is your premier destination for luxury and performance vehicles. With 30+ years of excellence, we deliver exceptional automotive experiences.
+              Best selection of quality second-hand cars. Carefully inspected vehicles that look great and drive even better.
             </p>
             <div className="flex gap-4">
-              {['facebook', 'twitter', 'instagram'].map((social) => (
-                <a
-                  key={social}
-                  href="#"
-                  className="w-10 h-10 rounded-full bg-card/10 flex items-center justify-center hover:bg-primary transition-colors"
-                >
-                  <span className="sr-only">{social}</span>
-                  <div className="w-5 h-5 bg-card rounded-full" />
-                </a>
-              ))}
+              <a
+                href="#"
+                className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors"
+              >
+                <Facebook size={20} className="text-white" />
+              </a>
+              <a
+                href="#"
+                className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors"
+              >
+                <Twitter size={20} className="text-white" />
+              </a>
+              <a
+                href="#"
+                className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors"
+              >
+                <Instagram size={20} className="text-white" />
+              </a>
             </div>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-card font-bold mb-6">Quick Links</h4>
+            <h4 className="text-white font-bold mb-6">Quick Links</h4>
             <ul className="space-y-3">
               {quickLinks.map((link) => (
                 <li key={link.name}>
@@ -78,7 +86,7 @@ const Footer = () => {
 
           {/* Services */}
           <div>
-            <h4 className="text-card font-bold mb-6">Services</h4>
+            <h4 className="text-white font-bold mb-6">Services</h4>
             <ul className="space-y-3">
               {services.map((service) => (
                 <li key={service}>
@@ -93,7 +101,7 @@ const Footer = () => {
 
           {/* Support & Contact */}
           <div>
-            <h4 className="text-card font-bold mb-6">Support</h4>
+            <h4 className="text-white font-bold mb-6">Support</h4>
             <ul className="space-y-3 mb-8">
               {support.map((item) => (
                 <li key={item.name}>
@@ -108,7 +116,7 @@ const Footer = () => {
               ))}
             </ul>
 
-            <h4 className="text-card font-bold mb-4">Contact Info</h4>
+            <h4 className="text-white font-bold mb-4">Contact Info</h4>
             <div className="space-y-3">
               <div className="flex items-center gap-3 text-muted-foreground text-sm">
                 <Phone size={16} className="text-primary" />

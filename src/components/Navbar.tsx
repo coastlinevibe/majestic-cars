@@ -70,7 +70,7 @@ const Navbar = () => {
               <span className={`text-primary font-semibold tracking-widest uppercase transition-all duration-300 ${
                 scrolled ? 'text-[10px]' : 'text-xs'
               }`}>
-                Motors
+                Sinoville
               </span>
             </div>
           </Link>
@@ -81,7 +81,7 @@ const Navbar = () => {
               <Link
                 key={link.path}
                 to={link.path}
-                className={`px-3 xl:px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                className={`px-3 xl:px-5 py-2 rounded-[9px] text-sm font-medium transition-all duration-200 ${
                   isActive(link.path)
                     ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/30'
                     : 'text-white/80 hover:text-white hover:bg-white/10'
@@ -98,7 +98,7 @@ const Navbar = () => {
               <Link
                 key={link.path}
                 to={link.path}
-                className={`px-3 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                className={`px-3 py-2 rounded-[9px] text-sm font-medium transition-all duration-200 ${
                   isActive(link.path)
                     ? 'bg-primary text-primary-foreground'
                     : 'text-white/80 hover:text-white hover:bg-white/10'
@@ -178,7 +178,7 @@ const Navbar = () => {
                   key={link.path}
                   to={link.path}
                   onClick={() => setIsMenuOpen(false)}
-                  className={`px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${
+                  className={`px-4 py-3 rounded-[9px] text-sm font-medium transition-all duration-200 ${
                     isActive(link.path)
                       ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/30'
                       : 'text-white/80 hover:bg-white/10 hover:text-white'

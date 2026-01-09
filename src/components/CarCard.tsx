@@ -21,11 +21,9 @@ interface CarCardProps {
   car: Car;
   onCompare?: (car: Car) => void;
   isInCompare?: boolean;
-  financeMode?: boolean;
-  monthlyPayment?: number;
 }
 
-const CarCard = ({ car, onCompare, isInCompare = false, financeMode = false, monthlyPayment }: CarCardProps) => {
+const CarCard = ({ car, onCompare, isInCompare = false }: CarCardProps) => {
   const [isWishlisted, setIsWishlisted] = useState(false);
 
   const formatPrice = (price: number) => {
@@ -62,16 +60,7 @@ const CarCard = ({ car, onCompare, isInCompare = false, financeMode = false, mon
         {/* Header */}
         <div className="flex justify-between items-start">
           <h3 className="font-bold text-foreground">{car.name}</h3>
-          <div className="text-right">
-            {financeMode && monthlyPayment ? (
-              <>
-                <span className="font-bold text-primary">R {monthlyPayment.toLocaleString()}</span>
-                <span className="text-xs text-muted-foreground block">/month</span>
-              </>
-            ) : (
-              <span className="font-bold text-primary">{formatPrice(car.price)}</span>
-            )}
-          </div>
+          <span className="font-bold text-primary">{formatPrice(car.price)}</span>
         </div>
 
         {/* Specs Grid */}

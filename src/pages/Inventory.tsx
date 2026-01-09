@@ -23,8 +23,6 @@ const brands = [
 const allCars: Car[] = [];
 
 type CarType = 'all' | 'sedan' | 'suv' | 'coupe' | 'hatchback';
-type PriceMode = 'price' | 'finance';
-type CreditScore = 'excellent' | 'good' | 'fair' | 'poor';
 
 const carTypes: { value: CarType; label: string }[] = [
   { value: 'all', label: 'All Cars' },
@@ -33,13 +31,6 @@ const carTypes: { value: CarType; label: string }[] = [
   { value: 'coupe', label: 'Coupe' },
   { value: 'hatchback', label: 'Hatchback' },
 ];
-
-const creditScoreRates: Record<CreditScore, number> = {
-  excellent: 7.5,
-  good: 9.5,
-  fair: 12.5,
-  poor: 16.5,
-};
 
 const Inventory = () => {
   const [allCars, setAllCars] = useState<Car[]>([]);
@@ -55,16 +46,6 @@ const Inventory = () => {
   // Model selection
   const [showModelSelector, setShowModelSelector] = useState(false);
   const [selectedBrands, setSelectedBrands] = useState<{ brand: string; model?: string }[]>([]);
-  
-  // Price/Finance mode
-  const [priceMode, setPriceMode] = useState<PriceMode>('price');
-  const [financeSettings, setFinanceSettings] = useState({
-    monthlyMin: '',
-    monthlyMax: '',
-    downPayment: '10',
-    loanTerm: '60',
-    creditScore: 'good' as CreditScore,
-  });
 
   // Load cars from Supabase
   useEffect(() => {
@@ -102,17 +83,6 @@ const Inventory = () => {
     }
   };
 
-  // Calculate monthly payment range based on price and finance settings
-  const calculateMonthlyPayment = (price: number) => {
-    const downPaymentPercent = Number(financeSettings.downPayment) / 100;
-    const loanAmount = price * (1 - downPaymentPercent);
-    const monthlyRate = creditScoreRates[financeSettings.creditScore] / 100 / 12;
-    const months = Number(financeSettings.loanTerm);
-    const monthly = (loanAmount * monthlyRate * Math.pow(1 + monthlyRate, months)) / 
-                    (Math.pow(1 + monthlyRate, months) - 1);
-    return Math.round(monthly);
-  };
-
   const filteredCars = useMemo(() => {
     console.log('Filtering cars. Total cars:', allCars.length);
     console.log('Selected type:', selectedType);
@@ -137,15 +107,8 @@ const Inventory = () => {
         if (!matchesBrand) return false;
       }
       
-      // Price or finance filter
-      if (priceMode === 'price') {
-        if (car.price < priceRange.min || car.price > priceRange.max) return false;
-      } else {
-        const monthlyPayment = calculateMonthlyPayment(car.price);
-        const minMonthly = financeSettings.monthlyMin ? Number(financeSettings.monthlyMin) : 0;
-        const maxMonthly = financeSettings.monthlyMax ? Number(financeSettings.monthlyMax) : Infinity;
-        if (monthlyPayment < minMonthly || monthlyPayment > maxMonthly) return false;
-      }
+      // Price filter
+      if (car.price < priceRange.min || car.price > priceRange.max) return false;
       
       if (yearRange.min && car.year < Number(yearRange.min)) return false;
       if (yearRange.max && car.year > Number(yearRange.max)) return false;
@@ -155,7 +118,7 @@ const Inventory = () => {
     });
     
     return filtered;
-  }, [allCars, selectedType, priceRange, yearRange, mileageRange, selectedBrands, priceMode, financeSettings]);
+  }, [allCars, selectedType, priceRange, yearRange, mileageRange, selectedBrands]);
 
   const getTypeCount = (type: CarType) => {
     if (type === 'all') return allCars.length;
@@ -188,18 +151,6 @@ const Inventory = () => {
 
   const handleRemoveBrand = (index: number) => {
     setSelectedBrands(selectedBrands.filter((_, i) => i !== index));
-  };
-
-  const resetPriceFilter = () => {
-    if (priceMode === 'price') {
-      setPriceRange({ min: 0, max: 5000000 });
-    } else {
-      setFinanceSettings({
-        ...financeSettings,
-        monthlyMin: '',
-        monthlyMax: '',
-      });
-    }
   };
 
   return (
@@ -290,39 +241,16 @@ const Inventory = () => {
                 )}
               </div>
 
-              {/* Price / Finance */}
+              {/* Price */}
               <div className="filter-section">
                 <div className="filter-title">
-                  {priceMode === 'price' ? 'Price' : 'Monthly Payment'}
-                  <span className="filter-reset" onClick={resetPriceFilter}>
+                  Price
+                  <span className="filter-reset" onClick={() => setPriceRange({ min: 0, max: 5000000 })}>
                     Reset
                   </span>
                 </div>
-                <div className="flex gap-1 bg-secondary rounded-lg p-1 mb-4">
-                  <button 
-                    onClick={() => setPriceMode('price')}
-                    className={`flex-1 py-2 px-4 rounded-md text-sm font-semibold transition-all ${
-                      priceMode === 'price' 
-                        ? 'bg-card text-primary shadow-sm' 
-                        : 'text-muted-foreground hover:text-foreground'
-                    }`}
-                  >
-                    Price
-                  </button>
-                  <button 
-                    onClick={() => setPriceMode('finance')}
-                    className={`flex-1 py-2 px-4 rounded-md text-sm font-semibold transition-all ${
-                      priceMode === 'finance' 
-                        ? 'bg-card text-primary shadow-sm' 
-                        : 'text-muted-foreground hover:text-foreground'
-                    }`}
-                  >
-                    Finance
-                  </button>
-                </div>
                 
-                {priceMode === 'price' ? (
-                  <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-2 gap-3">
                     <div>
                       <Label className="text-xs text-muted-foreground mb-1 block">Min Price</Label>
                       <div className="price-input-group">
@@ -348,124 +276,6 @@ const Inventory = () => {
                       </div>
                     </div>
                   </div>
-                ) : (
-                  <div className="space-y-4 animate-fade-in">
-                    {/* Monthly payment range */}
-                    <div className="grid grid-cols-2 gap-3">
-                      <div>
-                        <Label className="text-xs text-muted-foreground mb-1 block">Min Monthly</Label>
-                        <div className="price-input-group">
-                          <Input
-                            type="number"
-                            placeholder="5000"
-                            value={financeSettings.monthlyMin}
-                            onChange={(e) => setFinanceSettings({ ...financeSettings, monthlyMin: e.target.value })}
-                            className="bg-transparent border-0 p-0 h-auto text-sm"
-                          />
-                          <span className="text-muted-foreground text-xs ml-1">R/mo</span>
-                        </div>
-                      </div>
-                      <div>
-                        <Label className="text-xs text-muted-foreground mb-1 block">Max Monthly</Label>
-                        <div className="price-input-group">
-                          <Input
-                            type="number"
-                            placeholder="50000"
-                            value={financeSettings.monthlyMax}
-                            onChange={(e) => setFinanceSettings({ ...financeSettings, monthlyMax: e.target.value })}
-                            className="bg-transparent border-0 p-0 h-auto text-sm"
-                          />
-                          <span className="text-muted-foreground text-xs ml-1">R/mo</span>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    {/* Down payment */}
-                    <div>
-                      <Label className="text-xs text-muted-foreground mb-1 block">Down Payment</Label>
-                      <Select
-                        value={financeSettings.downPayment}
-                        onValueChange={(value) => setFinanceSettings({ ...financeSettings, downPayment: value })}
-                      >
-                        <SelectTrigger className="bg-secondary">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="0">0% (No deposit)</SelectItem>
-                          <SelectItem value="10">10%</SelectItem>
-                          <SelectItem value="20">20%</SelectItem>
-                          <SelectItem value="30">30%</SelectItem>
-                          <SelectItem value="40">40%</SelectItem>
-                          <SelectItem value="50">50%</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    
-                    {/* Loan term */}
-                    <div>
-                      <Label className="text-xs text-muted-foreground mb-1 block">Loan Term</Label>
-                      <Select
-                        value={financeSettings.loanTerm}
-                        onValueChange={(value) => setFinanceSettings({ ...financeSettings, loanTerm: value })}
-                      >
-                        <SelectTrigger className="bg-secondary">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="24">24 months (2 years)</SelectItem>
-                          <SelectItem value="36">36 months (3 years)</SelectItem>
-                          <SelectItem value="48">48 months (4 years)</SelectItem>
-                          <SelectItem value="60">60 months (5 years)</SelectItem>
-                          <SelectItem value="72">72 months (6 years)</SelectItem>
-                          <SelectItem value="84">84 months (7 years)</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    
-                    {/* Credit score */}
-                    <div>
-                      <Label className="text-xs text-muted-foreground mb-1 block">Credit Score</Label>
-                      <Select
-                        value={financeSettings.creditScore}
-                        onValueChange={(value: CreditScore) => setFinanceSettings({ ...financeSettings, creditScore: value })}
-                      >
-                        <SelectTrigger className="bg-secondary">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="excellent">
-                            <div className="flex items-center justify-between w-full">
-                              <span>Excellent (720+)</span>
-                              <span className="text-xs text-green-500 ml-2">~7.5% APR</span>
-                            </div>
-                          </SelectItem>
-                          <SelectItem value="good">
-                            <div className="flex items-center justify-between w-full">
-                              <span>Good (680-719)</span>
-                              <span className="text-xs text-blue-500 ml-2">~9.5% APR</span>
-                            </div>
-                          </SelectItem>
-                          <SelectItem value="fair">
-                            <div className="flex items-center justify-between w-full">
-                              <span>Fair (620-679)</span>
-                              <span className="text-xs text-yellow-500 ml-2">~12.5% APR</span>
-                            </div>
-                          </SelectItem>
-                          <SelectItem value="poor">
-                            <div className="flex items-center justify-between w-full">
-                              <span>Poor (below 620)</span>
-                              <span className="text-xs text-red-500 ml-2">~16.5% APR</span>
-                            </div>
-                          </SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    
-                    <div className="bg-primary/5 rounded-lg p-3 text-xs text-muted-foreground">
-                      <strong className="text-foreground">Estimated rates based on credit score.</strong> Actual rates may vary based on lender and individual circumstances.
-                    </div>
-                  </div>
-                )}
               </div>
 
               {/* Year */}
@@ -633,8 +443,6 @@ const Inventory = () => {
                         car={car}
                         onCompare={handleAddToCompare}
                         isInCompare={isInCompare(car.id)}
-                        financeMode={priceMode === 'finance'}
-                        monthlyPayment={priceMode === 'finance' ? calculateMonthlyPayment(car.price) : undefined}
                       />
                     </div>
                   ))}

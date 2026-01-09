@@ -91,7 +91,7 @@ const About = () => {
             initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }}
             animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
             transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 0.4, 0.25, 1] }}
-            className="text-5xl md:text-7xl font-black text-card mb-4"
+            className="text-5xl md:text-7xl font-black text-white mb-4"
             style={{ fontFamily: 'serif', fontStyle: 'italic' }}
           >
             About Majesticars
@@ -100,7 +100,7 @@ const About = () => {
             initial={{ opacity: 0, y: 20, filter: 'blur(10px)' }}
             animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
             transition={{ duration: 0.8, delay: 0.5, ease: [0.25, 0.4, 0.25, 1] }}
-            className="text-card/80 text-xl"
+            className="text-white/80 text-xl"
             style={{ fontStyle: 'italic' }}
           >
             We Sell Memories

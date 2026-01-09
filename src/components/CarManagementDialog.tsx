@@ -8,6 +8,16 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useToast } from '@/hooks/use-toast';
 import { Car, carService } from '@/lib/supabase';
 import { Loader2, Plus, X, Sparkles, ChevronUp, ChevronDown } from 'lucide-react';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
 
 interface CarManagementDialogProps {
   open: boolean;
@@ -25,6 +35,7 @@ const CarManagementDialog = ({ open, onOpenChange, car, onSuccess }: CarManageme
   const [images, setImages] = useState<string[]>([]);
   const [newImage, setNewImage] = useState('');
   const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
+  const [showCancelConfirm, setShowCancelConfirm] = useState(false);
 
   const [formData, setFormData] = useState({
     make: '',
@@ -209,6 +220,23 @@ const CarManagementDialog = ({ open, onOpenChange, car, onSuccess }: CarManageme
 
   const handleDragEnd = () => {
     setDraggedIndex(null);
+  };
+
+  const handleCancel = () => {
+    // Check if form has any data
+    const hasData = formData.make || formData.model || formData.price > 0 || 
+                    images.length > 0 || features.length > 0 || formData.description;
+    
+    if (hasData) {
+      setShowCancelConfirm(true);
+    } else {
+      onOpenChange(false);
+    }
+  };
+
+  const confirmCancel = () => {
+    setShowCancelConfirm(false);
+    onOpenChange(false);
   };
 
   // Auto-capitalize first letter of each word
@@ -687,7 +715,7 @@ const CarManagementDialog = ({ open, onOpenChange, car, onSuccess }: CarManageme
           </div>
 
           <DialogFooter>
-            <Button type="button" variant="outline" onClick={() => onOpenChange(false)} disabled={loading}>
+            <Button type="button" variant="outline" onClick={handleCancel} disabled={loading}>
               Cancel
             </Button>
             <Button type="submit" disabled={loading}>
@@ -697,6 +725,24 @@ const CarManagementDialog = ({ open, onOpenChange, car, onSuccess }: CarManageme
           </DialogFooter>
         </form>
       </DialogContent>
+
+      {/* Cancel Confirmation Dialog */}
+      <AlertDialog open={showCancelConfirm} onOpenChange={setShowCancelConfirm}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Discard Changes?</AlertDialogTitle>
+            <AlertDialogDescription>
+              You have unsaved changes. Are you sure you want to cancel? All your changes will be lost.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Continue Editing</AlertDialogCancel>
+            <AlertDialogAction onClick={confirmCancel} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
+              Discard Changes
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </Dialog>
   );
 };

@@ -111,14 +111,14 @@ const HeroSection = () => {
           >
             <motion.span
               variants={slideInVariants}
-              className="inline-block px-4 py-2 bg-primary/20 text-primary rounded-full text-sm font-semibold mb-6"
+              className="inline-block px-4 py-2 backdrop-blur-md bg-white/10 border border-white/20 text-white rounded-[9px] text-sm font-semibold mb-6"
             >
               Premium Automotive Excellence
             </motion.span>
             
             <motion.h1
               variants={itemVariants}
-              className="text-5xl md:text-7xl font-black text-card mb-6 leading-tight"
+              className="text-5xl md:text-7xl font-black text-white mb-6 leading-tight"
             >
               Find Your
               <span className="block text-gradient-orange">
@@ -134,7 +134,7 @@ const HeroSection = () => {
             
             <motion.p
               variants={itemVariants}
-              className="text-card/80 text-lg mb-8 max-w-lg"
+              className="text-white/80 text-lg mb-8 max-w-lg"
             >
               Discover South Africa's finest collection of luxury vehicles. 
               Premium quality, exceptional service, unbeatable prices.
@@ -146,11 +146,11 @@ const HeroSection = () => {
             >
               <Button size="lg" asChild>
                 <Link to="/inventory">
-                  Browse Inventory
+                  Browse Cars
                   <ChevronRight className="ml-2" size={20} />
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" asChild className="border-card/30 text-card hover:bg-card/10">
+              <Button size="lg" variant="outline" asChild className="border-white/30 text-white hover:bg-white/10">
                 <Link to="/contact">Contact Us</Link>
               </Button>
             </motion.div>
@@ -162,11 +162,11 @@ const HeroSection = () => {
             >
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 bg-primary rounded-full" />
-                <span className="text-card/70 text-sm">100% Certified Vehicles</span>
+                <span className="text-white/70 text-sm">100% Certified Vehicles</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 bg-primary rounded-full" />
-                <span className="text-card/70 text-sm">Best Price Guarantee</span>
+                <span className="text-white/70 text-sm">Best Price Guarantee</span>
               </div>
             </motion.div>
           </motion.div>
@@ -180,7 +180,7 @@ const HeroSection = () => {
           >
             <div className="glass-card rounded-2xl p-8">
               <nav className="space-y-4 mb-8">
-                {['Inventory', 'About Us', 'Services', 'Contact'].map((item, idx) => (
+                {['Browse Cars', 'About Us', 'Services', 'Contact'].map((item, idx) => (
                   <motion.div
                     key={item}
                     custom={idx}
@@ -190,7 +190,7 @@ const HeroSection = () => {
                   >
                     <Link
                       to={`/${item.toLowerCase().replace(' ', '-')}`}
-                      className="flex items-center justify-between py-4 px-4 rounded-lg hover:bg-card/10 transition-colors text-card group"
+                      className="flex items-center justify-between py-4 px-4 rounded-lg hover:bg-white/10 transition-colors text-white group"
                     >
                       <span className="font-medium">{item}</span>
                       <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
@@ -211,22 +211,22 @@ const HeroSection = () => {
                     <div className="w-10 h-10 mx-auto bg-primary rounded-lg flex items-center justify-center mb-2">
                       <Mail size={18} className="text-primary-foreground" />
                     </div>
-                    <p className="text-card/60 text-xs">Email</p>
-                    <p className="text-card text-xs font-medium truncate">info@majesticcars.co.za</p>
+                    <p className="text-white/60 text-xs">Email</p>
+                    <p className="text-white text-xs font-medium truncate">info@majesticcars.co.za</p>
                   </div>
                   <div className="text-center">
                     <div className="w-10 h-10 mx-auto bg-primary rounded-lg flex items-center justify-center mb-2">
                       <Phone size={18} className="text-primary-foreground" />
                     </div>
-                    <p className="text-card/60 text-xs">Phone</p>
-                    <p className="text-card text-xs font-medium">060 857 9146</p>
+                    <p className="text-white/60 text-xs">Phone</p>
+                    <p className="text-white text-xs font-medium">060 857 9146</p>
                   </div>
                   <div className="text-center">
                     <div className="w-10 h-10 mx-auto bg-primary rounded-lg flex items-center justify-center mb-2">
                       <MapPin size={18} className="text-primary-foreground" />
                     </div>
-                    <p className="text-card/60 text-xs">Address</p>
-                    <p className="text-card text-xs font-medium truncate">154 Sefako Makgatho</p>
+                    <p className="text-white/60 text-xs">Address</p>
+                    <p className="text-white text-xs font-medium truncate">154 Sefako Makgatho</p>
                   </div>
                 </div>
               </motion.div>
