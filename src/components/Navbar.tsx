@@ -50,17 +50,17 @@ const Navbar = () => {
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className={`flex items-center justify-between transition-all duration-300 ${
-          scrolled ? 'h-16' : 'h-20'
+          scrolled ? 'h-[70px]' : 'h-[90px]'
         }`}>
           {/* Logo - Responsive sizing */}
           <Link to="/" className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
-            <div className={`bg-primary rounded-lg flex items-center justify-center shadow-lg shadow-primary/30 transition-all duration-300 ${
-              scrolled ? 'w-9 h-9' : 'w-10 h-10 sm:w-11 sm:h-11'
-            }`}>
-              <span className={`text-primary-foreground font-black transition-all duration-300 ${
-                scrolled ? 'text-lg' : 'text-xl sm:text-2xl'
-              }`}>M</span>
-            </div>
+            <img 
+              src="/website logo.png" 
+              alt="Majestic Cars Logo" 
+              className={`transition-all duration-300 ${
+                scrolled ? 'h-[58px]' : 'h-[70px]'
+              }`}
+            />
             <div className="flex flex-col">
               <span className={`text-white font-bold tracking-tight leading-none transition-all duration-300 ${
                 scrolled ? 'text-base' : 'text-base sm:text-lg'

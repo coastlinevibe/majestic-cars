@@ -102,7 +102,7 @@ const HeroSection = () => {
       <div className="hero-overlay" />
 
       <div className="relative z-10 sterling-container w-full">
-        <div className="grid lg:grid-cols-2 gap-12 items-center min-h-[80vh] py-32">
+        <div className="grid lg:grid-cols-2 gap-12 items-center min-h-screen pt-32 pb-20">
           {/* Left Content */}
           <motion.div
             variants={containerVariants}
@@ -178,7 +178,7 @@ const HeroSection = () => {
             className="hidden lg:block"
           >
             <div className="glass-card rounded-2xl p-8">
-              <nav className="space-y-4 mb-8">
+              <nav className="space-y-1 mb-8">
                 {['Browse Cars', 'About Us', 'FAQ', 'Contact'].map((item, idx) => (
                   <motion.div
                     key={item}

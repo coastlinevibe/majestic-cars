@@ -10,6 +10,7 @@ import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import CarCard, { Car } from '@/components/CarCard';
 import { carService } from '@/lib/supabase';
+import { setPageTitle, setPageDescription, setPageImage, addJsonLd, clearJsonLd, generateCarSchema, generateBreadcrumbSchema } from '@/lib/seo';
 import {
   Heart,
   Share2,
@@ -108,6 +109,39 @@ const VehicleDetail = () => {
       };
 
       setVehicle(transformedVehicle);
+      
+      // Set SEO meta tags
+      const carName = `${carData.make} ${carData.model}`;
+      const carPrice = `R ${carData.price.toLocaleString()}`;
+      const seoDescription = `${carName} (${carData.year}) - ${carPrice}. ${carData.mileage?.toLocaleString() || 0} km, ${carData.fuel_type || 'Petrol'} fuel. Quality second-hand car with full inspection at Majestic Cars.`;
+      const carImageUrl = carData.images?.[0] || 'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800';
+      
+      setPageTitle(`${carName} - ${carPrice} | Majestic Cars`);
+      setPageDescription(seoDescription);
+      setPageImage(carImageUrl);
+      
+      // Add structured data
+      clearJsonLd();
+      addJsonLd(generateCarSchema({
+        id: carData.id,
+        name: carName,
+        make: carData.make,
+        model: carData.model,
+        year: carData.year,
+        price: carData.price,
+        mileage: carData.mileage || 0,
+        fuel: carData.fuel_type || 'Petrol',
+        image: carImageUrl,
+        description: carData.description || seoDescription,
+        location: carData.location || 'Sinoville, Pretoria',
+        url: window.location.href,
+      }));
+      
+      addJsonLd(generateBreadcrumbSchema([
+        { name: 'Home', url: 'https://majestic-cars.vercel.app' },
+        { name: 'Inventory', url: 'https://majestic-cars.vercel.app/inventory' },
+        { name: carName, url: window.location.href },
+      ]));
       
       // Load related cars
       loadRelatedCars(carData.make);

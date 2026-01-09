@@ -3,23 +3,82 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Majestic Cars - Premium Luxury & Performance Vehicles</title>
-    <meta name="description" content="Discover premium luxury and performance vehicles at Majestic Cars. Browse our exclusive collection of high-end automobiles." />
+    <title>Majestic Cars - Simple, Honest, Stress-Free Car Buying</title>
+    <meta name="description" content="Find your dream car at Majestic Cars. Simple, honest, and stress-free car buying with fair prices, full inspections, and no hidden surprises." />
     <meta name="author" content="Majestic Cars" />
+    <meta name="keywords" content="car dealership, used cars, vehicle sales, honest pricing, car inspection" />
 
-    <meta property="og:title" content="Majestic Cars - Premium Luxury & Performance Vehicles" />
-    <meta property="og:description" content="Discover premium luxury and performance vehicles at Majestic Cars. Browse our exclusive collection of high-end automobiles." />
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/favicon.ico" />
+
+    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="/placeholder.svg" />
+    <meta property="og:url" content="https://majestic-cars.vercel.app/" />
+    <meta property="og:title" content="Majestic Cars - Simple, Honest, Stress-Free Car Buying" />
+    <meta property="og:description" content="Find your dream car at Majestic Cars. Simple, honest, and stress-free car buying with fair prices, full inspections, and no hidden surprises." />
+    <meta property="og:image" content="https://majestic-cars.vercel.app/hero-car.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
 
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Majestic Cars - Premium Luxury & Performance Vehicles" />
-    <meta name="twitter:description" content="Discover premium luxury and performance vehicles at Majestic Cars." />
-    <meta name="twitter:image" content="/placeholder.svg" />
+    <meta name="twitter:url" content="https://majestic-cars.vercel.app/" />
+    <meta name="twitter:title" content="Majestic Cars - Simple, Honest, Stress-Free Car Buying" />
+    <meta name="twitter:description" content="Find your dream car at Majestic Cars. Simple, honest, and stress-free car buying with fair prices, full inspections, and no hidden surprises." />
+    <meta name="twitter:image" content="https://majestic-cars.vercel.app/hero-car.jpg" />
+
+    <!-- Pinterest -->
+    <meta name="pinterest:media" content="https://majestic-cars.vercel.app/hero-car.jpg" />
+    <meta name="pinterest:description" content="Find your dream car at Majestic Cars. Simple, honest, and stress-free car buying with fair prices, full inspections, and no hidden surprises." />
+
+    <!-- Instagram -->
+    <meta property="instagram:url" content="https://majestic-cars.vercel.app/" />
+
+    <!-- WhatsApp -->
+    <meta property="og:image:secure_url" content="/hero-car.jpg" />
+
+    <!-- Additional Meta Tags -->
+    <meta name="theme-color" content="#000000" />
+    <meta name="mobile-web-app-capable" content="yes" />
   </head>
 
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    
+    <!-- Organization Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Majestic Cars",
+      "image": "https://majestic-cars.vercel.app/website logo.png",
+      "description": "Simple, honest, and stress-free car buying. Quality second-hand cars with fair prices and full inspections.",
+      "url": "https://majestic-cars.vercel.app",
+      "telephone": "0608579146",
+      "email": "majesticcarssinoville@gmail.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "153 Sefako Makgatho Service Ln",
+        "addressLocality": "Sinoville",
+        "addressRegion": "Pretoria",
+        "postalCode": "0129",
+        "addressCountry": "ZA"
+      },
+      "sameAs": [
+        "https://facebook.com",
+        "https://twitter.com",
+        "https://instagram.com"
+      ],
+      "priceRange": "R50000 - R5000000",
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "09:00",
+        "closes": "18:00"
+      }
+    }
+    </script>
   </body>
 </html>

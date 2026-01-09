@@ -29,9 +29,11 @@ const Footer = () => {
           {/* Brand Column */}
           <div>
             <Link to="/" className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-xl">M</span>
-              </div>
+              <img 
+                src="/website logo.png" 
+                alt="Majestic Cars Logo" 
+                className="h-[70px]"
+              />
               <span className="text-white font-bold text-xl tracking-tight">
                 Majesticars
               </span>

@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import CTASection from '@/components/CTASection';
@@ -13,11 +13,19 @@ import { MapPin, Phone, Mail, Clock, Send, MessageSquare, Car } from 'lucide-rea
 import { useToast } from '@/hooks/use-toast';
 import { motion, useInView } from 'framer-motion';
 import contactHeroImg from '@/assets/contact-hero.jpg';
+import { setPageTitle, setPageDescription, setPageImage } from '@/lib/seo';
 
 const Contact = () => {
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState('general');
   const contentRef = useRef<HTMLDivElement>(null);
+
+  // Set SEO meta tags
+  useEffect(() => {
+    setPageTitle('Contact Us - Majestic Cars | Get in Touch');
+    setPageDescription('Contact Majestic Cars for inquiries about our quality second-hand cars. Call 060 857 9146 or visit us in Sinoville, Pretoria. Simple, honest car buying.');
+    setPageImage('https://majestic-cars.vercel.app/contact-hero.jpg');
+  }, []);
   const contentInView = useInView(contentRef, { once: true, margin: '-100px' });
   
   const [generalFormData, setGeneralFormData] = useState({

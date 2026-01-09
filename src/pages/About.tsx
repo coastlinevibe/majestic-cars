@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import CTASection from '@/components/CTASection';
@@ -7,6 +8,7 @@ import { Trophy, Heart, Shield, Rocket, CheckCircle, ChevronLeft, ChevronRight }
 import { motion, useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
 import aboutHeroImg from '@/assets/about-hero.jpg';
+import { setPageTitle, setPageDescription, setPageImage } from '@/lib/seo';
 
 const values = [
   {
@@ -72,6 +74,13 @@ const About = () => {
 
   const [valuesSlide, setValuesSlide] = useState(0);
   const [featuresSlide, setFeaturesSlide] = useState(0);
+
+  // Set SEO meta tags
+  useEffect(() => {
+    setPageTitle('About Us - Majestic Cars | Simple, Honest Car Buying');
+    setPageDescription('Learn about Majestic Cars. We offer simple, honest, and stress-free car buying with fair prices, full inspections, and no hidden surprises. Quality second-hand cars you can trust.');
+    setPageImage('https://majestic-cars.vercel.app/about-hero.jpg');
+  }, []);
 
   const nextValuesSlide = () => {
     setValuesSlide((prev) => (prev + 1) % values.length);

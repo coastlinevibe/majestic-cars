@@ -13,6 +13,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Car as CarIcon, X, ChevronDown, Loader2, SlidersHorizontal, Search, ChevronUp } from 'lucide-react';
 import { carService } from '@/lib/supabase';
+import { setPageTitle, setPageDescription, addJsonLd, generateCollectionSchema } from '@/lib/seo';
 
 const brands = [
   { name: 'Toyota', models: ['Corolla', 'Camry', 'RAV4', 'Hilux', 'Fortuner', 'Yaris'] },
@@ -121,6 +122,30 @@ const Inventory = () => {
       
       console.log('Transformed cars:', transformedCars);
       setAllCars(transformedCars);
+      
+      // Set SEO for inventory page
+      setPageTitle('Browse Cars - Quality Second-Hand Vehicles | Majestic Cars');
+      setPageDescription(`Browse ${transformedCars.length} quality second-hand cars at Majestic Cars. Find your dream car with fair prices, full inspections, and no hidden surprises.`);
+      
+      // Add structured data for collection
+      if (transformedCars.length > 0) {
+        addJsonLd(generateCollectionSchema(
+          transformedCars.map(car => ({
+            id: car.id,
+            name: car.name,
+            make: car.name.split(' ')[0],
+            model: car.name.split(' ')[1],
+            year: car.year,
+            price: car.price,
+            mileage: car.mileage,
+            fuel: car.fuel,
+            image: car.image,
+            description: car.description,
+            location: car.location,
+            url: `https://majestic-cars.vercel.app/inventory/${car.id}`,
+          }))
+        ));
+      }
     } catch (error) {
       console.error('Error loading cars:', error);
       setAllCars([]);
