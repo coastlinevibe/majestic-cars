@@ -10,7 +10,7 @@ const SETTINGS_KEY = 'app_settings';
 
 const defaultSettings: AppSettings = {
   widgetType: 'chatbot',
-  whatsappNumber: '0608579146',
+  whatsappNumber: '27608579146',
 };
 
 export const settingsService = {

@@ -70,7 +70,7 @@ const Contact = () => {
     {
       icon: MapPin,
       title: 'Visit Us',
-      details: ['154 Sefako Makgatho Service Ln', 'Sinoville, Pretoria, 0129', 'South Africa'],
+      details: ['153 Sefako Makgatho Service Ln', 'Sinoville, Pretoria, 0129', 'South Africa'],
     },
     {
       icon: Phone,

@@ -10,7 +10,7 @@ import miamiImg from '@/assets/locations/miami.jpg';
 const locations = [
   {
     name: 'Pretoria Showroom',
-    address: '154 Sefako Makgatho Service Ln, Sinoville',
+    address: '153 Sefako Makgatho Service Ln, Sinoville',
     phone: '060 857 9146',
     hours: 'Mon-Fri: 9AM-6PM, Sat: 10AM-4PM',
     image: newYorkImg,

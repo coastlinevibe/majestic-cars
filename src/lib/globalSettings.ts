@@ -91,7 +91,7 @@ export const globalSettingsService = {
           .insert({
             id: SETTINGS_ID,
             widget_type: 'chatbot',
-            whatsapp_number: '0608579146',
+            whatsapp_number: '27608579146',
             updated_at: new Date().toISOString()
           });
       }

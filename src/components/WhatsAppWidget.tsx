@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const WhatsAppWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const whatsappNumber = '0608579146';
+  const whatsappNumber = '27608579146';
 
   const handleWhatsAppClick = () => {
     const formattedNumber = whatsappNumber.replace(/\D/g, '');

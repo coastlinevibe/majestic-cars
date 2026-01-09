@@ -225,7 +225,7 @@ const HeroSection = () => {
                       <MapPin size={18} className="text-primary-foreground" />
                     </div>
                     <p className="text-white/60 text-xs">Address</p>
-                    <p className="text-white text-xs font-medium truncate">154 Sefako Makgatho</p>
+                    <p className="text-white text-xs font-medium truncate">153 Sefako Makgatho</p>
                   </div>
                 </div>
               </motion.div>

@@ -135,7 +135,7 @@ const Footer = () => {
               </div>
               <div className="flex items-start gap-3 text-muted-foreground text-sm">
                 <MapPin size={16} className="text-primary mt-0.5" />
-                <span>154 Sefako Makgatho Service Ln,<br />Sinoville, Pretoria, 0129</span>
+                <span>153 Sefako Makgatho Service Ln,<br />Sinoville, Pretoria, 0129</span>
               </div>
             </div>
           </div>

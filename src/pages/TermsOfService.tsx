@@ -130,7 +130,7 @@ const TermsOfService = () => {
                 </p>
                 <div className="mt-4 p-6 bg-card rounded-lg">
                   <p className="font-semibold text-foreground">Majestic Cars</p>
-                  <p>154 Sefako Makgatho Service Ln</p>
+                  <p>153 Sefako Makgatho Service Ln</p>
                   <p>Sinoville, Pretoria, 0129</p>
                   <p>South Africa</p>
                   <p className="mt-2">Email: majesticcarssinoville@gmail.com</p>

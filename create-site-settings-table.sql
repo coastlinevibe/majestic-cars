@@ -2,7 +2,7 @@
 CREATE TABLE IF NOT EXISTS site_settings (
   id TEXT PRIMARY KEY,
   widget_type TEXT NOT NULL DEFAULT 'chatbot' CHECK (widget_type IN ('chatbot', 'whatsapp')),
-  whatsapp_number TEXT NOT NULL DEFAULT '0608579146',
+  whatsapp_number TEXT NOT NULL DEFAULT '27608579146',
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
@@ -28,7 +28,7 @@ WITH CHECK (true);
 
 -- Insert default settings
 INSERT INTO site_settings (id, widget_type, whatsapp_number, updated_at)
-VALUES ('global_settings', 'chatbot', '0608579146', NOW())
+VALUES ('global_settings', 'chatbot', '27608579146', NOW())
 ON CONFLICT (id) DO NOTHING;
 
 -- Create index for faster lookups
