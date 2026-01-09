@@ -386,7 +386,11 @@ const VehicleDetail = () => {
 
                 {/* Actions */}
                 <div className="flex gap-3">
-                  <Button className="flex-1" size="lg">
+                  <Button 
+                    className="flex-1" 
+                    size="lg"
+                    onClick={() => window.location.href = 'tel:0608579146'}
+                  >
                     <Phone className="mr-2 flex-shrink-0" size={18} />
                     <span className="truncate">Call Dealer</span>
                   </Button>
