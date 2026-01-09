@@ -201,7 +201,7 @@ const ChatbotWidget = () => {
                 <span className="text-primary-foreground font-bold text-lg">S</span>
               </div>
               <div>
-                <h3 className="text-lg font-semibold">Sterling Assistant</h3>
+                <h3 className="text-lg font-semibold">Majesticars Assistant</h3>
                 <p className="text-sm text-muted-foreground">Online now</p>
               </div>
             </div>
@@ -226,9 +226,9 @@ const ChatbotWidget = () => {
                   {message.isBot && (
                     <div className="flex items-center gap-2 mb-1">
                       <div className="w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center">
-                        <span className="text-primary font-bold text-xs">S</span>
+                        <span className="text-primary font-bold text-xs">M</span>
                       </div>
-                      <span className="text-xs text-muted-foreground">Sterling Assistant</span>
+                      <span className="text-xs text-muted-foreground">Majesticars Assistant</span>
                     </div>
                   )}
                   <div
@@ -286,9 +286,9 @@ const ChatbotWidget = () => {
                 <div className="max-w-[80%]">
                   <div className="flex items-center gap-2 mb-1">
                     <div className="w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center">
-                      <span className="text-primary font-bold text-xs">S</span>
+                      <span className="text-primary font-bold text-xs">M</span>
                     </div>
-                    <span className="text-xs text-muted-foreground">Sterling Assistant</span>
+                    <span className="text-xs text-muted-foreground">Majesticars Assistant</span>
                   </div>
                   <div className="bg-card border border-border rounded-2xl px-4 py-3">
                     <div className="flex items-center gap-1">
@@ -342,7 +342,7 @@ const ChatbotWidget = () => {
             <div className="flex items-center justify-center mt-3">
               <p className="text-xs text-muted-foreground flex items-center gap-1">
                 <span className="text-primary">⚡</span>
-                Powered by Sterling Motors
+                Powered by Majesticars
               </p>
             </div>
           </div>

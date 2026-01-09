@@ -189,7 +189,7 @@ const HeroSection = () => {
                     animate="visible"
                   >
                     <Link
-                      to={`/${item.toLowerCase().replace(' ', '-')}`}
+                      to={item === 'Services' ? '/#services' : `/${item.toLowerCase().replace(' ', '-')}`}
                       className="flex items-center justify-between py-4 px-4 rounded-lg hover:bg-white/10 transition-colors text-white group"
                     >
                       <span className="font-medium">{item}</span>

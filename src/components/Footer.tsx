@@ -12,18 +12,15 @@ const Footer = () => {
   ];
 
   const services = [
-    'Financing',
     'Trade-In',
     'Warranty',
     'Maintenance',
-    'Insurance',
   ];
 
   const support = [
     { name: 'FAQ', path: '/faq' },
     { name: 'Terms of Service', path: '/terms-of-service' },
     { name: 'Privacy Policy', path: '/privacy-policy' },
-    { name: 'Careers', path: '#' },
     { name: 'Admin', path: '/admin' },
   ];
 
@@ -136,9 +133,14 @@ const Footer = () => {
 
         {/* Bottom Bar */}
         <div className="border-t border-card/10 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-muted-foreground text-sm">
-            © 2026 Majesticars. All rights reserved.
-          </p>
+          <div className="flex flex-col md:flex-row items-center gap-4">
+            <p className="text-muted-foreground text-sm">
+              © 2026 Majesticars. All rights reserved.
+            </p>
+            <p className="text-muted-foreground text-sm">
+              Powered by <a href="https://wabi-sabi.click" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">Wabi-sabi systems</a>
+            </p>
+          </div>
           <div className="flex gap-6 text-muted-foreground text-sm">
             <Link to="/terms-of-service" className="hover:text-primary transition-colors">Terms of Service</Link>
             <Link to="/privacy-policy" className="hover:text-primary transition-colors">Privacy Policy</Link>

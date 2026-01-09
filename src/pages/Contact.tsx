@@ -429,18 +429,23 @@ const Contact = () => {
                 })}
               </div>
 
-              {/* Map Placeholder */}
+              {/* Map */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.9, filter: 'blur(10px)' }}
                 animate={contentInView ? { opacity: 1, scale: 1, filter: 'blur(0px)' } : {}}
                 transition={{ duration: 0.8, delay: 0.8, ease: [0.25, 0.4, 0.25, 1] }}
-                className="bg-secondary rounded-xl h-64 flex items-center justify-center"
+                className="bg-secondary rounded-xl overflow-hidden h-64"
               >
-                <div className="text-center">
-                  <MapPin size={48} className="mx-auto text-muted-foreground/30 mb-2" />
-                  <p className="text-muted-foreground">Interactive Map</p>
-                  <p className="text-muted-foreground text-sm">154 Sefako Makgatho Service Ln, Sinoville, Pretoria</p>
-                </div>
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3594.0234567890123!2d28.2!3d-25.7!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjXCsDQyJzAwLjAiUyAyOMKwMTInMDAuMCJF!5e0!3m2!1sen!2sza!4v1234567890123!5m2!1sen!2sza"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Majesticars Sinoville Location"
+                ></iframe>
               </motion.div>
             </motion.div>
           </div>

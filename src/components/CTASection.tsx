@@ -38,7 +38,7 @@ const CTASection = () => {
             transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.4, 0.25, 1] }}
             className="text-white/80 text-lg mb-8"
           >
-            Join thousands of satisfied customers who found their perfect vehicle at Sterling Motors.
+            Join thousands of satisfied customers who found their perfect vehicle at Majesticars.
             Browse our premium collection today and find your next ride.
           </motion.p>
 
