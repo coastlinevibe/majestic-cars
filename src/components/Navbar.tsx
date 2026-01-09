@@ -56,7 +56,9 @@ const Navbar = () => {
           <Link to="/" className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
             <img 
               src="/website logo.png" 
-              alt="Majestic Cars Logo" 
+              alt="Majestic Cars Logo"
+              width="70"
+              height="70"
               className={`transition-all duration-300 ${
                 scrolled ? 'h-[58px]' : 'h-[70px]'
               }`}

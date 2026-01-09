@@ -31,7 +31,9 @@ const Footer = () => {
             <Link to="/" className="flex items-center gap-3 mb-6">
               <img 
                 src="/website logo.png" 
-                alt="Majestic Cars Logo" 
+                alt="Majestic Cars Logo"
+                width="70"
+                height="70"
                 className="h-[70px]"
               />
               <span className="text-white font-bold text-xl tracking-tight">
