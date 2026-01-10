@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import WhatsAppWidget from "@/components/WhatsAppWidget";
+import PWAInstallPrompt from "@/components/PWAInstallPrompt";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import ScrollToTop from "@/components/ScrollToTop";
 import { lazy, Suspense } from "react";
@@ -66,6 +67,7 @@ const App = () => {
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
+        <PWAInstallPrompt />
         <WhatsAppWidget />
         </BrowserRouter>
       </TooltipProvider>

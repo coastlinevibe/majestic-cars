@@ -43,8 +43,8 @@ const stats = [
     icon: CheckCircle,
     value: 100,
     suffix: '%',
-    label: 'Certified Cars',
-    description: 'Every car undergoes rigorous inspection and comes with warranty coverage.',
+    label: 'Transparent Pricing',
+    description: 'No hidden fees, no surprises. What you see is what you pay with honest, upfront pricing.',
   },
 ];
 

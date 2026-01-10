@@ -83,7 +83,7 @@ const Contact = () => {
     {
       icon: Phone,
       title: 'Call Us',
-      details: ['060 857 9146'],
+      details: ['060 857 9146', '079 202 1308'],
     },
     {
       icon: Mail,
