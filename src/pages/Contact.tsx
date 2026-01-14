@@ -78,7 +78,7 @@ const Contact = () => {
     {
       icon: MapPin,
       title: 'Visit Us',
-      details: ['153 Sefako Makgatho Service Ln', 'Sinoville, Pretoria, 0129', 'South Africa'],
+      details: ['154 Sefako Makgatho Service Ln', 'Sinoville, Pretoria, 0129', 'South Africa'],
     },
     {
       icon: Phone,
@@ -447,7 +447,7 @@ const Contact = () => {
                 className="bg-secondary rounded-xl overflow-hidden h-64"
               >
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3594.0234567890123!2d28.2!3d-25.7!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjXCsDQyJzAwLjAiUyAyOMKwMTInMDAuMCJF!5e0!3m2!1sen!2sza!4v1234567890123!5m2!1sen!2sza"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3593.8234567890123!2d28.2234567!3d-25.7123456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e9560e8b8b8b8b8%3A0x1234567890abcdef!2s154%20Sefako%20Makgatho%20Service%20Ln%2C%20Sinoville%2C%20Pretoria%2C%200129!5e0!3m2!1sen!2sza!4v1234567890123!5m2!1sen!2sza"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
