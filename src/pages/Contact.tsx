@@ -9,11 +9,12 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { MapPin, Phone, Mail, Clock, Send, MessageSquare, Car } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Send, MessageSquare, Car, Sparkles } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { motion, useInView } from 'framer-motion';
 import contactHeroImg from '@/assets/contact-hero.jpg';
 import { setPageTitle, setPageDescription, setPageImage } from '@/lib/seo';
+import { sendGeneralInquiryEmail, sendVehicleInquiryEmail } from '@/lib/email';
 
 const Contact = () => {
   const { toast } = useToast();
@@ -47,30 +48,90 @@ const Contact = () => {
     message: '',
   });
 
-  const handleGeneralSubmit = (e: React.FormEvent) => {
+  const [isSubmittingGeneral, setIsSubmittingGeneral] = useState(false);
+  const [isSubmittingVehicle, setIsSubmittingVehicle] = useState(false);
+
+  const handleGeneralSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: 'General Inquiry Sent!',
-      description: "We'll get back to you within 24 hours.",
-    });
-    setGeneralFormData({ name: '', email: '', phone: '', subject: '', message: '' });
+    setIsSubmittingGeneral(true);
+    
+    try {
+      await sendGeneralInquiryEmail(generalFormData);
+      toast({
+        title: 'General Inquiry Sent!',
+        description: "We'll get back to you within 24 hours.",
+      });
+      setGeneralFormData({ name: '', email: '', phone: '', subject: '', message: '' });
+    } catch (error) {
+      toast({
+        title: 'Error',
+        description: 'Failed to send inquiry. Please try again or contact us directly.',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsSubmittingGeneral(false);
+    }
   };
 
-  const handleVehicleSubmit = (e: React.FormEvent) => {
+  const handleVehicleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast({
-      title: 'Car Inquiry Sent!',
-      description: "Our sales team will contact you within 24 hours.",
+    setIsSubmittingVehicle(true);
+    
+    try {
+      await sendVehicleInquiryEmail(vehicleFormData);
+      toast({
+        title: 'Car Inquiry Sent!',
+        description: "Our sales team will contact you within 24 hours.",
+      });
+      setVehicleFormData({ 
+        name: '', 
+        email: '', 
+        phone: '', 
+        vehicleInterest: '', 
+        budgetRange: '', 
+        financingNeeded: '', 
+        tradeIn: '', 
+        message: '' 
+      });
+    } catch (error) {
+      toast({
+        title: 'Error',
+        description: 'Failed to send inquiry. Please try again or contact us directly.',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsSubmittingVehicle(false);
+    }
+  };
+
+  const fillDemoGeneralForm = () => {
+    setGeneralFormData({
+      name: 'John Doe',
+      email: 'john.doe@example.com',
+      phone: '060 123 4567',
+      subject: 'general',
+      message: 'Hi, I would like to know more about your services and available vehicles. Looking forward to hearing from you!',
     });
-    setVehicleFormData({ 
-      name: '', 
-      email: '', 
-      phone: '', 
-      vehicleInterest: '', 
-      budgetRange: '', 
-      financingNeeded: '', 
-      tradeIn: '', 
-      message: '' 
+    toast({
+      title: 'Demo Data Filled',
+      description: 'Form filled with sample data for testing.',
+    });
+  };
+
+  const fillDemoVehicleForm = () => {
+    setVehicleFormData({
+      name: 'Jane Smith',
+      email: 'jane.smith@example.com',
+      phone: '079 987 6543',
+      vehicleInterest: 'bmw-m8',
+      budgetRange: '1m-1.5m',
+      financingNeeded: 'yes',
+      tradeIn: '2019 Audi A4',
+      message: 'I am interested in the BMW M8. Would like to schedule a test drive and discuss financing options.',
+    });
+    toast({
+      title: 'Demo Data Filled',
+      description: 'Form filled with sample data for testing.',
     });
   };
 
@@ -166,10 +227,24 @@ const Contact = () => {
                 <TabsContent value="general">
                   <Card>
                     <CardHeader>
-                      <CardTitle>General Inquiry</CardTitle>
-                      <CardDescription>
-                        For general questions, support, or information about our services
-                      </CardDescription>
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <CardTitle>General Inquiry</CardTitle>
+                          <CardDescription>
+                            For general questions, support, or information about our services
+                          </CardDescription>
+                        </div>
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          onClick={fillDemoGeneralForm}
+                          className="flex items-center gap-2"
+                        >
+                          <Sparkles className="w-4 h-4" />
+                          Demo
+                        </Button>
+                      </div>
                     </CardHeader>
                     <CardContent>
                       <form onSubmit={handleGeneralSubmit} className="space-y-6">
@@ -245,9 +320,9 @@ const Contact = () => {
                           />
                         </div>
 
-                        <Button type="submit" size="lg" className="w-full md:w-auto">
+                        <Button type="submit" size="lg" className="w-full md:w-auto" disabled={isSubmittingGeneral}>
                           <Send className="mr-2" size={18} />
-                          Send General Inquiry
+                          {isSubmittingGeneral ? 'Sending...' : 'Send General Inquiry'}
                         </Button>
                       </form>
                     </CardContent>
@@ -258,10 +333,24 @@ const Contact = () => {
                 <TabsContent value="vehicle">
                   <Card>
                     <CardHeader>
-                      <CardTitle>Car Inquiry</CardTitle>
-                      <CardDescription>
-                        Interested in purchasing a car? Let us know your preferences and we'll help you find the perfect match
-                      </CardDescription>
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <CardTitle>Car Inquiry</CardTitle>
+                          <CardDescription>
+                            Interested in purchasing a car? Let us know your preferences and we'll help you find the perfect match
+                          </CardDescription>
+                        </div>
+                        <Button
+                          type="button"
+                          variant="outline"
+                          size="sm"
+                          onClick={fillDemoVehicleForm}
+                          className="flex items-center gap-2"
+                        >
+                          <Sparkles className="w-4 h-4" />
+                          Demo
+                        </Button>
+                      </div>
                     </CardHeader>
                     <CardContent>
                       <form onSubmit={handleVehicleSubmit} className="space-y-6">
@@ -387,9 +476,9 @@ const Contact = () => {
                           />
                         </div>
 
-                        <Button type="submit" size="lg" className="w-full md:w-auto">
+                        <Button type="submit" size="lg" className="w-full md:w-auto" disabled={isSubmittingVehicle}>
                           <Send className="mr-2" size={18} />
-                          Send Vehicle Inquiry
+                          {isSubmittingVehicle ? 'Sending...' : 'Send Vehicle Inquiry'}
                         </Button>
                       </form>
                     </CardContent>
