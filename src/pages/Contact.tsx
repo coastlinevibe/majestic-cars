@@ -9,7 +9,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { MapPin, Phone, Mail, Clock, Send, MessageSquare, Car, Sparkles } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Send, MessageSquare, Car } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { motion, useInView } from 'framer-motion';
 import contactHeroImg from '@/assets/contact-hero.jpg';
@@ -227,24 +227,10 @@ const Contact = () => {
                 <TabsContent value="general">
                   <Card>
                     <CardHeader>
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <CardTitle>General Inquiry</CardTitle>
-                          <CardDescription>
-                            For general questions, support, or information about our services
-                          </CardDescription>
-                        </div>
-                        <Button
-                          type="button"
-                          variant="outline"
-                          size="sm"
-                          onClick={fillDemoGeneralForm}
-                          className="flex items-center gap-2"
-                        >
-                          <Sparkles className="w-4 h-4" />
-                          Demo
-                        </Button>
-                      </div>
+                      <CardTitle>General Inquiry</CardTitle>
+                      <CardDescription>
+                        For general questions, support, or information about our services
+                      </CardDescription>
                     </CardHeader>
                     <CardContent>
                       <form onSubmit={handleGeneralSubmit} className="space-y-6">
@@ -333,24 +319,10 @@ const Contact = () => {
                 <TabsContent value="vehicle">
                   <Card>
                     <CardHeader>
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <CardTitle>Car Inquiry</CardTitle>
-                          <CardDescription>
-                            Interested in purchasing a car? Let us know your preferences and we'll help you find the perfect match
-                          </CardDescription>
-                        </div>
-                        <Button
-                          type="button"
-                          variant="outline"
-                          size="sm"
-                          onClick={fillDemoVehicleForm}
-                          className="flex items-center gap-2"
-                        >
-                          <Sparkles className="w-4 h-4" />
-                          Demo
-                        </Button>
-                      </div>
+                      <CardTitle>Car Inquiry</CardTitle>
+                      <CardDescription>
+                        Interested in purchasing a car? Let us know your preferences and we'll help you find the perfect match
+                      </CardDescription>
                     </CardHeader>
                     <CardContent>
                       <form onSubmit={handleVehicleSubmit} className="space-y-6">
