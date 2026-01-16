@@ -11,7 +11,7 @@ const Index = () => {
   // Set SEO meta tags for home page
   useEffect(() => {
     setPageTitle('Majestic Cars - Simple, Honest, Stress-Free Car Buying');
-    setPageDescription('Find your dream car at Majestic Cars. Simple, honest, and stress-free car buying with fair prices, full inspections, and no hidden surprises. Quality second-hand cars in Sinoville, Pretoria.');
+    setPageDescription('Find your dream car at Majestic Cars. Simple, honest, and stress-free car buying with fair prices and no hidden surprises. Quality second-hand cars in Sinoville, Pretoria.');
     setPageImage('https://majestic-cars.vercel.app/hero-car.jpg');
   }, []);
   return (

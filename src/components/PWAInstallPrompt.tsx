@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Download, X } from 'lucide-react';
+import { Download, X, Smartphone, Monitor } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 interface BeforeInstallPromptEvent extends Event {
@@ -78,46 +78,65 @@ const PWAInstallPrompt = () => {
   // Show native prompt if available
   if (showPrompt && deferredPrompt && !isInstalled) {
     return (
-      <div className="fixed bottom-4 right-4 z-40 max-w-sm animate-slide-up">
-        <div className="bg-card border border-border rounded-xl shadow-lg p-4 md:p-6">
-          <div className="flex items-start justify-between gap-4 mb-4">
-            <div className="flex items-start gap-3">
-              <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                <Download size={20} className="text-primary" />
+      <div className="fixed bottom-6 right-6 z-50 max-w-md animate-slide-up">
+        <div className="bg-gradient-to-br from-card via-card to-secondary border-2 border-primary/20 rounded-2xl shadow-2xl overflow-hidden backdrop-blur-xl">
+          {/* Header with gradient */}
+          <div className="bg-gradient-to-r from-primary/10 via-primary/5 to-transparent p-6 pb-4">
+            <div className="flex items-start justify-between gap-4 mb-3">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 bg-gradient-to-br from-primary to-primary/80 rounded-xl flex items-center justify-center shadow-lg">
+                  <Download size={24} className="text-primary-foreground" />
+                </div>
+                <div>
+                  <h3 className="font-black text-foreground text-lg">Install Majestic Cars</h3>
+                  <p className="text-muted-foreground text-xs">Quick access to your dream car</p>
+                </div>
               </div>
-              <div className="flex-1">
-                <h3 className="font-bold text-foreground text-sm md:text-base">Install App</h3>
-                <p className="text-muted-foreground text-xs md:text-sm mt-1">
-                  Install Majestic Cars on your device for quick access and offline browsing.
-                </p>
-              </div>
+              <button
+                onClick={handleDismiss}
+                className="text-muted-foreground hover:text-foreground transition-colors p-1 hover:bg-secondary rounded-lg"
+                aria-label="Dismiss"
+              >
+                <X size={20} />
+              </button>
             </div>
-            <button
-              onClick={handleDismiss}
-              className="text-muted-foreground hover:text-foreground transition-colors flex-shrink-0"
-              aria-label="Dismiss"
-            >
-              <X size={18} />
-            </button>
           </div>
 
-          <div className="flex gap-2">
-            <Button
-              onClick={handleInstall}
-              size="sm"
-              className="flex-1"
-            >
-              <Download size={16} className="mr-2" />
-              Install
-            </Button>
-            <Button
-              onClick={handleDismiss}
-              variant="outline"
-              size="sm"
-              className="flex-1"
-            >
-              Later
-            </Button>
+          {/* Content */}
+          <div className="px-6 pb-6">
+            <div className="space-y-3 mb-5">
+              <div className="flex items-center gap-3 text-sm">
+                <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <Smartphone size={16} className="text-primary" />
+                </div>
+                <span className="text-muted-foreground">Browse cars offline</span>
+              </div>
+              <div className="flex items-center gap-3 text-sm">
+                <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <Monitor size={16} className="text-primary" />
+                </div>
+                <span className="text-muted-foreground">Faster loading times</span>
+              </div>
+            </div>
+
+            <div className="flex gap-3">
+              <Button
+                onClick={handleInstall}
+                className="flex-1 font-semibold shadow-lg"
+                size="lg"
+              >
+                <Download size={18} className="mr-2" />
+                Install Now
+              </Button>
+              <Button
+                onClick={handleDismiss}
+                variant="outline"
+                size="lg"
+                className="px-6"
+              >
+                Later
+              </Button>
+            </div>
           </div>
         </div>
       </div>
@@ -127,49 +146,55 @@ const PWAInstallPrompt = () => {
   // Show manual prompt as fallback
   if (showManualPrompt && !isInstalled) {
     return (
-      <div className="fixed bottom-4 right-4 z-40 max-w-sm animate-slide-up">
-        <div className="bg-card border border-border rounded-xl shadow-lg p-4 md:p-6">
-          <div className="flex items-start justify-between gap-4 mb-4">
-            <div className="flex items-start gap-3">
-              <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                <Download size={20} className="text-primary" />
+      <div className="fixed bottom-6 right-6 z-50 max-w-md animate-slide-up">
+        <div className="bg-gradient-to-br from-card via-card to-secondary border-2 border-primary/20 rounded-2xl shadow-2xl overflow-hidden backdrop-blur-xl">
+          {/* Header with gradient */}
+          <div className="bg-gradient-to-r from-primary/10 via-primary/5 to-transparent p-6 pb-4">
+            <div className="flex items-start justify-between gap-4 mb-3">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 bg-gradient-to-br from-primary to-primary/80 rounded-xl flex items-center justify-center shadow-lg">
+                  <Download size={24} className="text-primary-foreground" />
+                </div>
+                <div>
+                  <h3 className="font-black text-foreground text-lg">Add to Home Screen</h3>
+                  <p className="text-muted-foreground text-xs">Install for quick access</p>
+                </div>
               </div>
-              <div className="flex-1">
-                <h3 className="font-bold text-foreground text-sm md:text-base">Get App</h3>
-                <p className="text-muted-foreground text-xs md:text-sm mt-1">
-                  Add Majestic Cars to your home screen for quick access.
-                </p>
-              </div>
+              <button
+                onClick={handleDismiss}
+                className="text-muted-foreground hover:text-foreground transition-colors p-1 hover:bg-secondary rounded-lg"
+                aria-label="Dismiss"
+              >
+                <X size={20} />
+              </button>
             </div>
-            <button
-              onClick={handleDismiss}
-              className="text-muted-foreground hover:text-foreground transition-colors flex-shrink-0"
-              aria-label="Dismiss"
-            >
-              <X size={18} />
-            </button>
           </div>
 
-          <div className="flex gap-2">
-            <Button
-              onClick={() => {
-                alert('To install:\n\n📱 Android: Tap menu (⋮) → "Install app"\n\n🍎 iOS: Tap Share → "Add to Home Screen"\n\n💻 Desktop: Click install icon in address bar');
-                handleDismiss();
-              }}
-              size="sm"
-              className="flex-1"
-            >
-              <Download size={16} className="mr-2" />
-              How to Install
-            </Button>
-            <Button
-              onClick={handleDismiss}
-              variant="outline"
-              size="sm"
-              className="flex-1"
-            >
-              Close
-            </Button>
+          {/* Content */}
+          <div className="px-6 pb-6">
+            <p className="text-muted-foreground text-sm mb-5 leading-relaxed">
+              Install Majestic Cars on your device for faster access and a better browsing experience.
+            </p>
+
+            <div className="bg-secondary/50 rounded-xl p-4 mb-5 border border-border">
+              <p className="text-foreground font-semibold text-sm mb-2">How to install:</p>
+              <div className="space-y-2 text-xs text-muted-foreground">
+                <p>📱 <span className="font-medium">Android:</span> Tap menu (⋮) → "Install app"</p>
+                <p>🍎 <span className="font-medium">iOS:</span> Tap Share → "Add to Home Screen"</p>
+                <p>💻 <span className="font-medium">Desktop:</span> Click install icon in address bar</p>
+              </div>
+            </div>
+
+            <div className="flex gap-3">
+              <Button
+                onClick={handleDismiss}
+                variant="outline"
+                className="flex-1"
+                size="lg"
+              >
+                Got it
+              </Button>
+            </div>
           </div>
         </div>
       </div>

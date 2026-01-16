@@ -126,7 +126,7 @@ const Inventory = () => {
       
       // Set SEO for inventory page
       setPageTitle('Browse Cars - Quality Second-Hand Vehicles | Majestic Cars');
-      setPageDescription(`Browse ${transformedCars.length} quality second-hand cars at Majestic Cars. Find your dream car with fair prices, full inspections, and no hidden surprises.`);
+      setPageDescription(`Browse ${transformedCars.length} quality second-hand cars at Majestic Cars. Find your dream car with fair prices and no hidden surprises.`);
       
       // Add structured data for collection
       if (transformedCars.length > 0) {

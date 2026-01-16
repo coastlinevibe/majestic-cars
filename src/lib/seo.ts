@@ -56,7 +56,7 @@ export const generateOrganizationSchema = () => {
     '@type': 'LocalBusiness',
     name: 'Majestic Cars',
     image: 'https://majestic-cars.vercel.app/website logo.png',
-    description: 'Simple, honest, and stress-free car buying. Quality second-hand cars with fair prices and full inspections.',
+    description: 'Simple, honest, and stress-free car buying. Quality second-hand cars with fair prices.',
     url: 'https://majestic-cars.vercel.app',
     telephone: '0608579146',
     email: 'majesticcarssinoville@gmail.com',

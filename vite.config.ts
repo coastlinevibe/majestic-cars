@@ -23,7 +23,7 @@ export default defineConfig(({ mode }) => ({
       manifest: {
         name: 'Majestic Cars - Quality Second-Hand Cars',
         short_name: 'Majestic Cars',
-        description: 'Simple, honest, and stress-free car buying. Quality second-hand cars with fair prices and full inspections.',
+        description: 'Simple, honest, and stress-free car buying. Quality second-hand cars with fair prices.',
         theme_color: '#FF6B35',
         background_color: '#ffffff',
         display: 'standalone',

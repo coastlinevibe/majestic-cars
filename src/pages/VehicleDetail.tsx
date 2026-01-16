@@ -117,7 +117,7 @@ const VehicleDetail = () => {
       // Set SEO meta tags
       const carName = `${carData.make} ${carData.model}`;
       const carPrice = `R ${carData.price.toLocaleString()}`;
-      const seoDescription = `${carName} (${carData.year}) - ${carPrice}. ${carData.mileage?.toLocaleString() || 0} km, ${carData.fuel_type || 'Petrol'} fuel. Quality second-hand car with full inspection at Majestic Cars.`;
+      const seoDescription = `${carName} (${carData.year}) - ${carPrice}. ${carData.mileage?.toLocaleString() || 0} km, ${carData.fuel_type || 'Petrol'} fuel. Quality second-hand car at Majestic Cars.`;
       const carImageUrl = carData.images?.[0] || 'https://images.unsplash.com/photo-1555215695-3004980ad54e?w=800';
       
       setPageTitle(`${carName} - ${carPrice} | Majestic Cars`);
@@ -577,7 +577,7 @@ const VehicleDetail = () => {
                       <CarIcon size={18} className="text-primary md:w-5 md:h-5" />
                     </div>
                     <div className="min-w-0 flex-1">
-                      <div className="font-semibold text-foreground text-xs md:text-sm truncate">Full Inspection Report</div>
+                      <div className="font-semibold text-foreground text-xs md:text-sm truncate">Quality Checked</div>
                       <div className="text-muted-foreground text-xs truncate">Transparent vehicle history</div>
                     </div>
                   </div>

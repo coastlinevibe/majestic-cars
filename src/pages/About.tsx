@@ -24,7 +24,7 @@ const values = [
   {
     icon: Shield,
     title: 'Quality',
-    description: 'Every car goes through a full inspection. If a car isn\'t up to standard, we don\'t sell it — simple as that.',
+    description: 'Every car is carefully checked. If a car isn\'t up to standard, we don\'t sell it — simple as that.',
   },
   {
     icon: Rocket,
@@ -55,7 +55,7 @@ const team = [
 ];
 
 const features = [
-  { title: 'Full Inspections', description: 'Every car is carefully inspected to make sure it\'s safe, reliable, and ready to drive.' },
+  { title: 'Quality Checks', description: 'Every car is carefully checked to make sure it\'s safe, reliable, and ready to drive.' },
   { title: 'Finance Options', description: 'We work with trusted finance partners and explain everything clearly.' },
   { title: 'Trade-In Services', description: 'Bring your car in and we\'ll give you a fair, honest trade-in value with no pressure.' },
   { title: 'Test Drives', description: 'We encourage test drives — it\'s the best way to know if a car is right for you.' },
@@ -78,7 +78,7 @@ const About = () => {
   // Set SEO meta tags
   useEffect(() => {
     setPageTitle('About Us - Majestic Cars | Simple, Honest Car Buying');
-    setPageDescription('Learn about Majestic Cars. We offer simple, honest, and stress-free car buying with fair prices, full inspections, and no hidden surprises. Quality second-hand cars you can trust.');
+    setPageDescription('Learn about Majestic Cars. We offer simple, honest, and stress-free car buying with fair prices and no hidden surprises. Quality second-hand cars you can trust.');
     setPageImage('https://majestic-cars.vercel.app/about-hero.jpg');
   }, []);
 

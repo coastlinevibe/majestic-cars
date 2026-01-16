@@ -81,7 +81,7 @@ const CTASection = () => {
             className="flex flex-col sm:flex-row flex-wrap justify-center gap-4 md:gap-8"
           >
             {[
-              { icon: Shield, text: '100% Certified Cars' },
+              { icon: Shield, text: 'Quality Vehicles' },
               { icon: Award, text: 'Best Price Guarantee' },
               { icon: Headphones, text: '24/7 Support' },
             ].map((badge, index) => {
